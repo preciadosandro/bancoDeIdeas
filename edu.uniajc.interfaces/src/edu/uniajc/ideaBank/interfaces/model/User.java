@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author bmorales
  */
-public class Usuario {
+public class User {
 
     private int id;
     //ID_T_LV_TIPOUSUARIO

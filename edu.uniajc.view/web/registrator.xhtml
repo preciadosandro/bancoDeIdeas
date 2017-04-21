@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./Template/Home.xhtml">
+            <ui:define name="content">
+                <div align="center">
+                    <h1>Crear cuenta de usuario</h1>
+                    <h3>Cree su cuenta y permita que sus ideas las conozcan miles de usuarios</h3>
+                    <h:form id="formNewUser" style="padding: 10px; width: fit-content;">
+                        <p:growl id="messageGeneral" autoUpdate="true" life="1500"/>
+                        <p:panel header="Datos de usuario">
+                            <p:messages  autoUpdate="true"/>
+                            <p:panelGrid id="grid" columns="2" columnClasses="no-border, no-border">
+
+                                <p:inputText id="firstName" value="#{userBean.firstName}" label="Primer nombre" required="true"
+                                             requiredMessage="Primer nombre: Valor es requerido."
+                                             validatorMessage="Primer nombre: Este campo no permite numéros ni caracteres especiales.">
+                                    <f:validateRegex pattern="^[_A-Za-z]+" />
+                                </p:inputText>                                
+                                <p:inputText id="secondName" value="#{userBean.secondName}" label="Segundo nombre"
+                                             validatorMessage="Segundo nombre: Este campo no permite numéros ni caracteres especiales.">
+                                    <f:validateRegex pattern="^[_A-Za-z]*" />
+                                </p:inputText>      
+
+                                <p:inputText id="lastName" value="#{userBean.lastName}" label="Primer apellido" required="true"
+                                             requiredMessage="Primer apellido: Valor es requerido."
+                                             validatorMessage="Primer apellido: Este campo no permite numéros ni caracteres especiales.">
+                                    <f:validateRegex pattern="^[_A-Za-z]+" />
+                                </p:inputText>                                       
+                                <p:inputText id="lastName2" value="#{userBean.lastName2}" label="Segundo apellido" required="true"
+                                             requiredMessage="Segundo apellido: Valor es requerido."
+                                             validatorMessage="Segundo apellido: Este campo no permite numéros ni caracteres especiales.">
+                                    <f:validateRegex pattern="^[_A-Za-z]+" />
+                                </p:inputText>                        
+
+                                <p:selectOneMenu id="typeId" value="#{userBean.idTypeId}" label="Tipo de documento" 
+                                                 style="width:170px" required="true" >
+                                    <f:selectItem itemLabel="Tipo de identificación *" itemValue="-1" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Cedula de ciudadania" itemValue="1" />
+                                    <f:selectItem itemLabel="Pasaporte" itemValue="2" />
+                                </p:selectOneMenu>
+                                <p:inputText id="numId" value="#{userBean.numId}" label="Numero de identificación" required="true"/>   
+
+                                <p:inputText id="numPhone" value="#{userBean.phone}" label="Telefóno fijo"
+                                             validatorMessage="Telefóno fijo: Este campo no permite letras ni caracteres especiales.">
+                                    <f:validateRegex pattern="^[0-9]*" />
+                                </p:inputText>    
+                                <p:inputText id="NumCellPhone" value="#{userBean.cellPhone}" label="Telefóno celular" required="true"
+                                             requiredMessage="Telefóno celular: Valor es requerido."
+                                             validatorMessage="Telefóno celular: Este campo no permite letras ni caracteres especiales.">
+                                    <f:validateRegex pattern="^[0-9]*" />
+                                </p:inputText>    
+
+                                <p:inputText id="mail" value="#{userBean.user}" label="Correo electronico" required="true" 
+                                             requiredMessage="Correo electronico: Valor es requerido."
+                                             validatorMessage="Correo electronico: Formato incorrecto.">
+                                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                </p:inputText>
+                                <p:inputText id="mail2" value="#{userBean.userConfirm}" label="Confirmar correo electronico" required="true" 
+                                             requiredMessage="Confirmar correo electronico: Valor es requerido."
+                                             validatorMessage="Confirmar correo electronico: Formato incorrecto.">
+                                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                </p:inputText>
+
+                                <p:password id="password" value="#{userBean.password}" label="Contraseña" required="true" 
+                                            requiredMessage="Contraseña: Valor es requerido."
+                                            validatorMessage="Contraseña: Cantidad minima de caracteres 5.">
+                                <f:validateLength minimum="5"  />                                
+                                </p:password>
+                                <p:password id="password2" value="#{userBean.passwordConfirm}" label="Confirmar contraseña" required="true"/>
+
+                                <p:selectOneMenu id="typeUser" value="#{userBean.idTypeUser}" label="Tipo de usuario" style="width:170px" required="true">
+                                    <f:selectItem itemLabel="Tipo de usuario *" itemValue="-1" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Estudiante" itemValue="4" />
+                                </p:selectOneMenu>
+                                <p:selectOneMenu id="gender" label="Género" style="width:170px" required="true">
+                                    <f:selectItem itemLabel="Género *" itemValue="-1" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Masculino" itemValue="1" />
+                                    <f:selectItem itemLabel="Femenino" itemValue="2" />
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                            <p:watermark for="firstName" value="Primer nombre *" />
+                            <p:watermark for="secondName" value="Segundo nombre"/>
+                            <p:watermark for="lastName" value="Primer apellido *" />
+                            <p:watermark for="lastName2" value="Segundo apellido *"/>
+                            <p:watermark for="numId" value="Numero de identificación *"/>
+                            <p:watermark for="numPhone" value="Telefono fijo" />
+                            <p:watermark for="NumCellPhone" value="Telefono celular *"/>
+                            <p:watermark for="mail" value="Correo electronico *" />
+                            <p:watermark for="mail2" value="Confirmar correo electronico *"/>
+                            <p:watermark for="password" value="Contraseña *" />
+                            <p:watermark for="password2" value="Confirmar contraseña *"/>
+                            <p:separator/>
+                            <p:commandButton value="Guardar" icon="ui-icon-disk" actionListener="#{userBean.newUser()}" 
+                                             update="messageGeneral"/>
+                            <p:commandButton value="Cancelar" icon="ui-icon-cancel"/>
+                        </p:panel>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

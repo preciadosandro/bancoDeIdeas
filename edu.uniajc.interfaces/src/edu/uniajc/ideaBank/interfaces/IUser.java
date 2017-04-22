@@ -6,8 +6,6 @@
 package edu.uniajc.ideaBank.interfaces;
 
 import edu.uniajc.ideaBank.interfaces.model.User;
-import java.util.ArrayList;
-import java.util.Date;
 import javax.ejb.Remote;
 
 /**

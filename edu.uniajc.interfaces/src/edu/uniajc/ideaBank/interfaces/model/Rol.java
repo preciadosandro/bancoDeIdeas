@@ -10,6 +10,7 @@ import java.util.Date;
 /**
  *
  * @author shpreciado
+ * @version 1.0
  */
 public class Rol {
     private int id;

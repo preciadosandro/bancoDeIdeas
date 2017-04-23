@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /edu.uniajc.interfaces/nbproject/private/
 /edu.uniajc.persistence/nbproject/private/
 /edu.uniajc.logic/nbproject/private/
@@ -9,3 +10,12 @@
 /edu.uniajc.persistence/dist/
 /edu.uniajc.logic/dist/
 /edu.uniajc.view/build/
+=======
+/edu.uniajc.interfaces/nbproject/*
+/edu.uniajc.persistence/nbproject/*
+/edu.uniajc.logic/nbproject/*
+/edu.uniajc.view/nbproject/*
+/edu.uniajc.view/build/*
+*build.xml
+*.war
+>>>>>>> 711b9947e79e8d1f6bd697147ff655f786aad887

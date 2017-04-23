@@ -1,7 +1,7 @@
-/edu.uniajc.interfaces/nbproject/*
-/edu.uniajc.persistence/nbproject/*
-/edu.uniajc.logic/nbproject/*
-/edu.uniajc.view/nbproject/*
-/edu.uniajc.view/build/*
+edu.uniajc.interfaces/nbproject/*
+edu.uniajc.logic/nbproject/*
+edu.uniajc.persistence/nbproject/*
+edu.uniajc.view/build/*
+edu.uniajc.view/dist/*
+edu.uniajc.view/nbproject/*
 *build.xml
-*.war

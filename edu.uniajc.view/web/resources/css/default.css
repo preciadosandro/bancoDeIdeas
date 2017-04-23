@@ -8,12 +8,36 @@ body {
 
 h1 {
     font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+<<<<<<< HEAD
+    font-size:  25px;
+    font-weight: bold;
+    color: #045491;
+    padding: 0px;
+}
+
+h2 {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    font-size:  15px;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+    color: #ffffff;
+    text-align: center;
+}
+
+h3 {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    font-size:  15px;
+    padding: 5px;
+    color: #045491;
+=======
     border-bottom: 1px solid #AFAFAF; 
     font-size:  16px;
     font-weight: bold;
     margin: 0px;
     padding: 0px;
     color: #D20005;
+>>>>>>> 711b9947e79e8d1f6bd697147ff655f786aad887
 }
 
 a:link, a:visited {

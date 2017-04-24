@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package edu.uniajc.ideaBank.DAO;
-//
+
 import edu.uniajc.ideaBank.interfaces.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

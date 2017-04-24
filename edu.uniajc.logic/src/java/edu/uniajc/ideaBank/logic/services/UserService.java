@@ -5,11 +5,11 @@
  */
 package edu.uniajc.ideaBank.logic.services;
 //
+//import edu.uniajc.ideaBank.DAO.UserDAO;
 import edu.uniajc.ideaBank.DAO.UserDAO;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -60,8 +60,7 @@ public class UserService implements IUser {
     }
 
     @Override
-    public boolean getUserByUser(String User
-    ) {
+    public boolean getUserByUser(String User) {
         boolean validator;
         try {
             dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();

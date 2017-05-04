@@ -21,120 +21,26 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "userBean")
 @ViewScoped
-public class UserBean implements Serializable {
+public class LoginBean implements Serializable {
 
-    private int idTypeUser;
-    private int idStateUser;
-    private int idTypeId;
-    private int numId;
-    private String firstName;
-    private String secondName;
-    private String lastName;
-    private String lastName2;
-    private String phone;
-    private String cellPhone;
-    private String user;
-    private String userConfirm;
+    private boolean typeProject;     
+    private String email;
     private String password;
-    private String passwordConfirm;
 
-    public UserBean() {
+    public boolean isTypeProject() {
+        return typeProject;
     }
 
-    public int getIdTypeUser() {
-        return idTypeUser;
+    public void setTypeProject(boolean typeProject) {
+        this.typeProject = typeProject;
     }
 
-    public void setIdTypeUser(int idTypeUser) {
-        this.idTypeUser = idTypeUser;
+    public String getEmail() {
+        return email;
     }
 
-    public int getIdStateUser() {
-        return idStateUser;
-    }
-
-    public void setIdStateUser(int idStateUser) {
-        this.idStateUser = idStateUser;
-    }
-
-    public int getIdTypeId() {
-        return idTypeId;
-    }
-
-    public void setIdTypeId(int idTypeId) {
-        this.idTypeId = idTypeId;
-    }
-
-    public int getNumId() {
-        return numId;
-    }
-
-    public void setNumId(int numId) {
-        this.numId = numId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getLastName2() {
-        return lastName2;
-    }
-
-    public void setLastName2(String lastName2) {
-        this.lastName2 = lastName2;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getCellPhone() {
-        return cellPhone;
-    }
-
-    public void setCellPhone(String cellPhone) {
-        this.cellPhone = cellPhone;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getUserConfirm() {
-        return userConfirm;
-    }
-
-    public void setUserConfirm(String userConfirm) {
-        this.userConfirm = userConfirm;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -144,16 +50,14 @@ public class UserBean implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    
+    
 
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
 
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
-    }
 
-    public void newUser() {
+
+    /*public void newLogin() {
         
         IUser uDao = new UserService();
         User userModel = new User();
@@ -211,5 +115,5 @@ public class UserBean implements Serializable {
         IUser uDao = new UserService();
         boolean validator = uDao.getUserByNumId(this.getNumId());
         return validator;
-    }
+    }*/
 }

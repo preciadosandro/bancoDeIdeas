@@ -857,9 +857,6 @@ exists or setup the property manually. For example like this:
             <property name="deploy.on.save" value="false"/>
         </ant>
         <ant antfile="${project.edu_uniajc_logic}/build.xml" inheritall="false" target="dist"/>
-        <ant antfile="${project.edu_uniajc_persistence}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
     </target>
     <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps">
         <ant antfile="${project.edu_uniajc_interfaces}/build.xml" inheritall="false" target="jar">
@@ -867,9 +864,6 @@ exists or setup the property manually. For example like this:
         </ant>
         <ant antfile="${project.edu_uniajc_logic}/build.xml" inheritall="false" target="dist-ear">
             <property location="${build.dir}" name="dist.ear.dir"/>
-        </ant>
-        <ant antfile="${project.edu_uniajc_persistence}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
         </ant>
     </target>
     <target depends="init, deps-module-jar, deps-ear-jar" name="deps-jar" unless="no.deps"/>
@@ -1018,9 +1012,8 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.edu_uniajc_logic.dist}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.edu_uniajc_interfaces.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.all-themes-1.0.10.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.primefaces-6.0.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.commons-codec-1.9.jar-1}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${reference.edu_uniajc_persistence.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.primefaces-6.0.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
@@ -1028,9 +1021,8 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.edu_uniajc_logic.dist}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.edu_uniajc_interfaces.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.all-themes-1.0.10.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.primefaces-6.0.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.commons-codec-1.9.jar-1}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.edu_uniajc_persistence.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.primefaces-6.0.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-clean-webinf-lib">
         <delete dir="${build.web.dir}/WEB-INF/lib"/>
@@ -1073,7 +1065,7 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="init,-init-cos,compile,compile-jsps,-do-compile-single-jsp,-pre-dist,-do-tmp-dist-with-manifest,-do-tmp-dist-without-manifest,-pre-run-deploy,-pre-nbmodule-run-deploy,-run-deploy-nb,-init-deploy-ant,-deploy-ant,-run-deploy-am,-post-nbmodule-run-deploy,-post-run-deploy,-do-update-breakpoints" name="run-deploy"/>
     <target if="netbeans.home" name="-run-deploy-nb">
-        <nbdeploy clientUrlPart="${client.urlPart}" debugmode="false" forceRedeploy="${forceRedeploy}"/>
+        <nbdeploy clientUrlPart="${client.urlPart}" debugmode="true" forceRedeploy="${forceRedeploy}"/>
     </target>
     <target name="-init-deploy-ant" unless="netbeans.home">
         <property name="deploy.ant.archive" value="${dist.war}"/>
@@ -1446,7 +1438,6 @@ exists or setup the property manually. For example like this:
     <target depends="init" name="deps-clean" unless="no.deps">
         <ant antfile="${project.edu_uniajc_interfaces}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.edu_uniajc_logic}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.edu_uniajc_persistence}/build.xml" inheritall="false" target="clean"/>
     </target>
     <target depends="init" name="do-clean">
         <condition property="build.dir.to.clean" value="${build.web.dir}">

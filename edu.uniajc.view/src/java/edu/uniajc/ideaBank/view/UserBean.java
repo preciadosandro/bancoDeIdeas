@@ -10,10 +10,14 @@ import edu.uniajc.ideaBank.interfaces.IUser;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import edu.uniajc.ideaBank.logic.services.UserService;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -26,7 +30,8 @@ public class UserBean implements Serializable {
     private int idTypeUser;
     private int idStateUser;
     private int idTypeId;
-    private int numId;
+    private int idAcadProgr;
+    private String numId;
     private String firstName;
     private String secondName;
     private String lastName;
@@ -37,6 +42,9 @@ public class UserBean implements Serializable {
     private String userConfirm;
     private String password;
     private String passwordConfirm;
+    private String gender;
+    private Date birthDate;
+    private int idDepend;
 
     public UserBean() {
     }
@@ -65,11 +73,11 @@ public class UserBean implements Serializable {
         this.idTypeId = idTypeId;
     }
 
-    public int getNumId() {
+    public String getNumId() {
         return numId;
     }
 
-    public void setNumId(int numId) {
+    public void setNumId(String numId) {
         this.numId = numId;
     }
 
@@ -153,8 +161,41 @@ public class UserBean implements Serializable {
         this.passwordConfirm = passwordConfirm;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public int getIdAcadProgr() {
+        return idAcadProgr;
+    }
+
+    public void setIdAcadProgr(int idAcadProgr) {
+        this.idAcadProgr = idAcadProgr;
+    }
+
+    public int getIdDepend() {
+        return idDepend;
+    }
+
+    public void setIdDepend(int idDepend) {
+        this.idDepend = idDepend;
+    }
+
+    
     public void newUser() {
-        
+
         IUser uDao = new UserService();
         User userModel = new User();
         boolean validatorNumId;
@@ -168,18 +209,14 @@ public class UserBean implements Serializable {
                     password = Utilities.Encriptar(password);
                     userModel = uDao.createUser(idTypeUser, 1, idTypeId, numId, firstName,
                             secondName, lastName, lastName2, phone, cellPhone, user,
-                            password);
+                            password, gender, birthDate, idAcadProgr, idDepend);
                     if (userModel == null) {
                         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                 "Los datos no fueron guardados.", ""));
                     } else {
                         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Los datos fueron guardados.", ""));
-                        try {
-                            context.getExternalContext().redirect("login.xhtml");
-                            return;
-                        } catch (Exception e) {
-                        }
+                            RequestContext.getCurrentInstance().execute("PF('dialogOk').show()");
                     }
                 } else if (validatorUser == true) {
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -211,5 +248,27 @@ public class UserBean implements Serializable {
         IUser uDao = new UserService();
         boolean validator = uDao.getUserByNumId(this.getNumId());
         return validator;
+    }
+
+    public void linklogin() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            context.getExternalContext().redirect("login.xhtml");
+        } catch (Exception e) {
+        }
+
+    }
+    
+    public void onDateSelect(SelectEvent event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
+    }
+     
+    public void click() {
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+         
+        requestContext.update("form:display");
+        requestContext.execute("PF('dlg').show()");
     }
 }

@@ -20,7 +20,8 @@ public class User {
     private int idEstadoUsuario;
     //ID_T_LV_TIPOIDENTIFICACION
     private int idTipoIdentificacion;
-    private int numIdentificacion;
+    
+    private String numIdentificacion;
     private String primerNombre;
     private String segundoNombre;
     private String primerApellido;
@@ -33,6 +34,12 @@ public class User {
     private Date creadoEn;
     private String modificadoPor;
     private Date modificadoEn;
+    private String genero;
+    private Date fechaNacimiento;
+    //ID_T_LV_PROGRAMAACEDEMICO
+    private int idProgrmaAcademico;
+    //ID_T_LV_DEPENDENCIA
+    private int idDependencia;
 
     public int getId() {
         return id;
@@ -66,11 +73,11 @@ public class User {
         this.idTipoIdentificacion = idTipoIdentificacion;
     }
 
-    public int getNumIdentificacion() {
+    public String getNumIdentificacion() {
         return numIdentificacion;
     }
 
-    public void setNumIdentificacion(int numIdentificacion) {
+    public void setNumIdentificacion(String numIdentificacion) {
         this.numIdentificacion = numIdentificacion;
     }
 
@@ -169,6 +176,40 @@ public class User {
     public void setModificadoEn(Date modificadoEn) {
         this.modificadoEn = modificadoEn;
     }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public int getIdProgrmaAcademico() {
+        return idProgrmaAcademico;
+    }
+
+    public void setIdProgrmaAcademico(int idProgrmaAcademico) {
+        this.idProgrmaAcademico = idProgrmaAcademico;
+    }
+
+    public int getIdDependencia() {
+        return idDependencia;
+    }
+
+    public void setIdDependencia(int idDependencia) {
+        this.idDependencia = idDependencia;
+    }
+
+    
     
     
 

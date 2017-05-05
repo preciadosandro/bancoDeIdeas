@@ -27,10 +27,11 @@ public class UserDAO {
     }
 
     public User createUser(int idTypeUser, int idStateUser,
-            int idTypeId, int numId, String firstName,
+            int idTypeId, String numId, String firstName,
             String secondName, String lastName, String lastName2,
             String phone, String cellPhone, String user,
-            String password, String createBy, Date createDate) {
+            String password, String createBy, Date createDate, String gender,
+            Date birthDate, int idAcadProgr, int idDepend) {
 
         try {
             User userModel = new User();
@@ -48,6 +49,10 @@ public class UserDAO {
             userModel.setContrasena(password);
             userModel.setCreadoPor(createBy);
             userModel.setCreadoEn(createDate);
+            userModel.setGenero(gender);
+            userModel.setFechaNacimiento(birthDate);
+            userModel.setIdProgrmaAcademico(idAcadProgr);
+            userModel.setIdDependencia(idDepend);
 
             PreparedStatement ps = null;
             String SQL;
@@ -55,13 +60,14 @@ public class UserDAO {
             SQL = "INSERT INTO TB_USUARIO(ID_T_LV_TIPOUSUARIO,ID_T_LV_ESTADOUSUARIO,"
                     + "ID_T_LV_TIPOIDENTIFICACION,NUMIDENTIFICACION,PRIMERNOMBRE,"
                     + "SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,TELEFONOFIJO,"
-                    + "TELEFONOCELULAR,USUARIO,CONTRASENA,CREADOPOR,CREADOEN) "
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "TELEFONOCELULAR,USUARIO,CONTRASENA,CREADOPOR,CREADOEN, GENERO, ID_T_LV_DEPENDENCIA,"
+                    + "ID_T_LV_PROGRAMAACEDEMICO, FECHANACIMIENTO) "
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
             ps.setInt(1, userModel.getIdTipoUsuario());
             ps.setInt(2, userModel.getIdEstadoUsuario());
             ps.setInt(3, userModel.getIdTipoIdentificacion());
-            ps.setInt(4, userModel.getNumIdentificacion());
+            ps.setString(4, userModel.getNumIdentificacion());
             ps.setString(5, userModel.getPrimerNombre());
             ps.setString(6, userModel.getSegundoNombre());
             ps.setString(7, userModel.getPrimerApellido());
@@ -71,8 +77,13 @@ public class UserDAO {
             ps.setString(11, userModel.getUsuario());
             ps.setString(12, userModel.getContrasena());
             ps.setString(13, userModel.getCreadoPor());
-            java.sql.Date sqlStartDate = new java.sql.Date(userModel.getCreadoEn().getDate());
-            ps.setDate(14, sqlStartDate);
+            java.sql.Date createUser = new java.sql.Date(userModel.getCreadoEn().getDate());
+            ps.setDate(14, createUser);
+            ps.setString(15, userModel.getGenero());
+            ps.setInt(16, userModel.getIdDependencia());
+            ps.setInt(17, userModel.getIdProgrmaAcademico());
+            java.sql.Date birtDate = new java.sql.Date(userModel.getFechaNacimiento().getDate());
+            ps.setDate(18, birtDate);
             ps.execute();
             return userModel;
 
@@ -109,13 +120,13 @@ public class UserDAO {
         }
     }
 
-    public boolean getUserById(int numId) {
+    public boolean getUserById(String numId) {
         PreparedStatement prepStm = null;
         final String SQL = "SELECT USUARIO FROM TB_USUARIO WHERE NUMIDENTIFICACION =?";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
-            prepStm.setInt(1, numId);
+            prepStm.setString(1, numId);
             ResultSet RS = prepStm.executeQuery();
             
             if (RS.next()) {

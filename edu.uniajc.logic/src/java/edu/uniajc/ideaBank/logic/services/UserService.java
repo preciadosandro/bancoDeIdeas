@@ -28,10 +28,10 @@ public class UserService implements IUser {
             
     @Override
     public User createUser(int idTypeUser, int idStateUser,
-            int idTypeId, int numId, String firstName,
+            int idTypeId, String numId, String firstName,
             String secondName, String lastName, String lastName2,
             String phone, String cellPhone, String user,
-            String password) {
+            String password, String gender, Date birthDate, int idAcadProgr, int idDepend) {
         try {
             dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
             UserDAO dao = new UserDAO(dbConnection);
@@ -41,7 +41,7 @@ public class UserService implements IUser {
             User userModel = dao.createUser(idTypeUser, idStateUser, idTypeId,
                     numId, firstName, secondName, lastName,
                     lastName2, phone, cellPhone, user,
-                    password, createBy, date);
+                    password, createBy, date, gender, birthDate, idAcadProgr, idDepend);
             return userModel;
 
         } catch (SQLException | NamingException e) {
@@ -84,7 +84,7 @@ public class UserService implements IUser {
     }
 
     @Override
-    public boolean getUserByNumId(int numId) {
+    public boolean getUserByNumId(String numId) {
         boolean validator;
         try {
             dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();

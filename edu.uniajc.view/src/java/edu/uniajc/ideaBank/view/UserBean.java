@@ -70,7 +70,6 @@ public class UserBean implements Serializable {
         try {
             InitialContext ctx = getContext();
             uDao = (IUser) ctx.lookup("java:global/edu.uniajc.view/UserService!edu.uniajc.ideaBank.interfaces.IUser");
-            //Borrate esto!!
         } catch (Exception e) {
         }
         

@@ -4,13 +4,12 @@
  * and open the template in the editor.
  */
 package edu.uniajc.ideaBank.logic.services;
-//
-//import edu.uniajc.ideaBank.DAO.UserDAO;
+
+import edu.uniajc.ideaBank.Utilities.Utilities;
 import edu.uniajc.ideaBank.DAO.UserDAO;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Date;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -19,34 +18,32 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author bmorales
+ * @author Bladimir Morales
  */
 @Stateless
 public class UserService implements IUser {
 
-    Connection dbConnection=null;
-            
+    Connection dbConnection;
+    boolean validatorUser, validatorNumId;
+    User userModel;    
+    
     @Override
-    public User createUser(int idTypeUser, int idStateUser,
-            int idTypeId, String numId, String firstName,
-            String secondName, String lastName, String lastName2,
-            String phone, String cellPhone, String user,
-            String password, String gender, Date birthDate, int idAcadProgr, int idDepend) {
+    public boolean createUser(User userModel) {
         try {
             dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
             UserDAO dao = new UserDAO(dbConnection);
-            Date date = new Date();
-            String createBy = firstName + " " + lastName;
-
-            User userModel = dao.createUser(idTypeUser, idStateUser, idTypeId,
-                    numId, firstName, secondName, lastName,
-                    lastName2, phone, cellPhone, user,
-                    password, createBy, date, gender, birthDate, idAcadProgr, idDepend);
-            return userModel;
-
+            validatorUser = dao.getUserByUser(userModel.getUsuario());
+            validatorNumId = dao.getUserById(userModel.getNumIdentificacion());
+            if (validatorUser == false && validatorNumId == false) {
+                userModel.setContrasena(Utilities.Encriptar(userModel.getContrasena()));
+                userModel.setIdEstadoUsuario(1);
+                return dao.createUser(userModel);
+            } else {
+                return false;
+            }
         } catch (SQLException | NamingException e) {
             System.out.println(e.getMessage());
-            return null;
+            return false;
         } finally {
             try {
                 if (null != dbConnection) {
@@ -58,52 +55,4 @@ public class UserService implements IUser {
 
         }
     }
-
-    @Override
-    public boolean getUserByUser(String User) {
-        boolean validator;
-        try {
-            dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
-            UserDAO dao = new UserDAO(dbConnection);
-            validator = dao.getUserByUser(User);
-            return validator;
-        } catch (SQLException | NamingException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }finally {
-            try {
-                if (null != dbConnection) {
-                    dbConnection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-    }
-
-    @Override
-    public boolean getUserByNumId(String numId) {
-        boolean validator;
-        try {
-            dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
-            UserDAO dao = new UserDAO(dbConnection);
-            validator = dao.getUserById(numId);
-            return validator;
-        } catch (SQLException | NamingException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }finally {
-            try {
-                if (null != dbConnection) {
-                    dbConnection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-        }
-    }
-
 }

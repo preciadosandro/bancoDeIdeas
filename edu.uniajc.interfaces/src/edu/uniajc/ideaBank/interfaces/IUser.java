@@ -10,9 +10,9 @@ import javax.ejb.Remote;
 
 /**
  *
- * @author bmorales
+ * @author Bladimir Morales
  */
-@Remote
+@Remote  
 public interface IUser {
     public boolean createUser(User userModel);    
 }

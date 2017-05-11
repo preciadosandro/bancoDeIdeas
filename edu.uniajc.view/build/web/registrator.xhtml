@@ -18,53 +18,52 @@
                             <p:messages  autoUpdate="true"/>
                             <p:panelGrid id="grid" columns="2" columnClasses="no-border, no-border">
 
-                                <p:inputText id="firstName" value="#{userBean.firstName}" label="Primer nombre" required="true"
+                                <p:inputText id="firstName" value="#{userBean.user.primerNombre}" label="Primer nombre" required="true"
                                              requiredMessage="Primer nombre: Valor es requerido."
                                              validatorMessage="Primer nombre: Este campo no permite numéros ni caracteres especiales.">
                                     <f:validateRegex pattern="^[_A-Za-z]+" />
                                 </p:inputText>                                
-                                <p:inputText id="secondName" value="#{userBean.secondName}" label="Segundo nombre"
+                                <p:inputText id="secondName" value="#{userBean.user.segundoNombre}" label="Segundo nombre"
                                              validatorMessage="Segundo nombre: Este campo no permite numéros ni caracteres especiales.">
                                     <f:validateRegex pattern="^[_A-Za-z]*" />
                                 </p:inputText>      
 
-                                <p:inputText id="lastName" value="#{userBean.lastName}" label="Primer apellido" required="true"
+                                <p:inputText id="lastName" value="#{userBean.user.primerApellido}" label="Primer apellido" required="true"
                                              requiredMessage="Primer apellido: Valor es requerido."
                                              validatorMessage="Primer apellido: Este campo no permite numéros ni caracteres especiales.">
                                     <f:validateRegex pattern="^[_A-Za-z]+" />
                                 </p:inputText>                                       
-                                <p:inputText id="lastName2" value="#{userBean.lastName2}" label="Segundo apellido" required="true"
-                                             requiredMessage="Segundo apellido: Valor es requerido."
+                                <p:inputText id="lastName2" value="#{userBean.user.segundoApellido}" label="Segundo apellido"
                                              validatorMessage="Segundo apellido: Este campo no permite numéros ni caracteres especiales.">
-                                    <f:validateRegex pattern="^[_A-Za-z]+" />
+                                    <f:validateRegex pattern="^[_A-Za-z]*" />
                                 </p:inputText>                        
 
-                                <p:selectOneMenu id="typeId" value="#{userBean.idTypeId}" label="tipo de documento" required="true"
+                                <p:selectOneMenu id="typeId" value="#{userBean.user.idTipoIdentificacion}" label="tipo de documento" required="true"
                                                  style="width:145px" >
                                     <f:selectItem itemLabel="Tipo de identificación *" itemValue="-1" noSelectionOption="true" />
                                     <f:selectItem itemLabel="Cedula de ciudadania" itemValue="1" />
                                     <f:selectItem itemLabel="Pasaporte" itemValue="2" />
                                 </p:selectOneMenu>
-                                <p:inputText id="numId" value="#{userBean.numId}" label="Numero de identificación" 
+                                <p:inputText id="numId" value="#{userBean.user.numIdentificacion}" label="Numero de identificación" 
                                              validatorMessage="Numero de documento: Este campo no permite letras ni caracteres especiales."
                                              required="true" requiredMessage="Numero de documento: Valor es requerido.">
                                     <f:validateRegex pattern="^[0-9]*" />
                                 </p:inputText>   
 
-                                <p:calendar id="databorn" value="#{userBean.birthDate}" pattern="dd-MM-yyyy" mask="true"
+                                <p:calendar id="databorn" value="#{userBean.user.fechaNacimiento}"  pattern="dd-MM-yyyy" mask="true"
                                             required="true" requiredMessage="Fecha de nacimiento: Valor es requerido."/>
 
-                                <p:inputText id="numPhone" value="#{userBean.phone}" label="Telefóno fijo"
+                                <p:inputText id="numPhone" value="#{userBean.user.telefonoFijo}" label="Telefóno fijo"
                                              validatorMessage="Telefóno fijo: Este campo no permite letras ni caracteres especiales.">
                                     <f:validateRegex pattern="^[0-9]*" />
                                 </p:inputText>    
-                                <p:inputText id="NumCellPhone" value="#{userBean.cellPhone}" label="Telefóno celular" required="true"
+                                <p:inputText id="NumCellPhone" value="#{userBean.user.telefonoCelular}" label="Telefóno celular" required="true"
                                              requiredMessage="Telefóno celular: Valor es requerido."
                                              validatorMessage="Telefóno celular: Este campo no permite letras ni caracteres especiales.">
                                     <f:validateRegex pattern="^[0-9]*" />
                                 </p:inputText>    
 
-                                <p:inputText id="mail" value="#{userBean.user}" label="Correo electronico" required="true" 
+                                <p:inputText id="mail" value="#{userBean.user.usuario}" label="Correo electronico" required="true" 
                                              requiredMessage="Correo electronico: Valor es requerido."
                                              validatorMessage="Correo electronico: Formato incorrecto.">
                                     <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
@@ -75,31 +74,31 @@
                                     <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                 </p:inputText>
 
-                                <p:password id="password" value="#{userBean.password}" label="Contraseña" required="true" 
+                                <p:password id="password" value="#{userBean.user.contrasena}" label="Contraseña" required="true" 
                                             requiredMessage="Contraseña: Valor es requerido."
                                             validatorMessage="Contraseña: Cantidad minima de caracteres 5.">
                                     <f:validateLength minimum="5"  />                                
                                 </p:password>
                                 <p:password id="password2" value="#{userBean.passwordConfirm}" label="Confirmar contraseña" required="true"/>
 
-                                <p:selectOneMenu id="typeUser" value="#{userBean.idTypeUser}" label="Tipo de usuario" 
+                                <p:selectOneMenu id="typeUser" value="#{userBean.user.idTipoUsuario}" label="Tipo de usuario" 
                                                  style="width:145px" required="true">
                                     <f:selectItem itemLabel="Tipo de usuario *" itemValue="-1" noSelectionOption="true" />
                                     <f:selectItem itemLabel="Estudiante" itemValue="3" />
                                     <f:selectItem itemLabel="Docente" itemValue="4" />
                                 </p:selectOneMenu>
-                                <p:selectOneMenu id="gender" value="#{userBean.gender}" label="Género" style="width:145px" required="true">
+                                <p:selectOneMenu id="gender" value="#{userBean.user.genero}" label="Género" style="width:145px" required="true">
                                     <f:selectItem itemLabel="Género *" itemValue="-1" noSelectionOption="true" />
                                     <f:selectItem itemLabel="Masculino" itemValue="M" />
                                     <f:selectItem itemLabel="Femenino" itemValue="F" />
                                 </p:selectOneMenu>
-                                <p:selectOneMenu id="acadProg" value="#{userBean.idAcadProgr}" label="Programa Académico"
+                                <p:selectOneMenu id="acadProg" value="#{userBean.user.idProgrmaAcademico}" label="Programa Académico"
                                                  style="width:145px" required="true">
                                     <f:selectItem itemLabel="Programa académico *" itemValue="-1" noSelectionOption="true" />
                                     <f:selectItem itemLabel="Sistemas" itemValue="7" />
                                     <f:selectItem itemLabel="Industrial" itemValue="8" />
                                 </p:selectOneMenu>
-                                <p:selectOneMenu id="dependent" value="#{userBean.idDepend}" label="Dependencia"
+                                <p:selectOneMenu id="dependent" value="#{userBean.user.idDependencia}" label="Dependencia"
                                                  style="width:145px" required="true">
                                     <f:selectItem itemLabel="Dependencia *" itemValue="-1" noSelectionOption="true" />
                                     <f:selectItem itemLabel="Tesoreria" itemValue="9" />
@@ -109,10 +108,10 @@
                             <p:watermark for="firstName" value="Primer nombre *" />
                             <p:watermark for="secondName" value="Segundo nombre"/>
                             <p:watermark for="lastName" value="Primer apellido *" />
-                            <p:watermark for="lastName2" value="Segundo apellido *"/>
+                            <p:watermark for="lastName2" value="Segundo apellido"/>
                             <p:watermark for="numId" value="Numero de identificación *"/>
                             <p:watermark for="numPhone" value="Telefono fijo" />
-                            <p:watermark for="databorn" value="Fecha de nacimiento" />
+                            <p:watermark for="databorn" value="Fecha de nacimiento *" />
                             <p:watermark for="NumCellPhone" value="Telefono celular *"/>
                             <p:watermark for="mail" value="Correo electronico *" />
                             <p:watermark for="mail2" value="Confirmar correo electronico *"/>

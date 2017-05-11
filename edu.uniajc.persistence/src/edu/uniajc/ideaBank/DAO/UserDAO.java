@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author bmorales
+ * @author Bladimir Morales
  */
 public class UserDAO {
 
@@ -26,34 +26,9 @@ public class UserDAO {
         this.DBConnection = openConnection;
     }
 
-    public User createUser(int idTypeUser, int idStateUser,
-            int idTypeId, String numId, String firstName,
-            String secondName, String lastName, String lastName2,
-            String phone, String cellPhone, String user,
-            String password, String createBy, Date createDate, String gender,
-            Date birthDate, int idAcadProgr, int idDepend) {
+    public boolean createUser(User userModel) {
 
         try {
-            User userModel = new User();
-            userModel.setIdTipoUsuario(idTypeUser);
-            userModel.setIdEstadoUsuario(idStateUser);
-            userModel.setIdTipoIdentificacion(idTypeId);
-            userModel.setNumIdentificacion(numId);
-            userModel.setPrimerNombre(firstName);
-            userModel.setSegundoNombre(secondName);
-            userModel.setPrimerApellido(lastName);
-            userModel.setSegundoApellido(lastName2);
-            userModel.setTelefonoFijo(phone);
-            userModel.setTelefonoCelular(cellPhone);
-            userModel.setUsuario(user);
-            userModel.setContrasena(password);
-            userModel.setCreadoPor(createBy);
-            userModel.setCreadoEn(createDate);
-            userModel.setGenero(gender);
-            userModel.setFechaNacimiento(birthDate);
-            userModel.setIdProgrmaAcademico(idAcadProgr);
-            userModel.setIdDependencia(idDepend);
-
             PreparedStatement ps = null;
             String SQL;
 
@@ -76,20 +51,20 @@ public class UserDAO {
             ps.setString(10, userModel.getTelefonoCelular());
             ps.setString(11, userModel.getUsuario());
             ps.setString(12, userModel.getContrasena());
-            ps.setString(13, userModel.getCreadoPor());
-            java.sql.Date createUser = new java.sql.Date(userModel.getCreadoEn().getDate());
-            ps.setDate(14, createUser);
+            ps.setString(13, userModel.getPrimerNombre() + " " + userModel.getPrimerApellido());
+
+            java.sql.Date birtDate = new java.sql.Date(userModel.getFechaNacimiento().getDate());
+            ps.setDate(14, birtDate);
             ps.setString(15, userModel.getGenero());
             ps.setInt(16, userModel.getIdDependencia());
             ps.setInt(17, userModel.getIdProgrmaAcademico());
-            java.sql.Date birtDate = new java.sql.Date(userModel.getFechaNacimiento().getDate());
             ps.setDate(18, birtDate);
             ps.execute();
-            return userModel;
+            return true;
 
         } catch (Exception e) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
-            return null;
+            return false;
         }
 
     }
@@ -110,7 +85,7 @@ public class UserDAO {
                 } else {
                     return true;
                 }
-            }else{
+            } else {
                 return false;
             }
 
@@ -128,14 +103,14 @@ public class UserDAO {
             prepStm = this.DBConnection.prepareStatement(SQL);
             prepStm.setString(1, numId);
             ResultSet RS = prepStm.executeQuery();
-            
+
             if (RS.next()) {
                 if (RS.getString("USUARIO").equals("")) {
                     return false;
                 } else {
                     return true;
                 }
-            }else{
+            } else {
                 return false;
             }
 

@@ -19,7 +19,7 @@ import javax.faces.context.FacesContext;
  *
  * @author Lenovo
  */
-@ManagedBean(name = "userBean")
+@ManagedBean(name = "loginBean")
 @ViewScoped
 public class LoginBean implements Serializable {
 

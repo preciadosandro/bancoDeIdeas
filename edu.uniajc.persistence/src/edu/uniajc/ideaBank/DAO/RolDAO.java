@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 public class RolDAO {
     
     private Connection DBConnection = null;
-    //Hola Mundo
+    
     public RolDAO(Connection openConnection) {
         this.DBConnection = openConnection;
     }    

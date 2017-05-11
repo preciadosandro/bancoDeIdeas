@@ -10,7 +10,17 @@
 # .edu.uniajc.view/build/*
 # .edu.uniajc.view/dist/*
 # .edu.uniajc.view/nbproject/*
+
+*nbproject/private/
+*nbproject/*
+*dist/*
+*build/*
+
 *build.xml
-nbproject/*
-dist/*
-build/*
+
+# Class Files #
+*.class
+
+# Package Files #
+*.war
+*.ear

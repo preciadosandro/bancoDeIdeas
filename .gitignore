@@ -11,9 +11,13 @@
 # .edu.uniajc.view/dist/*
 # .edu.uniajc.view/nbproject/*
 
-*nbproject/private/
+*/nbproject/private/*
+*nbproject/private/*
+*/nbproject/*
 *nbproject/*
+*/dist/*
 *dist/*
+*/build/*
 *build/*
 
 *build.xml
@@ -24,3 +28,12 @@
 # Package Files #
 *.war
 *.ear
+/edu.uniajc.logic/build/
+/edu.uniajc.logic/dist/
+/edu.uniajc.logic/nbproject/private/
+/edu.uniajc.persistence/build/
+/edu.uniajc.persistence/dist/
+/edu.uniajc.persistence/nbproject/private/
+/edu.uniajc.view/build/
+/edu.uniajc.view/dist/
+/edu.uniajc.view/nbproject/private/

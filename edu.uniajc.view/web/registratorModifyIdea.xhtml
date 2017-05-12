@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./Template/Home.xhtml">
+            <ui:define name="content">
+                <div align="center">
+                    <h1>Registrar o Modificar Idea</h1>
+                    <p:separator/>
+                    <h:form id="formNewUser" style="padding: 10px; width: fit-content;">
+                    <p:panelGrid id="grid" columns="2" columnClasses="no-border, no-border">
+                    <h:outputLabel for="titleIdea" value="Titulo: " />
+                    <p:inputText id="intitleIdea" value="#{IdeaBean.titleIdea}" label=" Inresar Titulo" required="true"
+                    requiredMessage="Valor es requerido."
+                    validatorMessage="Titulo: Este campo no permite numéros ni caracteres especiales.">
+                    <f:validateRegex pattern="^[_A-Za-z]+" />
+                    </p:inputText> 
+                    
+                    
+                    <p:selectBooleanCheckbox value="#{IdeaBean.privateIdea}">
+                        <p:ajax update="formNewUser" listener="#{IdeaBean.addMessage()}" />
+                    </p:selectBooleanCheckbox>
+                    <h:outputText value="Privada" />
+                    </p:panelGrid>
+                    
+                                        
+                        
+                        
+                         </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -53,7 +53,7 @@ public class UserDAO {
             ps.setString(12, userModel.getContrasena());
             ps.setString(13, userModel.getPrimerNombre() + " " + userModel.getPrimerApellido());
 
-            java.sql.Date birtDate = new java.sql.Date(userModel.getFechaNacimiento().getDate());
+            java.sql.Date birtDate = new java.sql.Date(userModel.getFechaNacimiento().getTime());
             ps.setDate(14, birtDate);
             ps.setString(15, userModel.getGenero());
             ps.setInt(16, userModel.getIdDependencia());

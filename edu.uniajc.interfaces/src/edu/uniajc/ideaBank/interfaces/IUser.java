@@ -14,5 +14,5 @@ import javax.ejb.Remote;
  */
 @Remote  
 public interface IUser {
-    public boolean createUser(User userModel);    
+    public int createUser(User userModel);    
 }

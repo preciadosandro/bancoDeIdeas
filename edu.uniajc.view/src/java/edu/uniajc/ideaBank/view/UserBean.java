@@ -9,6 +9,7 @@ import edu.uniajc.ideaBank.interfaces.IUser;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +34,7 @@ public class UserBean implements Serializable {
     private User user;
     private String userConfirm;
     private String passwordConfirm;
+    private Date currentDate = new Date();
 
     public UserBean() {
         user = new User();
@@ -62,9 +64,15 @@ public class UserBean implements Serializable {
         this.passwordConfirm = passwordConfirm;
     }
 
+    public Date getCurrentDate() {
+        return currentDate;
+    }
+
+    
+    
     public void newUser() {
         IUser uDao =null;
-        boolean confirmUser;
+        int validator;
         FacesContext context = FacesContext.getCurrentInstance();
         
         try {
@@ -75,14 +83,27 @@ public class UserBean implements Serializable {
         
         if (user.getUsuario().equals(this.getUserConfirm())) {
             if (user.getContrasena().equals(this.getPasswordConfirm())) {
-                confirmUser = uDao.createUser(this.user);
-                if (confirmUser == false) {
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            "Los datos no fueron guardados.", ""));
-                } else {
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                            "Los datos fueron guardados.", ""));
-                    RequestContext.getCurrentInstance().execute("PF('dialogOk').show()");
+                validator = uDao.createUser(this.user);
+                switch (validator) {
+                    case -1:
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                                "Los datos no fueron guardados. 'Problemas en el userDAO'", ""));
+                        break;
+                    case 0:
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                "Los datos fueron guardados.", ""));
+                        RequestContext.getCurrentInstance().execute("PF('dialogOk').show()");
+                        break;
+                    case -2:
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                "Numero de identificación ya se encuentra registrado.", ""));
+                        break;
+                    case -3:
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                "Usuario y/o correo ya se encuentra registrado.", ""));
+                        break;
+                    default:
+                        break;
                 }
             } else {
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
@@ -105,7 +126,8 @@ public class UserBean implements Serializable {
     public void onDateSelect(SelectEvent event) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                "Date Selected", format.format(event.getObject())));
     }
 
     public void click() {

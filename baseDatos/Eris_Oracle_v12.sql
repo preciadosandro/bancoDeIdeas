@@ -122,7 +122,7 @@ CREATE TABLE TB_AprobacionEntrega
 	CreadoPor        VARCHAR2 (50) NOT NULL ,
     CreadoEn         DATE DEFAULT SYSDATE ,
     ModificadoPor    VARCHAR2 (50) ,
-    ModificadoEn     TIMESTAMP
+    ModificadoEn     DATE
   ) ;
 ALTER TABLE TB_AprobacionEntrega ADD CONSTRAINT PK_TB_AprobacionEntrega PRIMARY KEY ( ID ) ;
 ALTER TABLE TB_AprobacionEntrega ADD CONSTRAINT UN_TB_AprobacionEntrega_001 UNIQUE ( ID_T_Entrega , ID_T_Usuario ) ;
@@ -145,7 +145,7 @@ CREATE TABLE TB_Auditoria
     DatoAntiguo   VARCHAR2 (700) ,
     DatoNuevo     VARCHAR2 (700) ,
     ModificadoPor VARCHAR2 (50) ,
-    ModificadoEn  TIMESTAMP
+    ModificadoEn  DATE
   ) ;
 ALTER TABLE TB_Auditoria ADD CONSTRAINT PK_TB_Auditoria PRIMARY KEY ( ID ) ;
 
@@ -171,7 +171,7 @@ CREATE TABLE TB_Calificacion
     CreadoPor              VARCHAR2 (50) NOT NULL ,
     CreadoEn               DATE DEFAULT SYSDATE ,
     ModificadoPor          VARCHAR2 (50) ,
-    ModificadoEn           TIMESTAMP
+    ModificadoEn           DATE
   ) ;
 ALTER TABLE TB_Calificacion ADD CONSTRAINT PK_TB_Calificacion PRIMARY KEY ( ID ) ;
 ALTER TABLE TB_Calificacion ADD CONSTRAINT UN_TB_Calificacion_001 UNIQUE ( ID_T_Proyecto , ID_T_Usuario , ID_T_LV_TipoEvaluacion ) ;
@@ -198,7 +198,7 @@ CREATE TABLE TB_Entrega
     CreadoPor              VARCHAR2 (50) NOT NULL ,
     CreadoEn               DATE DEFAULT SYSDATE ,
     ModificadoPor          VARCHAR2 (50) ,
-    ModificadoEn           TIMESTAMP
+    ModificadoEn           DATE
   ) ;
 ALTER TABLE TB_Entrega ADD CONSTRAINT PK_TB_Entrega PRIMARY KEY ( ID ) ;
 ALTER TABLE TB_Entrega ADD CONSTRAINT UN_TB_Entrega_001 UNIQUE ( ID_T_Proyecto , ID_T_LV_PeriodoEntrega ) ;
@@ -228,7 +228,7 @@ CREATE TABLE TB_Idea
     CreadoPor          VARCHAR2 (50) NOT NULL ,
     CreadoEn           DATE DEFAULT SYSDATE ,
     ModificadoPor      VARCHAR2 (50) ,
-    ModificadoEn       TIMESTAMP
+    ModificadoEn       DATE
   ) ;
 ALTER TABLE TB_Idea ADD CONSTRAINT PK_TB_Idea PRIMARY KEY ( ID ) ;
 
@@ -255,7 +255,7 @@ CREATE TABLE TB_Integrantes
     CreadoPor                VARCHAR2 (50) NOT NULL ,
     CreadoEn                 DATE DEFAULT SYSDATE ,
     ModificadoPor            VARCHAR2 (50) ,
-    ModificadoEn             TIMESTAMP
+    ModificadoEn             DATE
   ) ;
 ALTER TABLE TB_Integrantes ADD CONSTRAINT PK_TB_Integrantes PRIMARY KEY ( ID ) ;
 ALTER TABLE TB_Integrantes ADD CONSTRAINT UN_TB_Integrantes_001 UNIQUE ( ID_T_Proyecto , ID_T_Usuario ) ;
@@ -318,7 +318,7 @@ CREATE TABLE TB_Lineamiento
     CreadoPor     VARCHAR2 (50) NOT NULL ,
     CreadoEn      DATE DEFAULT SYSDATE ,
     ModificadoPor VARCHAR2 (50) ,
-    ModificadoEn  TIMESTAMP
+    ModificadoEn  DATE
   ) ;
 ALTER TABLE TB_Lineamiento ADD CONSTRAINT PK_TB_Lineamiento PRIMARY KEY ( ID ) ;
 
@@ -337,7 +337,7 @@ CREATE TABLE TB_LineamientoDetalle
     CreadoPor        VARCHAR2 (50) NOT NULL ,
     CreadoEn         DATE DEFAULT SYSDATE ,
     ModificadoPor    VARCHAR2 (50) ,
-    ModificadoEn     TIMESTAMP
+    ModificadoEn     DATE
   ) ;
 ALTER TABLE TB_LineamientoDetalle ADD CONSTRAINT PK_TB_LineamientoDetalle PRIMARY KEY ( ID ) ;
 
@@ -357,7 +357,7 @@ CREATE TABLE TB_ObjetivoIdea
     CreadoPor     VARCHAR2 (50) NOT NULL ,
     CreadoEn      DATE DEFAULT SYSDATE ,
     ModificadoPor VARCHAR2 (50) ,
-    ModificadoEn  TIMESTAMP
+    ModificadoEn  DATE
   ) ;
 ALTER TABLE TB_ObjetivoIdea ADD CONSTRAINT PK_TB_ObjetivoIdea PRIMARY KEY ( ID ) ;
 
@@ -379,7 +379,7 @@ CREATE TABLE TB_Proyecto
     CreadoPor              VARCHAR2 (50) NOT NULL ,
     CreadoEn               DATE DEFAULT SYSDATE ,
     ModificadoPor          VARCHAR2 (50) ,
-    ModificadoEn           TIMESTAMP
+    ModificadoEn           DATE
   ) ;
 ALTER TABLE TB_Proyecto ADD CONSTRAINT PK_TB_Proyecto PRIMARY KEY ( ID ) ;
 
@@ -401,7 +401,7 @@ CREATE TABLE TB_Rol
     CreadoPor     VARCHAR2 (50) NOT NULL ,
     CreadoEn      DATE DEFAULT SYSDATE ,
     ModificadoPor VARCHAR2 (50) ,
-    ModificadoEn  TIMESTAMP
+    ModificadoEn  DATE
   ) ;
 ALTER TABLE TB_Rol ADD CONSTRAINT PK_TB_Rol PRIMARY KEY ( ID ) ;
 
@@ -440,7 +440,7 @@ CREATE TABLE TB_SolicitudIdea
     CreadoPor                 VARCHAR2 (50) NOT NULL ,
     CreadoEn                  DATE DEFAULT SYSDATE ,
     ModificadoPor             VARCHAR2 (50) ,
-    ModificadoEn              TIMESTAMP
+    ModificadoEn              DATE
   ) ;
 ALTER TABLE TB_SolicitudIdea ADD CONSTRAINT PK_TB_SolicitudIdea PRIMARY KEY ( ID ) ;
 ALTER TABLE TB_SolicitudIdea ADD CONSTRAINT UN_TB_SolicitudIdea_001 UNIQUE ( ID_T_Idea , ID_T_Usuario ) ;
@@ -464,7 +464,7 @@ CREATE TABLE TB_SolicitudRol
     CreadoPor      VARCHAR2 (50) NOT NULL ,
     CreadoEn       DATE DEFAULT SYSDATE ,
     ModificadoPor  VARCHAR2 (50) ,
-    ModificadoEn   TIMESTAMP
+    ModificadoEn   DATE
   ) ;
 ALTER TABLE TB_SolicitudRol ADD CONSTRAINT PK_TB_SolicitudRol PRIMARY KEY ( ID ) ;
 ALTER TABLE TB_SolicitudRol ADD CONSTRAINT UN_TB_SolicitudRol_001 UNIQUE ( ID_T_Usuario , ID_T_Rol ) ;
@@ -520,7 +520,7 @@ CREATE TABLE TB_Usuario
     CreadoPor                  VARCHAR2 (50) NOT NULL ,
     CreadoEn                   DATE DEFAULT SYSDATE ,
     ModificadoPor              VARCHAR2 (50) ,
-    ModificadoEn               TIMESTAMP
+    ModificadoEn               DATE
   ) ;
 ALTER TABLE TB_Usuario ADD CONSTRAINT PK_TB_Usuario PRIMARY KEY ( ID ) ;
 ALTER TABLE TB_Usuario ADD CONSTRAINT UN_TB_Usuario_001 UNIQUE ( NumIdentificacion ) ;

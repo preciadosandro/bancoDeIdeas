@@ -302,7 +302,7 @@ CREATE TABLE TB_ListaValorDetalle
   ) ;
 ALTER TABLE TB_ListaValorDetalle ADD CONSTRAINT PK_TB_ListaValorDetalle PRIMARY KEY ( ID ) ;
 
-ALTER TABLE TB_ListaValorDetalle ADD CONSTRAINT CHK_TB_ListaValor_001 CHECK (Estado IN (0, 1)) ENABLE ;
+ALTER TABLE TB_ListaValorDetalle ADD CONSTRAINT CHK_TB_ListaValorDetalle_001 CHECK (Estado IN (0, 1)) ENABLE ;
 
 COMMENT ON TABLE TB_ListaValorDetalle IS 'Tabla donde se registra el detalle de cada uno de los combos de la tabla TB_ListaValor';
 COMMENT ON COLUMN TB_ListaValorDetalle.ID IS 'Identificador unico de la tabla';

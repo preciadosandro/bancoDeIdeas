@@ -30,6 +30,8 @@ DROP TABLE TB_SolicitudIdea CASCADE CONSTRAINTS ;
 
 DROP TABLE TB_SolicitudRol CASCADE CONSTRAINTS ;
 
+DROP TABLE TB_Token CASCADE CONSTRAINTS ;
+
 DROP TABLE TB_Usuario CASCADE CONSTRAINTS ;
 
 DROP TABLE TB_UsuarioRol CASCADE CONSTRAINTS ;
@@ -65,6 +67,8 @@ DROP SEQUENCE SQ_TB_SeguimientoIdea ;
 DROP SEQUENCE SQ_TB_SolicitudIdea ;
 
 DROP SEQUENCE SQ_TB_SolicitudRol ;
+
+DROP SEQUENCE SQ_TB_Token ;
 
 DROP SEQUENCE SQ_TB_Usuario ;
 
@@ -103,6 +107,8 @@ CREATE SEQUENCE SQ_TB_SolicitudIdea START WITH 1 INCREMENT BY 1 MINVALUE 1 CACHE
 
 CREATE SEQUENCE SQ_TB_SolicitudRol START WITH 1 INCREMENT BY 1 MINVALUE 1 CACHE 2 ORDER ;
 
+CREATE SEQUENCE SQ_TB_Token START WITH 1 INCREMENT BY 1 MINVALUE 1 CACHE 2 ORDER ;
+
 CREATE SEQUENCE SQ_TB_Usuario START WITH 1 INCREMENT BY 1 MINVALUE 1 CACHE 2 ORDER ;
 
 CREATE SEQUENCE SQ_TB_UsuarioRol START WITH 1 INCREMENT BY 1 MINVALUE 1 CACHE 2 ORDER ;
@@ -116,7 +122,7 @@ CREATE TABLE TB_AprobacionEntrega
 	CreadoPor        VARCHAR2 (50) NOT NULL ,
     CreadoEn         DATE DEFAULT SYSDATE ,
     ModificadoPor    VARCHAR2 (50) ,
-    ModificadoEn     DATE
+    ModificadoEn     TIMESTAMP
   ) ;
 ALTER TABLE TB_AprobacionEntrega ADD CONSTRAINT PK_TB_AprobacionEntrega PRIMARY KEY ( ID ) ;
 ALTER TABLE TB_AprobacionEntrega ADD CONSTRAINT UN_TB_AprobacionEntrega_001 UNIQUE ( ID_T_Entrega , ID_T_Usuario ) ;
@@ -139,7 +145,7 @@ CREATE TABLE TB_Auditoria
     DatoAntiguo   VARCHAR2 (700) ,
     DatoNuevo     VARCHAR2 (700) ,
     ModificadoPor VARCHAR2 (50) ,
-    ModificadoEn  DATE
+    ModificadoEn  TIMESTAMP
   ) ;
 ALTER TABLE TB_Auditoria ADD CONSTRAINT PK_TB_Auditoria PRIMARY KEY ( ID ) ;
 
@@ -165,7 +171,7 @@ CREATE TABLE TB_Calificacion
     CreadoPor              VARCHAR2 (50) NOT NULL ,
     CreadoEn               DATE DEFAULT SYSDATE ,
     ModificadoPor          VARCHAR2 (50) ,
-    ModificadoEn           DATE
+    ModificadoEn           TIMESTAMP
   ) ;
 ALTER TABLE TB_Calificacion ADD CONSTRAINT PK_TB_Calificacion PRIMARY KEY ( ID ) ;
 ALTER TABLE TB_Calificacion ADD CONSTRAINT UN_TB_Calificacion_001 UNIQUE ( ID_T_Proyecto , ID_T_Usuario , ID_T_LV_TipoEvaluacion ) ;
@@ -192,7 +198,7 @@ CREATE TABLE TB_Entrega
     CreadoPor              VARCHAR2 (50) NOT NULL ,
     CreadoEn               DATE DEFAULT SYSDATE ,
     ModificadoPor          VARCHAR2 (50) ,
-    ModificadoEn           DATE
+    ModificadoEn           TIMESTAMP
   ) ;
 ALTER TABLE TB_Entrega ADD CONSTRAINT PK_TB_Entrega PRIMARY KEY ( ID ) ;
 ALTER TABLE TB_Entrega ADD CONSTRAINT UN_TB_Entrega_001 UNIQUE ( ID_T_Proyecto , ID_T_LV_PeriodoEntrega ) ;
@@ -222,7 +228,7 @@ CREATE TABLE TB_Idea
     CreadoPor          VARCHAR2 (50) NOT NULL ,
     CreadoEn           DATE DEFAULT SYSDATE ,
     ModificadoPor      VARCHAR2 (50) ,
-    ModificadoEn       DATE
+    ModificadoEn       TIMESTAMP
   ) ;
 ALTER TABLE TB_Idea ADD CONSTRAINT PK_TB_Idea PRIMARY KEY ( ID ) ;
 
@@ -249,7 +255,7 @@ CREATE TABLE TB_Integrantes
     CreadoPor                VARCHAR2 (50) NOT NULL ,
     CreadoEn                 DATE DEFAULT SYSDATE ,
     ModificadoPor            VARCHAR2 (50) ,
-    ModificadoEn             DATE
+    ModificadoEn             TIMESTAMP
   ) ;
 ALTER TABLE TB_Integrantes ADD CONSTRAINT PK_TB_Integrantes PRIMARY KEY ( ID ) ;
 ALTER TABLE TB_Integrantes ADD CONSTRAINT UN_TB_Integrantes_001 UNIQUE ( ID_T_Proyecto , ID_T_Usuario ) ;
@@ -287,8 +293,7 @@ CREATE TABLE TB_ListaValorDetalle
   (
     ID                NUMBER (10) NOT NULL ,
     ID_T_ListaValores NUMBER (10) NOT NULL ,
-    Descripcion       VARCHAR2 (100) NOT NULL ,
-    Valor             VARCHAR2 (50) NOT NULL ,
+    Valor             VARCHAR2 (100) NOT NULL ,
 	Estado            NUMBER (1) DEFAULT 1 NOT NULL ,
     CreadoPor         VARCHAR2 (50) NOT NULL ,
     CreadoEn          DATE DEFAULT SYSDATE ,
@@ -297,12 +302,11 @@ CREATE TABLE TB_ListaValorDetalle
   ) ;
 ALTER TABLE TB_ListaValorDetalle ADD CONSTRAINT PK_TB_ListaValorDetalle PRIMARY KEY ( ID ) ;
 
-ALTER TABLE TB_ListaValorDetalle ADD CONSTRAINT CHK_TB_ListaValor_001 CHECK (Estado (0, 1)) ENABLE ;
+ALTER TABLE TB_ListaValorDetalle ADD CONSTRAINT CHK_TB_ListaValor_001 CHECK (Estado IN (0, 1)) ENABLE ;
 
 COMMENT ON TABLE TB_ListaValorDetalle IS 'Tabla donde se registra el detalle de cada uno de los combos de la tabla TB_ListaValor';
 COMMENT ON COLUMN TB_ListaValorDetalle.ID IS 'Identificador unico de la tabla';
 COMMENT ON COLUMN TB_ListaValorDetalle.ID_T_ListaValores IS 'Identificador unico de la tabla TB_ListaValor';
-COMMENT ON COLUMN TB_ListaValorDetalle.Descripcion IS 'Descripcion corta del valor a registrar';
 COMMENT ON COLUMN TB_ListaValorDetalle.Valor IS 'Valores que se mostraran al usuario cuando presione el combo';
 COMMENT ON COLUMN TB_ListaValorDetalle.Estado IS 'Estado del detalle dentro del maestro. Puede ser 0-Inactivo 1-Activo. Por defecto es 1-Activo';
 
@@ -314,7 +318,7 @@ CREATE TABLE TB_Lineamiento
     CreadoPor     VARCHAR2 (50) NOT NULL ,
     CreadoEn      DATE DEFAULT SYSDATE ,
     ModificadoPor VARCHAR2 (50) ,
-    ModificadoEn  DATE
+    ModificadoEn  TIMESTAMP
   ) ;
 ALTER TABLE TB_Lineamiento ADD CONSTRAINT PK_TB_Lineamiento PRIMARY KEY ( ID ) ;
 
@@ -333,7 +337,7 @@ CREATE TABLE TB_LineamientoDetalle
     CreadoPor        VARCHAR2 (50) NOT NULL ,
     CreadoEn         DATE DEFAULT SYSDATE ,
     ModificadoPor    VARCHAR2 (50) ,
-    ModificadoEn     DATE
+    ModificadoEn     TIMESTAMP
   ) ;
 ALTER TABLE TB_LineamientoDetalle ADD CONSTRAINT PK_TB_LineamientoDetalle PRIMARY KEY ( ID ) ;
 
@@ -353,7 +357,7 @@ CREATE TABLE TB_ObjetivoIdea
     CreadoPor     VARCHAR2 (50) NOT NULL ,
     CreadoEn      DATE DEFAULT SYSDATE ,
     ModificadoPor VARCHAR2 (50) ,
-    ModificadoEn  DATE
+    ModificadoEn  TIMESTAMP
   ) ;
 ALTER TABLE TB_ObjetivoIdea ADD CONSTRAINT PK_TB_ObjetivoIdea PRIMARY KEY ( ID ) ;
 
@@ -375,7 +379,7 @@ CREATE TABLE TB_Proyecto
     CreadoPor              VARCHAR2 (50) NOT NULL ,
     CreadoEn               DATE DEFAULT SYSDATE ,
     ModificadoPor          VARCHAR2 (50) ,
-    ModificadoEn           DATE
+    ModificadoEn           TIMESTAMP
   ) ;
 ALTER TABLE TB_Proyecto ADD CONSTRAINT PK_TB_Proyecto PRIMARY KEY ( ID ) ;
 
@@ -397,7 +401,7 @@ CREATE TABLE TB_Rol
     CreadoPor     VARCHAR2 (50) NOT NULL ,
     CreadoEn      DATE DEFAULT SYSDATE ,
     ModificadoPor VARCHAR2 (50) ,
-    ModificadoEn  DATE
+    ModificadoEn  TIMESTAMP
   ) ;
 ALTER TABLE TB_Rol ADD CONSTRAINT PK_TB_Rol PRIMARY KEY ( ID ) ;
 
@@ -436,7 +440,7 @@ CREATE TABLE TB_SolicitudIdea
     CreadoPor                 VARCHAR2 (50) NOT NULL ,
     CreadoEn                  DATE DEFAULT SYSDATE ,
     ModificadoPor             VARCHAR2 (50) ,
-    ModificadoEn              DATE
+    ModificadoEn              TIMESTAMP
   ) ;
 ALTER TABLE TB_SolicitudIdea ADD CONSTRAINT PK_TB_SolicitudIdea PRIMARY KEY ( ID ) ;
 ALTER TABLE TB_SolicitudIdea ADD CONSTRAINT UN_TB_SolicitudIdea_001 UNIQUE ( ID_T_Idea , ID_T_Usuario ) ;
@@ -460,7 +464,7 @@ CREATE TABLE TB_SolicitudRol
     CreadoPor      VARCHAR2 (50) NOT NULL ,
     CreadoEn       DATE DEFAULT SYSDATE ,
     ModificadoPor  VARCHAR2 (50) ,
-    ModificadoEn   DATE
+    ModificadoEn   TIMESTAMP
   ) ;
 ALTER TABLE TB_SolicitudRol ADD CONSTRAINT PK_TB_SolicitudRol PRIMARY KEY ( ID ) ;
 ALTER TABLE TB_SolicitudRol ADD CONSTRAINT UN_TB_SolicitudRol_001 UNIQUE ( ID_T_Usuario , ID_T_Rol ) ;
@@ -481,7 +485,7 @@ CREATE TABLE TB_Token
     Usuario  VARCHAR2 (50) NOT NULL ,
 	Token    VARCHAR2 (100) NOT NULL ,
 	Estado   NUMBER (1) DEFAULT 1 NOT NULL ,
-    CreadoEn TIMESTAMP DEFAULT SYSTIMESTAMP 
+    CreadoEn DATE DEFAULT SYSDATE 
   ) ;
 ALTER TABLE TB_Token ADD CONSTRAINT PK_TB_Token PRIMARY KEY ( ID ) ;
 
@@ -516,7 +520,7 @@ CREATE TABLE TB_Usuario
     CreadoPor                  VARCHAR2 (50) NOT NULL ,
     CreadoEn                   DATE DEFAULT SYSDATE ,
     ModificadoPor              VARCHAR2 (50) ,
-    ModificadoEn               DATE
+    ModificadoEn               TIMESTAMP
   ) ;
 ALTER TABLE TB_Usuario ADD CONSTRAINT PK_TB_Usuario PRIMARY KEY ( ID ) ;
 ALTER TABLE TB_Usuario ADD CONSTRAINT UN_TB_Usuario_001 UNIQUE ( NumIdentificacion ) ;
@@ -632,178 +636,3 @@ ALTER TABLE TB_UsuarioRol ADD CONSTRAINT FK_TB_UsuarioRol_001 FOREIGN KEY ( ID_T
 ALTER TABLE TB_UsuarioRol ADD CONSTRAINT FK_TB_UsuarioRol_002 FOREIGN KEY ( ID_T_Rol ) REFERENCES TB_Rol ( ID ) NOT DEFERRABLE ;
 
 ALTER TABLE TB_UsuarioRol ADD CONSTRAINT FK_TB_UsuarioRol_003 FOREIGN KEY ( ID_T_LV_EstadoUsuarioRol ) REFERENCES TB_ListaValorDetalle ( ID ) NOT DEFERRABLE ;
-
-
-CREATE OR REPLACE TRIGGER TR_TB_AprobacionEntrega
-    BEFORE INSERT ON TB_AprobacionEntrega 
-    FOR EACH ROW 
-begin
-  select SQ_TB_AprobacionEntrega.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-
-CREATE OR REPLACE TRIGGER TR_TB_Auditoria 
-    BEFORE INSERT ON TB_Auditoria  
-    FOR EACH ROW 
-begin
-  select SQ_TB_Auditoria.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-
-CREATE OR REPLACE TRIGGER TR_TB_Calificacion 
-    BEFORE INSERT ON TB_Calificacion 
-    FOR EACH ROW 
-begin
- select SQ_TB_Calificacion.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-
-CREATE OR REPLACE TRIGGER TR_TB_Entrega 
-    BEFORE INSERT ON TB_Entrega 
-    FOR EACH ROW 
-begin
-  select SQ_TB_Entrega.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-
-CREATE OR REPLACE TRIGGER TR_TB_Idea 
-    BEFORE INSERT ON TB_Idea 
-    FOR EACH ROW 
-begin
- select SQ_TB_Idea.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-
-CREATE OR REPLACE TRIGGER TR_TB_Integrantes 
-    BEFORE INSERT ON TB_Integrantes 
-    FOR EACH ROW 
-begin
- select SQ_TB_Integrantes.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-
-CREATE OR REPLACE TRIGGER TR_TB_ListaValor 
-    BEFORE INSERT ON TB_ListaValor 
-    FOR EACH ROW 
-begin
- select SQ_TB_ListaValor.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-
-CREATE OR REPLACE TRIGGER TR_TB_ListaValorDetalle 
-    BEFORE INSERT ON TB_ListaValorDetalle 
-    FOR EACH ROW 
-begin
- select SQ_TB_ListaValorDetalle.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-
-CREATE OR REPLACE TRIGGER TR_TB_Lineamiento 
-    BEFORE INSERT ON TB_Lineamiento 
-    FOR EACH ROW 
-begin
-  select SQ_TB_Lineamiento.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-
-CREATE OR REPLACE TRIGGER TR_TB_LineamientoDetalle 
-    BEFORE INSERT ON TB_LineamientoDetalle 
-    FOR EACH ROW 
-begin
- select SQ_TB_LineamientoDetalle.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-
-CREATE OR REPLACE TRIGGER TR_TB_Proyecto 
-    BEFORE INSERT ON TB_Proyecto  
-    FOR EACH ROW 
-begin
-  select SQ_TB_Proyecto.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-CREATE OR REPLACE TRIGGER TR_TB_ObjetivoIdea 
-    BEFORE INSERT ON TB_ObjetivoIdea 
-    FOR EACH ROW 
-begin
-  select SQ_TB_ObjetivoIdea.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-CREATE OR REPLACE TRIGGER TR_TB_Rol 
-    BEFORE INSERT ON TB_Rol  
-    FOR EACH ROW 
-begin
-  select SQ_TB_Rol.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-
-CREATE OR REPLACE TRIGGER TR_TB_SeguimientoIdea 
-    BEFORE INSERT ON TB_SeguimientoIdea 
-    FOR EACH ROW 
-begin
- select SQ_TB_SeguimientoIdea.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-CREATE OR REPLACE TRIGGER TR_TB_SolicitudIdea 
-    BEFORE INSERT ON TB_SolicitudIdea  
-    FOR EACH ROW 
-begin
-  select SQ_TB_SolicitudIdea.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-CREATE OR REPLACE TRIGGER TR_TB_SolicitudRol 
-    BEFORE INSERT ON TB_SolicitudRol  
-    FOR EACH ROW 
-begin
-  select SQ_TB_SolicitudRol.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-
-CREATE OR REPLACE TRIGGER TR_TB_Usuario 
-    BEFORE INSERT ON TB_Usuario 
-    FOR EACH ROW 
-begin
- select SQ_TB_Usuario.nextval into :NEW.ID from dual;
-end; 
-/
-
-
-
-CREATE OR REPLACE TRIGGER TR_TB_UsuarioRol 
-    BEFORE INSERT ON TB_UsuarioRol 
-    FOR EACH ROW 
-begin
-  select SQ_TB_UsuarioRol.nextval into :NEW.ID from dual;
-end; 
-/

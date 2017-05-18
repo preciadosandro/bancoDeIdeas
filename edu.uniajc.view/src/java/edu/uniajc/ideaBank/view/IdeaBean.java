@@ -5,48 +5,55 @@
  */
 package edu.uniajc.ideaBank.view;
 
-import java.io.Serializable;
-import javax.faces.application.FacesMessage;
+import edu.uniajc.ideaBank.DAO.IdeaDAO;
+import edu.uniajc.ideaBank.interfaces.model.Idea;
+import edu.uniajc.ideaBank.interfaces.model.IdeasObjetivos;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.bean.RequestScoped;
 
 /**
  *
- * @author Lenovo
+ * @author LMIRANDA
  */
-@ManagedBean(name = "IdeaBean")
-@ViewScoped
-public class IdeaBean implements Serializable  {
-    
-     private String titleIdea;
-     private boolean PrivateIdea;
-     
-      public IdeaBean() {
-    }
-      public String gettitleIdea() {
-        return titleIdea;
-    }
-      
-      public void settitleIdea(String titleIdea) {
-        this.titleIdea = titleIdea;
-    }
-      
-     public boolean getPrivateIdea() {
-        return PrivateIdea;
-    }
-      
-      public void setPrivateIdea(boolean  PrivateIdea) {
-        this.PrivateIdea = PrivateIdea;
-    }
-      
-      public void addMessage() {
-        String summary = PrivateIdea ? "Checked" : "Unchecked";        
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(summary));
-       
-        
+@ManagedBean
+@RequestScoped
+public class IdeaBean {
+
+    private IdeasObjetivos IdeasObjetivos = new IdeasObjetivos();
+    private List<IdeasObjetivos> lstIdeas;
+
+    public IdeasObjetivos getIdeasObjetivos() {
+        return IdeasObjetivos;
     }
 
-    
-    
+    public void setIdeasObjetivos(IdeasObjetivos IdeasObjetivos) {
+        this.IdeasObjetivos = IdeasObjetivos;
+    }
+
+    public List<IdeasObjetivos> getLstIdeas() {
+        listar();
+        return lstIdeas;
+    }
+
+    public void setLstIdeas(List<IdeasObjetivos> lstIdeas) {
+        this.lstIdeas = lstIdeas;
+    }
+
+    public void listar() {
+        IdeaDAO dao;
+
+        try {
+            dao = new IdeaDAO();
+            lstIdeas = dao.listar();
+            int a = 0;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
+
 }

@@ -10,10 +10,12 @@ import edu.uniajc.ideaBank.interfaces.IUser;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import edu.uniajc.ideaBank.logic.services.UserService;
 import java.io.Serializable;
+import java.sql.SQLException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.naming.NamingException;
 
 /**
  *
@@ -58,7 +60,7 @@ public class NewPasswordBean implements Serializable  {
         this.passwordConfirm = passwordConfirm;
     }
     
-    public void newContraseña() {
+    public void newContraseña() throws NamingException, SQLException {
         IUser uDao = new UserService();
         User userModel = new User();
         

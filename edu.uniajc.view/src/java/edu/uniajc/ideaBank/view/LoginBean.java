@@ -5,44 +5,29 @@
  */
 package edu.uniajc.ideaBank.view;
 
-import edu.uniajc.ideaBank.Utilities.Utilities;
-import edu.uniajc.ideaBank.interfaces.IUser;
+
+
+import edu.uniajc.ideaBank.interfaces.ILogin;
 import edu.uniajc.ideaBank.interfaces.model.User;
-import edu.uniajc.ideaBank.logic.services.UserService;
+import static edu.uniajc.ideaBank.view.UserBean.getContext;
 import java.io.Serializable;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.naming.InitialContext;
 
 /**
  *
- * @author Lenovo
+ * @author Hector-laptop
  */
+
 @ManagedBean(name = "loginBean")
 @ViewScoped
 public class LoginBean implements Serializable {
 
-    private boolean typeProject;     
-    private String email;
     private String password;
-
-    public boolean isTypeProject() {
-        return typeProject;
-    }
-
-    public void setTypeProject(boolean typeProject) {
-        this.typeProject = typeProject;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    private String user;
+    
     public String getPassword() {
         return password;
     }
@@ -50,70 +35,65 @@ public class LoginBean implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+
+    
+
+
+    public LoginBean(){}   
+    
+    
+
     
     
     
-
-
-
-
-    /*public void newLogin() {
-        
-        IUser uDao = new UserService();
-        User userModel = new User();
-        boolean validatorNumId;
-        boolean validatorUser;
+    public void newLogin() {  
+        ILogin lDao =null;
+        int validator;
         FacesContext context = FacesContext.getCurrentInstance();
-        if (this.getUser().equals(this.getUserConfirm())) {
-            if (this.getPassword().equals(this.getPasswordConfirm())) {
-                validatorNumId = this.getUserByNumId();
-                validatorUser = this.getUserByUser();
-                if (validatorUser == false && validatorNumId == false) {
-                    password = Utilities.Encriptar(password);
-                    userModel = uDao.createUser(idTypeUser, 1, idTypeId, numId, firstName,
-                            secondName, lastName, lastName2, phone, cellPhone, user,
-                            password);
-                    if (userModel == null) {
-                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                "Los datos no fueron guardados.", ""));
-                    } else {
-                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Los datos fueron guardados.", ""));
-                        try {
-                            context.getExternalContext().redirect("login.xhtml");
-                            return;
-                        } catch (Exception e) {
-                        }
-                    }
-                } else if (validatorUser == true) {
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            "El correo electronico ya se encuentra registrado.", ""));
-                } else {
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            "El numero de identificación ya se encuentra registrado.", ""));
+        
+       try {
+            InitialContext ctx = getContext();
+            lDao = (ILogin) ctx.lookup("java:global/edu.uniajc.view/LoginService!edu.uniajc.ideaBank.interfaces.ILogin");
+        } catch (Exception e) {
+        }        
+
+       if(user!=null){
+            validator = lDao.newLogin(this.user);
+                if(validator!=0){
+                    
+                }else{
+                    linklogin();
                 }
 
-            } else {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                        "Las contraseñas no corresponden", ""));
             }
-
-        } else {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Los correos electronicos no son iguales", ""));
+       }
+       
+       
+       
+       
+  
+    
+    public void linklogin() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            context.getExternalContext().redirect("index.xhtml");
+        } catch (Exception e) {
         }
-
     }
+   } 
 
-    public boolean getUserByUser() {
-        IUser uDao = new UserService();
-        boolean validator = uDao.getUserByUser(this.getUser());
-        return validator;
-    }
+    
+    
+      
 
-    public boolean getUserByNumId() {
-        IUser uDao = new UserService();
-        boolean validator = uDao.getUserByNumId(this.getNumId());
-        return validator;
-    }*/
-}
+
+ 

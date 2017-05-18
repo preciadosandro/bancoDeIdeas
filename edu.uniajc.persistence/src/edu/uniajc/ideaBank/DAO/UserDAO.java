@@ -32,13 +32,19 @@ public class UserDAO {
             PreparedStatement ps = null;
             String SQL;
 
-            SQL = "INSERT INTO TB_USUARIO(ID_T_LV_TIPOUSUARIO,ID_T_LV_ESTADOUSUARIO,"
+           /* SQL = "select SQ_TB_USUARIO.nextval ID from dual";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            int id = rs.getInt("ID");*/
+            
+            SQL = "INSERT INTO TB_USUARIO(ID,ID_T_LV_TIPOUSUARIO,ID_T_LV_ESTADOUSUARIO,"
                     + "ID_T_LV_TIPOIDENTIFICACION,NUMIDENTIFICACION,PRIMERNOMBRE,"
                     + "SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,TELEFONOFIJO,"
-                    + "TELEFONOCELULAR,USUARIO,CONTRASENA,CREADOPOR,CREADOEN, GENERO, ID_T_LV_DEPENDENCIA,"
+                    + "TELEFONOCELULAR,USUARIO,CONTRASENA,CREADOPOR, GENERO, ID_T_LV_DEPENDENCIA,"
                     + "ID_T_LV_PROGRAMAACEDEMICO, FECHANACIMIENTO) "
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "VALUES(SQ_TB_USUARIO.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
+            //ps.setInt(1, id);
             ps.setInt(1, userModel.getIdTipoUsuario());
             ps.setInt(2, userModel.getIdEstadoUsuario());
             ps.setInt(3, userModel.getIdTipoIdentificacion());
@@ -54,11 +60,11 @@ public class UserDAO {
             ps.setString(13, userModel.getPrimerNombre() + " " + userModel.getPrimerApellido());
 
             java.sql.Date birtDate = new java.sql.Date(userModel.getFechaNacimiento().getTime());
-            ps.setDate(14, birtDate);
-            ps.setString(15, userModel.getGenero());
-            ps.setInt(16, userModel.getIdDependencia());
-            ps.setInt(17, userModel.getIdProgrmaAcademico());
-            ps.setDate(18, birtDate);
+            //ps.setDate(15, birtDate);
+            ps.setString(14, userModel.getGenero());
+            ps.setInt(15, userModel.getIdDependencia());
+            ps.setInt(16, userModel.getIdProgrmaAcademico());
+            ps.setDate(17, birtDate);
             ps.execute();
             return true;
 

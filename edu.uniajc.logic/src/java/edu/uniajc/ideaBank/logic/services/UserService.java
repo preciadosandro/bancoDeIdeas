@@ -14,6 +14,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import edu.uniajc.ideaBank.interfaces.IUser;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 
 /**
@@ -27,9 +29,13 @@ public class UserService implements IUser {
     boolean validatorUser, validatorNumId;
     User userModel;
 
-    public UserService() throws NamingException, SQLException {
-
-        this.dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+    public UserService() {
+        try {
+            this.dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+        } catch (NamingException | SQLException e) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
     }
 
     @Override

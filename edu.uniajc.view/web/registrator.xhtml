@@ -41,11 +41,10 @@
                                     <f:validateRegex pattern="^[_A-Za-z]*" />
                                 </p:inputText>                        
                                 <p:outputLabel value="Tipo Identificación: *"/>
-                                <p:selectOneMenu id="typeId" value="#{userBean.user.idTipoIdentificacion}" 
-                                                 label="tipo de documento" 
-                                                 required="true" style="width:145px" >
+                                <p:selectOneMenu id="typeId" value="#{userBean.user.idTipoIdentificacion}" label="tipo de documento" 
+                                                 required="true">
                                     <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
-                                    <f:selectItem itemLabel="Cedula de ciudadania" itemValue="1" />
+                                    <f:selectItem itemLabel="C.C." itemValue="1" />
                                     <f:selectItem itemLabel="Pasaporte" itemValue="2" />
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Numero de identificación: *"/>
@@ -95,28 +94,28 @@
                                 </p:password>
                                 <p:outputLabel value="Tipo de usuario: *"/>
                                 <p:selectOneMenu id="typeUser" value="#{userBean.user.idTipoUsuario}" label="Tipo de usuario" 
-                                                 style="width:145px" required="true">
+                                                 required="true">
                                     <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
                                     <f:selectItem itemLabel="Estudiante" itemValue="25" />
                                     <f:selectItem itemLabel="Docente" itemValue="26" />
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Género: *"/>
                                 <p:selectOneMenu id="gender" value="#{userBean.user.genero}" label="Género" 
-                                                 style="width:145px" required="true">
+                                                 required="true">
                                     <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
                                     <f:selectItem itemLabel="Masculino" itemValue="M" />
                                     <f:selectItem itemLabel="Femenino" itemValue="F" />
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Programa académico: *"/>
                                 <p:selectOneMenu id="acadProg" value="#{userBean.user.idProgrmaAcademico}" label="Programa Académico"
-                                                 style="width:145px" required="true">
+                                                 required="true">
                                     <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
                                     <f:selectItem itemLabel="Sistemas" itemValue="7" />
                                     <f:selectItem itemLabel="Industrial" itemValue="8" />
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Dependencia: *"/>
                                 <p:selectOneMenu id="dependent" value="#{userBean.user.idDependencia}" label="Dependencia"
-                                                 style="width:145px" required="true">
+                                                 required="true">
                                     <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
                                     <f:selectItem itemLabel="Tesoreria" itemValue="4" />
                                     <f:selectItem itemLabel="Cafeteria" itemValue="5" />

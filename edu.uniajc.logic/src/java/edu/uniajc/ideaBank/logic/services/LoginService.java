@@ -5,6 +5,7 @@
  */
 package edu.uniajc.ideaBank.logic.services;
 
+import edu.uniajc.ideaBank.DAO.LoginDAO;
 import edu.uniajc.ideaBank.DAO.UserDAO;
 import edu.uniajc.ideaBank.interfaces.ILogin;
 import edu.uniajc.ideaBank.interfaces.model.User;
@@ -24,7 +25,7 @@ import javax.sql.DataSource;
 public class LoginService implements ILogin {
 
     Connection dbConnection;
-    boolean validatorUser, validatorNumId;
+    boolean validatorUser, validatorPassword;
     User userModel;
 
     public LoginService() throws NamingException, SQLException {
@@ -32,26 +33,15 @@ public class LoginService implements ILogin {
     }
 
     @Override
-    public int newLogin(String user) {
+    public boolean newLogin(String user,String pass) {
         UserDAO dao = new UserDAO(dbConnection);
-        boolean confirmUser;
-        validatorUser = dao.getUserByUser(user);        
-        if (validatorUser == true) {
-            return -3;
+        LoginDAO daoPass=new LoginDAO(dbConnection);
+        validatorUser = dao.getUserByUser(user);   
+        validatorPassword=daoPass.getPasswordByUser(user,pass);
+        if (validatorPassword==true) {
+            return true;
         }else{
-            return 1;
-            /*if (validatorNumId == true) {
-            userModel.setContrasena(Utilities.Encriptar(userModel.getContrasena()));
-            userModel.setIdEstadoUsuario(1);
-            confirmUser = dao.createUser(userModel);
-            if (confirmUser == true) {
-            return 0;
-            } else {
-            return -1;
-            }
-            }else{
-            return -2;
-            }
-        */}
+            return false;      
+        }
     }
 }

@@ -8,9 +8,9 @@ package edu.uniajc.ideaBank.view;
 
 
 import edu.uniajc.ideaBank.interfaces.ILogin;
-import edu.uniajc.ideaBank.interfaces.model.User;
 import static edu.uniajc.ideaBank.view.UserBean.getContext;
 import java.io.Serializable;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -31,33 +31,21 @@ public class LoginBean implements Serializable {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
     public String getUser() {
         return user;
     }
-
     public void setUser(String user) {
         this.user = user;
     }
 
-
-    
-
-
     public LoginBean(){}   
-    
-    
-
-    
-    
-    
+       
     public void newLogin() {  
         ILogin lDao =null;
-        int validator;
+        boolean validator;
         FacesContext context = FacesContext.getCurrentInstance();
         
        try {
@@ -67,11 +55,12 @@ public class LoginBean implements Serializable {
         }        
 
        if(user!=null){
-            validator = lDao.newLogin(this.user);
-                if(validator!=0){
-                    
+            validator = lDao.newLogin(this.user, this.password);
+                if(validator==true){
+                    linklogin();                    
                 }else{
-                    linklogin();
+
+                    context.addMessage(null, new FacesMessage("Usuario y/o Contraseña incorrecto!"));
                 }
 
             }

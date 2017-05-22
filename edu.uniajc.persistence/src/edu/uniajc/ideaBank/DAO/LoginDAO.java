@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+
 /**
  *
  * @author Hector
@@ -25,22 +26,21 @@ private Connection DBConnection = null;
         this.DBConnection = openConnection;
     }
     
-      public boolean getPasswordByUser(String user) {
+     public boolean getPasswordByUser(String user, String pass) {
         PreparedStatement prepStm = null;
-        final String SQL = "SELECT CONTRASENA FROM TB_USUARIO WHERE USUARIO =?";
+        final String SQL = "SELECT USUARIO,CONTRASENA FROM TB_USUARIO WHERE USUARIO ='"+user+"' AND CONTRASENA='"+pass+"'";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
-            prepStm.setString(1, user);
+          //  prepStm.setString(1, user);
             ResultSet RS = prepStm.executeQuery();
-            
             if (RS.next()) {
-                if (RS.getString("CONTRASENA").equals("")) {
-                    return false;
-                } else {
+              //  if (RS.getString("CONTRASENA").equals("")) {
+                  //  return false;
+            //    } else {
                     return true;
                 }
-            }else{
+             else {
                 return false;
             }
 
@@ -49,6 +49,8 @@ private Connection DBConnection = null;
             return false;
         }
     }
+    
+    }
                   
     
-}
+

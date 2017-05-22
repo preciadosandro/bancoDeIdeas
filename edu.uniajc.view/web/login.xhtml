@@ -19,18 +19,18 @@
                             <p:panelGrid columns="1" columnClasses="no-border, no-border">
                                                                                                 
                                 <h:panelGrid columns="1" style="margin-bottom:10px;text-align: center" cellpadding="5" width="100%">
-                                    <p:selectOneRadio id="radio" style="display: inline-block" required="true" requiredMessage="Debe seleccionar primero si es 'Idea' o 'Proyecto'">                                        
+                                    <p:selectOneRadio id="radio" style="display: inline-block" required="true" requiredMessage="Su intento para conectarse no tuvo éxito. Causa: No se ha seleccionado modulo a ingresar.">                                        
                                         <f:selectItem itemLabel="Ideas" itemValue="Xbox One" />
                                         <f:selectItem itemLabel="Anteproyecto" itemValue="PS4" />                                      
                                     </p:selectOneRadio>                                    
                                     <p:inputText id="user" value="#{loginBean.user}" placeholder="Correo Electronico*" style="width: 100%; text-align: center" required="true"
-                                        requiredMessage="El usuario/E-mail: es un valor es requerido."
-                                        validatorMessage="Usuario/E-mail: Este campo debe tener el formato E-mail">
+                                        requiredMessage="Su intento para conectarse no tuvo éxito. Causa: No se ha ingresado el usuario"
+                                        validatorMessage="Su intento para conectarse no tuvo éxito. Causa: Usuario o Contraseña inválido, por favor revise los datos ingresados">
                                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />                                        
                                     </p:inputText>
-                                    <p:password id="password" value="#{loginBean.password}" placeholder="Contraseña*" required="true" label="password" style="width: 100%; text-align: center" feedback="true"
-                                        requiredMessage="Contraseña: Valor es requerido."
-                                        validatorMessage="Contraseña: Cantidad minima de caracteres 5.">
+                                    <p:password id="password" value="#{loginBean.password}" placeholder="Contraseña*" required="true" label="password" style="width: 100%; text-align: center" feedback="false"
+                                        requiredMessage="Su intento para conectarse no tuvo éxito. Causa: No se ha ingresado la contraseña"
+                                        validatorMessage="Su intento para conectarse no tuvo éxito. Causa: Usuario o Contraseña inválido, por favor revise los datos ingresados">
                                         <f:validateLength minimum="5"/>                                                                    
                                         <f:validateRegex pattern="^[_A-Za-z0-9]+" />
                                     </p:password>                                    

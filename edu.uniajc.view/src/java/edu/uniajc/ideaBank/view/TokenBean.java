@@ -44,13 +44,19 @@ public class TokenBean implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (uToken.createToken(user)){
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Correo enviado correctamente.", ""));
+        if(uToken.validateUser(user)){
+            if (uToken.createToken(user)){
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    "Correo enviado correctamente.", ""));
+            }else{
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                            "Falló el envío de correo", ""));
+            }            
         }else{
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                        "Falló el envío de correo", ""));
+                            "Usuario no existe.", ""));
         }
+            
         
         
     }

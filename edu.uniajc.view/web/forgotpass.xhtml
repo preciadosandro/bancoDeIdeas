@@ -28,8 +28,9 @@
                             </p:panelGrid>                         
                                                      
                             <p:separator/>
-                            <p:commandButton value="Enviar" icon="ui-icon-send" actionListener="#{TokenBean.forgotPass()}" 
-                                             update="messageGeneral formpass"/>                           
+                            <p:commandButton value="Enviar" icon="ui-icon-mail" actionListener="#{TokenBean.forgotPass()}" 
+                                             update="messageGeneral formpass"/> 
+                            <p:commandButton value="Limpiar" icon="ui-icon-cancel" type="reset"/>
                         </p:panel>
                     </h:form>
                 </div>

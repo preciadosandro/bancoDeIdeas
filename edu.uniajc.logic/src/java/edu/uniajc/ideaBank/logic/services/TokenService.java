@@ -5,6 +5,7 @@
  */
 package edu.uniajc.ideaBank.logic.services;
 import edu.uniajc.ideaBank.DAO.TokenDAO;
+import edu.uniajc.ideaBank.DAO.UserDAO;
 import edu.uniajc.ideaBank.Utilities.SendMail;
 import edu.uniajc.ideaBank.interfaces.IToken;
 import java.net.InetAddress;
@@ -85,5 +86,11 @@ public class TokenService implements IToken{
     public boolean getTokenByUserAndToken(String User, String token) {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return true;
+    }
+
+    @Override
+    public boolean validateUser(String usuario) {
+       UserDAO dao = new UserDAO(dbConnection);        
+       return dao.getUserByUser(usuario);
     }
 }

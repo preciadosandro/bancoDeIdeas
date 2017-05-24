@@ -142,7 +142,7 @@ public class UserBean implements Serializable {
             props.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.enterprise.naming.SerialInitContextFactory");
             props.setProperty("org.omg.CORBA.ORBInitialHost", "localhost");
             // glassfish default port value will be 3700,
-            props.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
+            props.setProperty("org.omg.CORBA.ORBInitialPort", "39822");
             InitialContext ctx = new InitialContext(props);
             return ctx;
         } catch (NamingException ex) {

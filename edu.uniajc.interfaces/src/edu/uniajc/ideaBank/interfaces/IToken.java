@@ -5,16 +5,15 @@
  */
 package edu.uniajc.ideaBank.interfaces;
 
-import edu.uniajc.ideaBank.interfaces.model.Token;
 import javax.ejb.Remote;
-
 /**
  *
  * @author Felipe
  */
 @Remote 
 public interface IToken {
-    public Token createToken(String usuario,String token,int estado);     
+    public boolean createToken(String usuario);
+    public boolean validateUser(String usuario);
     public boolean getTokenByUserAndToken(String User,String token);
     
 }

@@ -40,8 +40,7 @@ public class PaswdMangrServlet extends HttpServlet {
             out.println("</head>");
             out.println("<h1>");
             out.println("Este es mi token  " + token);
-            out.println("<br>");
-            out.println("uuid  " + java.util.UUID.randomUUID().toString());
+            out.println("<br>");            
             out.println("</h1>");
             out.println("<body>");
             out.println("<h1>Servlet PaswdMangrServlet at " + request.getContextPath() + "</h1>");
@@ -64,10 +63,8 @@ public class PaswdMangrServlet extends HttpServlet {
             throws ServletException, IOException {
         String myToken = request.getParameter("TOKEN");
         if (myToken.equals("1234567890")) {
-            response.sendRedirect("http://www.google.com");
-            
+            response.sendRedirect("http://www.google.com");            
         }
-
         processRequest(request, response, myToken);
     }
 

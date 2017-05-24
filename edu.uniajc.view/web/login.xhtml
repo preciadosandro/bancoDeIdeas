@@ -40,9 +40,9 @@
                                     
                                     <h:panelGrid columns="2" style="margin-bottom:8px" cellpadding="5">
                                         <h:outputText value="Recordarme " />
-                                        <p:selectBooleanCheckbox />                                        
+                                        <p:selectBooleanCheckbox id="cookiesCheck" value="#{loginBean.cookiesCheck}" />                                        
                                     </h:panelGrid>                                    
-                                    <p:link value="¿He olvidado mi contraseña?" >
+                                    <p:link value="¿He olvidado mi contraseña?" outcome="forgotpass">
                                             <f:param name="productId" value="10" />
                                         </p:link>                                                                            
                                 </p:panelGrid>

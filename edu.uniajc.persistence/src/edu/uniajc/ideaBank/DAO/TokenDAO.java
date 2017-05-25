@@ -22,7 +22,7 @@ public class TokenDAO {
         this.DBConnection = openConnection;
     }
     
-    public Token createToken(String usuario,String token, int estado){
+    public boolean createToken(String usuario,String token, int estado){
         try {
             Token tokenModel = new Token();            
             tokenModel.setUsuario(usuario);
@@ -35,15 +35,15 @@ public class TokenDAO {
             SQL = "INSERT INTO TB_TOKEN(ID,USUARIO,TOKEN,ESTADO) "
                   +"VALUES(SQ_TB_TOKEN.nextval,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);            
-            ps.setString(2, tokenModel.getUsuario());
-            ps.setString(3, tokenModel.getToken());
-            ps.setInt(4, tokenModel.getEstado());            
+            ps.setString(1, tokenModel.getUsuario());
+            ps.setString(2, tokenModel.getToken());
+            ps.setInt(3, tokenModel.getEstado());            
             ps.execute();
-            return tokenModel;
+            return true;
 
         } catch (Exception e) {
             Logger.getLogger(TokenDAO.class.getName()).log(Level.SEVERE, null, e);
-            return null;
+            return false;
         }
     }
     

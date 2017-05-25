@@ -6,14 +6,16 @@
 package edu.uniajc.ideaBank.interfaces;
 
 import javax.ejb.Remote;
+
 /**
  *
- * @author Felipe
+ * @author Hector
  */
-@Remote 
-public interface IToken {
-    public boolean createToken(String usuario);
-    public boolean validateUser(String usuario);
-    public boolean getTokenByUserAndToken(String User,String token);
+
+@Remote
+public interface ILogin {
+    public boolean newLogin(String user,String pass);
+
     
+
 }

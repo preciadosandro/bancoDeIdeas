@@ -515,7 +515,7 @@ CREATE TABLE TB_Usuario
     TelefonoCelular            VARCHAR2 (50) ,
     Usuario                    VARCHAR2 (50) NOT NULL ,
     Contrasena                 VARCHAR2 (100) NOT NULL ,
-    ID_T_LV_ProgramaAcedemico  NUMBER (10) NULL ,
+    ID_T_LV_ProgramaAcademico  NUMBER (10) NULL ,
     ID_T_LV_Dependencia        NUMBER (10) NULL ,
     CreadoPor                  VARCHAR2 (50) NOT NULL ,
     CreadoEn                   DATE DEFAULT SYSDATE ,

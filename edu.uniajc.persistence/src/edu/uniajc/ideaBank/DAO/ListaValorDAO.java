@@ -35,9 +35,9 @@ public class ListaValorDAO {
             SQL = "INSERT INTO TB_ListaValor(ID, Agrupacion, Descripcion,"
                     + "CreadoPor) VALUES (SQ_TB_ListaValor.nextval, ?, ?, ?)";
             ps = this.DBConnection.prepareStatement(SQL);
-            ps.setString(2, listaValorModel.getAgrupacion());
-            ps.setString(3, listaValorModel.getDescripcion());
-            ps.setString(4, listaValorModel.getCreadoPor());
+            ps.setString(1, listaValorModel.getAgrupacion());
+            ps.setString(2, listaValorModel.getDescripcion());
+            ps.setString(3, listaValorModel.getCreadoPor());
             ps.execute();
             return true;
 

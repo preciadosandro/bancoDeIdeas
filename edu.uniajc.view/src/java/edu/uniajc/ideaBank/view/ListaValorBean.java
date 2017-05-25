@@ -86,18 +86,12 @@ public class ListaValorBean implements Serializable {
         */
     }
 
-    public void linklogin() {
+    public void linkListaValor() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
-            context.getExternalContext().redirect("login.xhtml");
+            context.getExternalContext().redirect("listaValor.xhtml");
         } catch (Exception e) {
         }
-    }
-
-    public void onDateSelect(SelectEvent event) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
     }
 
     public void click() {
@@ -119,5 +113,13 @@ public class ListaValorBean implements Serializable {
             Logger.getLogger(ListaValorBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+    
+    public boolean isChecked() {
+        return listaValor.getEstado() != 0;
+    }
+
+    public void setChecked(boolean checked) {
+        listaValor.setEstado(checked ? 1 : 0);
     }
 }

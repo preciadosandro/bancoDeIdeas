@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./Template/Home.xhtml">
+            <ui:define name="content">
+                <div align="center">
+                    <h1>Lista de Valores</h1>
+                    <h3>Desde aqui podra gestionar los diferentes combos que componen el programa</h3>
+                    <h:form id="formNuevaListaValor" style="padding: 10px; width: fit-content;">
+                        <!--<p:growl id="messageGeneral" autoUpdate="true" life="1500"/>-->
+                        <p:panel id="messageGeneral" header="Datos de la lista principal">
+                            <p:messages autoUpdate="true"/>
+                            <p:panelGrid id="grid" columns="2" columnClasses="no-border, no-border">
+                                
+                                <h:outputText value="Agrupacion*" />
+                                <p:inputText id="agrupacion" label="Agrupacion" required="true" size="48"
+                                    title="Una palabra que identifica la lista no mayor de 30 caracteres"
+                                    value="#{listaValorBean.listaValor.agrupacion}" maxlength="30"
+                                    requiredMessage="Agrupacion: Campo requerido."
+                                    validatorMessage="Agrupacion: Este campo no permite números ni caracteres especiales.">
+                                    <f:validateRegex pattern="^[A-Za-z]+" />
+                                </p:inputText>                                
+                                <h:outputText value="Descripcion" />
+                                <p:inputTextarea id="descripcion" rows="3" cols="53" maxlength="100"
+                                    title="Una descripcion de la lista que esta creando no mayor a 100 caracteres"
+                                    value="#{listaValorBean.listaValor.descripcion}" label="descripcion"
+                                    validatorMessage="Descripcion: Este campo no permite números ni caracteres especiales.">
+                                    <f:validateRegex pattern="^[A-Za-z ]*" />
+                                </p:inputTextarea>      
+                                <h:outputText value="Estado" /><p:selectBooleanCheckbox value="#{listaValorBean.checked}" />
+                            </p:panelGrid>
+                            <p:separator/>
+                            <p:commandButton value="Guardar" icon="ui-icon-disk" actionListener="#{listaValorBean.newListaValor()}" 
+                                update="messageGeneral" styleClass="ui-priority-primary" />
+                            <p:commandButton value="Cancelar" icon="ui-icon-cancel" styleClass="ui-priority-primary"/>
+                        </p:panel>
+                    </h:form>
+                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+                    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                        <p:graphicImage  value="resources/image/ajax-loader.gif" />
+                    </p:dialog>
+                    <h:form id="formOk">                        
+                        <p:dialog  id="digOk" widgetVar="dialogOk" resizable="false" showEffect="explote"
+                                   hideEffect="explode" modal="true" header="Mensaje">
+                            <h:outputText style="text-align: center;" value="Usuario creado correctamente"/>
+                            <p:separator/>
+                            <p:commandButton style="text-align: center;" value="Ok" oncomplete="PF('dialogOk').hide()" 
+                                             actionListener="#{userBean.linkListaValor()}"/>
+                        </p:dialog>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

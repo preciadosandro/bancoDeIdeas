@@ -6,8 +6,16 @@ package servlet;
  * and open the template in the editor.
  */
 
+import edu.uniajc.ideaBank.interfaces.IToken;
+import edu.uniajc.ideaBank.interfaces.model.User;
+import edu.uniajc.ideaBank.logic.services.TokenService;
+import static edu.uniajc.ideaBank.view.UserBean.getContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.context.FacesContext;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -61,9 +69,25 @@ public class PaswdMangrServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String myToken = request.getParameter("TOKEN");
+       String myToken = request.getParameter("TOKEN");
+       User user=new User();
+       FacesContext context = FacesContext.getCurrentInstance();       
+        IToken uToken =null;
+        try {
+            InitialContext ctx = getContext();
+            uToken = (IToken) ctx.lookup("java:global/edu.uniajc.view/TokenService!edu.uniajc.ideaBank.interfaces.IToken");
+            user=uToken.getUserByToken(myToken);
+            System.out.println(user.getUsuario());
+        } catch (Exception e) {
+            Logger.getLogger(TokenService.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println();
+        }            
+        
       //  if (myToken.equals("1234567890")) {
-            response.sendRedirect("../faces/newPassword.xhtml");            
+        
+            response.sendRedirect("../faces/newPassword.xhtml"); 
+        
+                   
         //request.getRequestDispatcher("/faces/newPassword.xhtml").forward(request, response);
        // }
        processRequest(request, response, myToken);

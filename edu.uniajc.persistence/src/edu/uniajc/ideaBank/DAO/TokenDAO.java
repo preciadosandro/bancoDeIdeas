@@ -51,30 +51,41 @@ public class TokenDAO {
     }
     
     public User getUserByToken(String token) throws SQLException{
-        User userModel=new User();
-        
-        
-        PreparedStatement ps = null;
+        User userModel=new User();               
           
         String SQL = "SELECT U.* FROM TB_TOKEN T,TB_USUARIO U "+
                      " WHERE T.TOKEN=?"+
                      " AND T.CREADOEN >= SYSDATE - (60/24)"+
-                     " AND U.USUARIO=T.USUARIO";                     
-        ps = this.DBConnection.prepareStatement(SQL);
+                     " AND U.USUARIO=T.USUARIO";   
+        PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
         ps.setString(1,token);
+        
         ResultSet rs = ps.executeQuery();
         if (rs.next()){
          userModel.setId(rs.getInt("ID"));
          userModel.setIdTipoUsuario(rs.getInt("ID_T_LV_TIPOUSUARIO"));
-         userModel.setIdDependencia(rs.getInt("ID_T_LV_ESTADOUSUARIO"));
+         userModel.setIdEstadoUsuario(rs.getInt("ID_T_LV_ESTADOUSUARIO"));
          userModel.setIdTipoIdentificacion(rs.getInt("ID_T_LV_TIPOIDENTIFICACION"));
          userModel.setNumIdentificacion(rs.getString("NUMIDENTIFICACION"));
          userModel.setPrimerNombre(rs.getString("PRIMERNOMBRE"));
          userModel.setSegundoNombre(rs.getString("SEGUNDONOMBRE"));
          userModel.setPrimerApellido(rs.getString("PRIMERAPELLIDO"));
-        }   
+         userModel.setSegundoApellido(rs.getString("SEGUNDOAPELLIDO"));
+         userModel.setFechaNacimiento(rs.getDate("FECHANACIMIENTO"));
+         
+         userModel.setGenero(rs.getString("GENERO"));
+         userModel.setTelefonoFijo(rs.getString("TELEFONOFIJO"));
+         userModel.setTelefonoCelular(rs.getString("TELEFONOCELULAR"));
+         userModel.setUsuario(rs.getString("USUARIO"));
+         userModel.setContrasena(rs.getString("CONTRASENA"));
+         userModel.setIdProgrmaAcademico(rs.getInt("ID_T_LV_PROGRAMAACADEMICO"));
+         userModel.setIdDependencia(rs.getInt("ID_T_LV_DEPENDENCIA"));
+         userModel.setCreadoPor(rs.getString("CREADOPOR"));
+         userModel.setCreadoEn(rs.getDate("CREADOEN"));
+         userModel.setModificadoPor(rs.getString("MODIFICADOPOR"));
+         userModel.setModificadoEn(rs.getDate("MODIFICADOEN"));         
+        }
         return userModel;
-        
     }
     
 }

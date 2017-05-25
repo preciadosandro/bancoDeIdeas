@@ -8,7 +8,6 @@ import edu.uniajc.ideaBank.DAO.TokenDAO;
 import edu.uniajc.ideaBank.DAO.UserDAO;
 import edu.uniajc.ideaBank.Utilities.SendMail;
 import edu.uniajc.ideaBank.interfaces.IToken;
-import edu.uniajc.ideaBank.interfaces.model.Token;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import java.net.InetAddress;
 import java.net.UnknownHostException;

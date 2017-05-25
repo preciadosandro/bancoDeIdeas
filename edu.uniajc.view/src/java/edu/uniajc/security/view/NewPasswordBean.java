@@ -10,10 +10,14 @@ import edu.uniajc.ideaBank.interfaces.IUser;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import edu.uniajc.ideaBank.logic.services.UserService;
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.naming.NamingException;
 
 /**
  *
@@ -59,23 +63,29 @@ public class NewPasswordBean implements Serializable  {
     }
     
     public void newContraseña() {
-        IUser uDao = new UserService();
-        User userModel = new User();
-        
-        
-        FacesContext context = FacesContext.getCurrentInstance();    
-        
-        if (this.getPassword().equals(this.getPasswordConfirm())) {
-             password = Utilities.Encriptar(password);
-              /*userModel = uDao.createUser(idTypeUser, 1, idTypeId, numId, firstName,
-                            secondName, lastName, lastName2, phone, cellPhone, user,
-                            password);*/
-             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "La cotraseña fue cambiada con exito.", ""));
-        }
-        else {
-              context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+        try {
+            IUser uDao = new UserService();
+            User userModel = new User();
+            
+            
+            FacesContext context = FacesContext.getCurrentInstance();
+            
+            if (this.getPassword().equals(this.getPasswordConfirm())) {
+                password = Utilities.Encriptar(password);
+                /*userModel = uDao.createUser(idTypeUser, 1, idTypeId, numId, firstName,
+                secondName, lastName, lastName2, phone, cellPhone, user,
+                password);*/
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "La cotraseña fue cambiada con exito.", ""));
+            }
+            else {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                         "Las contraseñas no corresponden", ""));
+            }
+        } catch (NamingException ex) {
+            Logger.getLogger(NewPasswordBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(NewPasswordBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

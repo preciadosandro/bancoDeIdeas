@@ -14,6 +14,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import edu.uniajc.ideaBank.interfaces.IUser;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -35,7 +36,7 @@ public class UserService implements IUser {
         } catch (NamingException | SQLException e) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, e);
         }
-        
+
     }
 
     @Override
@@ -47,18 +48,44 @@ public class UserService implements IUser {
         if (validatorUser == false) {
             if (validatorNumId == false) {
                 userModel.setContrasena(Utilities.Encriptar(userModel.getContrasena()));
-                userModel.setIdEstadoUsuario(1);
+                userModel.setIdEstadoUsuario(30);
                 confirmUser = dao.createUser(userModel);
                 if (confirmUser == true) {
                     return 0;
                 } else {
                     return -1;
                 }
-            }else{
+            } else {
                 return -2;
             }
-        }else{
+        } else {
             return -3;
+        }
+    }
+
+    @Override
+    public List<User> listaUser() {
+        try {
+            UserDAO dao = new UserDAO(dbConnection);
+            List<User> list = dao.listUser();
+            return list;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public int updateUser(User userModel) {
+        UserDAO dao = new UserDAO(dbConnection);
+        boolean confirmUser;
+
+        confirmUser = dao.updateUser(userModel);
+        if (confirmUser == true) {
+            return 0;
+        } else {
+            return -1;
         }
     }
 }

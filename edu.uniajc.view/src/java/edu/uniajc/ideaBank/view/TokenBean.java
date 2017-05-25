@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package edu.uniajc.ideaBank.view;
-import edu.uniajc.ideaBank.interfaces.IToken;
+import edu.uniajc.ideaBank.security.interfaces.IToken;
 import static edu.uniajc.ideaBank.view.UserBean.getContext;
 import java.io.Serializable;
 import java.net.UnknownHostException;

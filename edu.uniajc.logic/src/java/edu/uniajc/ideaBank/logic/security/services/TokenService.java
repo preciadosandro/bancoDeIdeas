@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.ideaBank.logic.services;
-import edu.uniajc.ideaBank.DAO.TokenDAO;
+package edu.uniajc.ideaBank.logic.security.services;
+import edu.uniajc.ideaBank.security.DAO.TokenDAO;
 import edu.uniajc.ideaBank.DAO.UserDAO;
 import edu.uniajc.ideaBank.Utilities.SendMail;
-import edu.uniajc.ideaBank.interfaces.IToken;
+import edu.uniajc.ideaBank.security.interfaces.IToken;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -91,13 +91,9 @@ public class TokenService implements IToken{
 
     @Override
     public User getUserByToken(String token) {
-        try {
-            TokenDAO dao = new TokenDAO(dbConnection);
-            return dao.getUserByToken(token);
-        } catch (SQLException ex) {
-            Logger.getLogger(TokenService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+        System.out.println("GETUSERBYTOKEN "+token);
+        TokenDAO dao = new TokenDAO(dbConnection);
+        return dao.getUserByToken(token);        
     }
 
    

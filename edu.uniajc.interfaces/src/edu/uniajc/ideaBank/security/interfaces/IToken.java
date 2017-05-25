@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.ideaBank.interfaces;
+package edu.uniajc.ideaBank.security.interfaces;
 
-import edu.uniajc.ideaBank.interfaces.model.Token;
+import edu.uniajc.ideaBank.security.interfaces.model.Token;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import javax.ejb.Remote;
 /**

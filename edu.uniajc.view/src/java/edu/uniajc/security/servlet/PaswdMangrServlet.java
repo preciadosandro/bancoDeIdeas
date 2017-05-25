@@ -1,4 +1,4 @@
-package servlet;
+package edu.uniajc.security.servlet;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -6,9 +6,9 @@ package servlet;
  * and open the template in the editor.
  */
 
-import edu.uniajc.ideaBank.interfaces.IToken;
+import edu.uniajc.ideaBank.security.interfaces.IToken;
 import edu.uniajc.ideaBank.interfaces.model.User;
-import edu.uniajc.ideaBank.logic.services.TokenService;
+import edu.uniajc.ideaBank.logic.security.services.TokenService;
 import static edu.uniajc.ideaBank.view.UserBean.getContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -47,11 +47,11 @@ public class PaswdMangrServlet extends HttpServlet {
             out.println("<title>Servlet PaswdMangrServlet</title>");
             out.println("</head>");
             out.println("<h1>");
-            out.println("Este es mi token  " + token);
+            out.println("TOKEN INVALIDO");
             out.println("<br>");            
             out.println("</h1>");
             out.println("<body>");
-            out.println("<h1>Servlet PaswdMangrServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1><a href='../faces/login.xhtml'>link text</a></h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -80,16 +80,11 @@ public class PaswdMangrServlet extends HttpServlet {
             System.out.println(user.getUsuario());
         } catch (Exception e) {
             Logger.getLogger(TokenService.class.getName()).log(Level.SEVERE, null, e);
-            System.out.println();
-        }            
-        
-      //  if (myToken.equals("1234567890")) {
-        
-            response.sendRedirect("../faces/newPassword.xhtml"); 
-        
-                   
-        //request.getRequestDispatcher("/faces/newPassword.xhtml").forward(request, response);
-       // }
+            System.out.println(e);
+        }       
+        if (user.getUsuario()!=null){
+            response.sendRedirect("../faces/newPassword.xhtml");             
+        }
        processRequest(request, response, myToken);
     }
 

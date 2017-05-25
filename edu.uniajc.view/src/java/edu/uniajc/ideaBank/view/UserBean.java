@@ -10,12 +10,14 @@ import edu.uniajc.ideaBank.interfaces.model.User;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -28,13 +30,16 @@ import org.primefaces.event.SelectEvent;
  * @author Bladimir Morales
  */
 @ManagedBean(name = "userBean")
-@ViewScoped
+@SessionScoped
 public class UserBean implements Serializable {
 
     private User user;
+     
     private String userConfirm;
     private String passwordConfirm;
     private Date currentDate = new Date();
+    
+    IUser uDao = null;
 
     public UserBean() {
         user = new User();
@@ -68,19 +73,17 @@ public class UserBean implements Serializable {
         return currentDate;
     }
 
-    
-    
     public void newUser() {
-        IUser uDao =null;
+
         int validator;
         FacesContext context = FacesContext.getCurrentInstance();
-        
+
         try {
             InitialContext ctx = getContext();
             uDao = (IUser) ctx.lookup("java:global/edu.uniajc.view/UserService!edu.uniajc.ideaBank.interfaces.IUser");
         } catch (Exception e) {
         }
-        
+
         if (user.getUsuario().equals(this.getUserConfirm())) {
             if (user.getContrasena().equals(this.getPasswordConfirm())) {
                 validator = uDao.createUser(this.user);
@@ -114,6 +117,8 @@ public class UserBean implements Serializable {
                     "Los correos electronicos no son iguales", ""));
         }
     }
+
+    
 
     public void linklogin() {
         FacesContext context = FacesContext.getCurrentInstance();

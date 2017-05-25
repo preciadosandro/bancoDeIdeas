@@ -10,15 +10,20 @@ package edu.uniajc.ideaBank.view;
 import edu.uniajc.ideaBank.interfaces.ILogin;
 import static edu.uniajc.ideaBank.view.UserBean.getContext;
 import java.io.Serializable;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -29,11 +34,13 @@ import javax.swing.JOptionPane;
 @ViewScoped
 public class LoginBean implements Serializable {
 
+    
     private String password;
     private String user;
     private boolean cookiesCheck=false;
     private String virtualCheck;
 
+    
     public String getVirtualCheck() {
         return virtualCheck;
     }
@@ -63,6 +70,7 @@ public class LoginBean implements Serializable {
         isChecked();
     }   
        
+    
     public void newLogin() {  
         ILogin lDao =null;
         boolean validator;
@@ -74,7 +82,7 @@ public class LoginBean implements Serializable {
         } catch (Exception e) {
         }        
 
-       if(user!=null){
+       if(user!=null && password!=null){
             validator = lDao.newLogin(this.user, this.password);
                 if(validator==true){
 
@@ -147,7 +155,20 @@ public class LoginBean implements Serializable {
     
     
     
- 
+     public static InitialContext getContext() {
+        try {
+            Properties props = new Properties();
+            props.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.enterprise.naming.SerialInitContextFactory");
+            props.setProperty("org.omg.CORBA.ORBInitialHost", "localhost");
+            // glassfish default port value will be 3700,
+            props.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
+            InitialContext ctx = new InitialContext(props);
+            return ctx;
+        } catch (NamingException ex) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
     
     
     

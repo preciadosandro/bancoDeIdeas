@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.ideaBank.logic.security.services;
-import edu.uniajc.ideaBank.security.DAO.TokenDAO;
+package edu.uniajc.security.logic.services;
+import edu.uniajc.security.DAO.TokenDAO;
 import edu.uniajc.ideaBank.DAO.UserDAO;
 import edu.uniajc.ideaBank.Utilities.SendMail;
-import edu.uniajc.ideaBank.security.interfaces.IToken;
+import edu.uniajc.security.interfaces.IToken;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import java.net.InetAddress;
 import java.net.UnknownHostException;

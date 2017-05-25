@@ -6,9 +6,9 @@ package edu.uniajc.security.servlet;
  * and open the template in the editor.
  */
 
-import edu.uniajc.ideaBank.security.interfaces.IToken;
+import edu.uniajc.security.interfaces.IToken;
 import edu.uniajc.ideaBank.interfaces.model.User;
-import edu.uniajc.ideaBank.logic.security.services.TokenService;
+import edu.uniajc.security.logic.services.TokenService;
 import static edu.uniajc.ideaBank.view.UserBean.getContext;
 import java.io.IOException;
 import java.io.PrintWriter;

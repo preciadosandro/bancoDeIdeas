@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.ideaBank.security.DAO;
+package edu.uniajc.security.DAO;
 
-import edu.uniajc.ideaBank.security.interfaces.model.Token;
+import edu.uniajc.security.interfaces.model.Token;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

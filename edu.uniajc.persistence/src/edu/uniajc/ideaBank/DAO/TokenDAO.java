@@ -6,8 +6,11 @@
 package edu.uniajc.ideaBank.DAO;
 
 import edu.uniajc.ideaBank.interfaces.model.Token;
+import edu.uniajc.ideaBank.interfaces.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,6 +48,33 @@ public class TokenDAO {
             Logger.getLogger(TokenDAO.class.getName()).log(Level.SEVERE, null, e);
             return false;
         }
+    }
+    
+    public User getUserByToken(String token) throws SQLException{
+        User userModel=new User();
+        
+        
+        PreparedStatement ps = null;
+          
+        String SQL = "SELECT U.* FROM TB_TOKEN T,TB_USUARIO U "+
+                     " WHERE T.TOKEN=?"+
+                     " AND T.CREADOEN >= SYSDATE - (60/24)"+
+                     " AND U.USUARIO=T.USUARIO";                     
+        ps = this.DBConnection.prepareStatement(SQL);
+        ps.setString(1,token);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()){
+         userModel.setId(rs.getInt("ID"));
+         userModel.setIdTipoUsuario(rs.getInt("ID_T_LV_TIPOUSUARIO"));
+         userModel.setIdDependencia(rs.getInt("ID_T_LV_ESTADOUSUARIO"));
+         userModel.setIdTipoIdentificacion(rs.getInt("ID_T_LV_TIPOIDENTIFICACION"));
+         userModel.setNumIdentificacion(rs.getString("NUMIDENTIFICACION"));
+         userModel.setPrimerNombre(rs.getString("PRIMERNOMBRE"));
+         userModel.setSegundoNombre(rs.getString("SEGUNDONOMBRE"));
+         userModel.setPrimerApellido(rs.getString("PRIMERAPELLIDO"));
+        }   
+        return userModel;
+        
     }
     
 }

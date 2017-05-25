@@ -62,10 +62,11 @@ public class PaswdMangrServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String myToken = request.getParameter("TOKEN");
-        if (myToken.equals("1234567890")) {
-            response.sendRedirect("http://www.google.com");            
-        }
-        processRequest(request, response, myToken);
+      //  if (myToken.equals("1234567890")) {
+            response.sendRedirect("../faces/newPassword.xhtml");            
+        //request.getRequestDispatcher("/faces/newPassword.xhtml").forward(request, response);
+       // }
+       processRequest(request, response, myToken);
     }
 
     /**

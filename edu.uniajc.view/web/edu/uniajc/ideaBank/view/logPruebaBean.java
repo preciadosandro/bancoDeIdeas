@@ -5,6 +5,7 @@
  */
 package edu.uniajc.ideaBank.view;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;

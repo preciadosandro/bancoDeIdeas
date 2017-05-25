@@ -8,6 +8,7 @@ package edu.uniajc.ideaBank.view;
 import edu.uniajc.ideaBank.interfaces.IUser;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import static edu.uniajc.ideaBank.view.UserBean.getContext;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -28,7 +29,7 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean(name = "userManagerBean")
 @SessionScoped
-public class UserManagerBean {
+public class UserManagerBean implements Serializable{
     
     private User user;
     private List<User> listUser;

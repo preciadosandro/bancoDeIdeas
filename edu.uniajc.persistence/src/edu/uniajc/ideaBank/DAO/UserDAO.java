@@ -34,10 +34,6 @@ public class UserDAO {
             PreparedStatement ps = null;
             String SQL;
 
-            /* SQL = "select SQ_TB_USUARIO.nextval ID from dual";
-            ps = this.DBConnection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
-            int id = rs.getInt("ID");*/
             SQL = "INSERT INTO TB_USUARIO(ID,ID_T_LV_TIPOUSUARIO,ID_T_LV_ESTADOUSUARIO,"
                     + "ID_T_LV_TIPOIDENTIFICACION,NUMIDENTIFICACION,PRIMERNOMBRE,"
                     + "SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,TELEFONOFIJO,"
@@ -45,7 +41,6 @@ public class UserDAO {
                     + "ID_T_LV_PROGRAMAACEDEMICO, FECHANACIMIENTO) "
                     + "VALUES(SQ_TB_USUARIO.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
-            //ps.setInt(1, id);
             ps.setInt(1, userModel.getIdTipoUsuario());
             ps.setInt(2, userModel.getIdEstadoUsuario());
             ps.setInt(3, userModel.getIdTipoIdentificacion());

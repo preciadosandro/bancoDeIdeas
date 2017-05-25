@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.ideaBank.logic.services;
-import edu.uniajc.ideaBank.DAO.TokenDAO;
+package edu.uniajc.security.logic.services;
+import edu.uniajc.security.DAO.TokenDAO;
 import edu.uniajc.ideaBank.DAO.UserDAO;
 import edu.uniajc.ideaBank.Utilities.SendMail;
-import edu.uniajc.ideaBank.interfaces.IToken;
+import edu.uniajc.security.interfaces.IToken;
+import edu.uniajc.ideaBank.interfaces.model.User;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Connection;
@@ -80,17 +81,20 @@ public class TokenService implements IToken{
             salida=false;
         }        
         return salida;
-    }
-
-    @Override
-    public boolean getTokenByUserAndToken(String User, String token) {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return true;
-    }
+    } 
 
     @Override
     public boolean validateUser(String usuario) {
        UserDAO dao = new UserDAO(dbConnection);        
        return dao.getUserByUser(usuario);
     }
+
+    @Override
+    public User getUserByToken(String token) {
+        System.out.println("GETUSERBYTOKEN "+token);
+        TokenDAO dao = new TokenDAO(dbConnection);
+        return dao.getUserByToken(token);        
+    }
+
+   
 }

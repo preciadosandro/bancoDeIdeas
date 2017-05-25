@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.ideaBank.interfaces;
+package edu.uniajc.security.interfaces;
 
+import edu.uniajc.security.interfaces.model.Token;
+import edu.uniajc.ideaBank.interfaces.model.User;
 import javax.ejb.Remote;
 /**
  *
@@ -13,7 +15,6 @@ import javax.ejb.Remote;
 @Remote 
 public interface IToken {
     public boolean createToken(String usuario);
-    public boolean validateUser(String usuario);
-    public boolean getTokenByUserAndToken(String User,String token);
-    
+    public boolean validateUser(String usuario);   
+    public User getUserByToken(String token);    
 }

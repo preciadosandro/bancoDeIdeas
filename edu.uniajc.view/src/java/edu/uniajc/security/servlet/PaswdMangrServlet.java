@@ -1,4 +1,4 @@
-package servlet;
+package edu.uniajc.security.servlet;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -6,8 +6,16 @@ package servlet;
  * and open the template in the editor.
  */
 
+import edu.uniajc.security.interfaces.IToken;
+import edu.uniajc.ideaBank.interfaces.model.User;
+import edu.uniajc.security.logic.services.TokenService;
+import static edu.uniajc.ideaBank.view.UserBean.getContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.context.FacesContext;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,11 +47,11 @@ public class PaswdMangrServlet extends HttpServlet {
             out.println("<title>Servlet PaswdMangrServlet</title>");
             out.println("</head>");
             out.println("<h1>");
-            out.println("Este es mi token  " + token);
+            out.println("TOKEN INVALIDO");
             out.println("<br>");            
             out.println("</h1>");
             out.println("<body>");
-            out.println("<h1>Servlet PaswdMangrServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1><a href='../faces/login.xhtml'>link text</a></h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,11 +69,23 @@ public class PaswdMangrServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String myToken = request.getParameter("TOKEN");
-        if (myToken.equals("1234567890")) {
-            response.sendRedirect("http://www.google.com");            
+       String myToken = request.getParameter("TOKEN");
+       User user=new User();
+       FacesContext context = FacesContext.getCurrentInstance();       
+        IToken uToken =null;
+        try {
+            InitialContext ctx = getContext();
+            uToken = (IToken) ctx.lookup("java:global/edu.uniajc.view/TokenService!edu.uniajc.ideaBank.interfaces.IToken");
+            user=uToken.getUserByToken(myToken);
+            System.out.println(user.getUsuario());
+        } catch (Exception e) {
+            Logger.getLogger(TokenService.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println(e);
+        }       
+        if (user.getUsuario()!=null){
+            response.sendRedirect("../faces/newPassword.xhtml");             
         }
-        processRequest(request, response, myToken);
+       processRequest(request, response, myToken);
     }
 
     /**

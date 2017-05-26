@@ -5,7 +5,6 @@
  */
 package edu.uniajc.security.interfaces;
 
-import edu.uniajc.security.interfaces.model.Token;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import javax.ejb.Remote;
 /**

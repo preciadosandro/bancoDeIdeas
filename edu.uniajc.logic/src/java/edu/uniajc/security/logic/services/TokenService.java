@@ -90,8 +90,7 @@ public class TokenService implements IToken{
     }
 
     @Override
-    public User getUserByToken(String token) {
-        System.out.println("GETUSERBYTOKEN "+token);
+    public User getUserByToken(String token) {        
         TokenDAO dao = new TokenDAO(dbConnection);
         return dao.getUserByToken(token);        
     }

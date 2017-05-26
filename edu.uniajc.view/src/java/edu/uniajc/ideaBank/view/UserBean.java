@@ -7,6 +7,7 @@ package edu.uniajc.ideaBank.view;
 
 import edu.uniajc.ideaBank.interfaces.IUser;
 import edu.uniajc.ideaBank.interfaces.model.User;
+import edu.uniajc.ideaBank.logic.services.UserService;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -82,6 +83,7 @@ public class UserBean implements Serializable {
             InitialContext ctx = getContext();
             uDao = (IUser) ctx.lookup("java:global/edu.uniajc.view/UserService!edu.uniajc.ideaBank.interfaces.IUser");
         } catch (Exception e) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, e);
         }
 
         if (user.getUsuario().equals(this.getUserConfirm())) {
@@ -147,11 +149,11 @@ public class UserBean implements Serializable {
             props.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.enterprise.naming.SerialInitContextFactory");
             props.setProperty("org.omg.CORBA.ORBInitialHost", "localhost");
             // glassfish default port value will be 3700,
-            props.setProperty("org.omg.CORBA.ORBInitialPort", "39822");
+            props.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
             InitialContext ctx = new InitialContext(props);
             return ctx;
         } catch (NamingException ex) {
-            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);            
             return null;
         }
     }

@@ -26,7 +26,7 @@ and open the template in the editor.
                         <p:panel header="">
                             <p:messages  autoUpdate="true"/>
 
-                            <h3 style="margin-top:0">Column Priority</h3>
+
                             <p:dataTable value="#{ideaBean.lstIdeas}" var="idea">
                                 <p:column headerText="Titulo">
                                     <h:outputText value="#{idea.TITULO_ideas}" />
@@ -41,24 +41,52 @@ and open the template in the editor.
                                 </p:column>
                                 <p:column style="width:24px">
                                     <p:commandLink update=":formIdeaList:documentPanel" oncomplete="PF('documentDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search">
-                                        <f:setPropertyActionListener value="#{idea}" target="#{ideaBean.lstIdeas}" />
+                                        <f:setPropertyActionListener value="#{idea.ID_ideas}" target="#{ideaBean.idSelected}" />
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>
 
-                            <p:dialog id="dialog" header="Información" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
+                            <p:dialog id="dialog" header="Información" showEffect="fade" hideEffect="explode" widgetVar="documentDialog" modal="true" resizable="false">
                                 <p:outputPanel id="documentPanel">
-                                    <p:dataTable value="#{ideaBean.lstIdeas}" var="idea">
-                                        <p:column headerText="Titulo">
-                                            <h:outputText value="#{idea.TITULO_ideas}" />
+                                    <h:outputLabel for="Asignado:" value="Asignado a:" />
+                                    <p></p>
+                                    <h:outputLabel for="Correo Electronico:" value="Correo Electronico:" />
+
+                                    <p:dataTable value="#{ideaBean.getLstIdeasXid()}" var="ideaXid">
+                                        <p:column headerText="CreadordeIdea">
+                                            <h:outputText value="#{ideaXid.CREADOPOR_ideas}" />
                                         </p:column>
 
+                                        <p:column headerText="Correo Electronico" priority="3">
+                                            <h:outputText value="#{ideaXid.usuario_usuario}" />
+                                        </p:column>
+
+                                        <!--<p:column headerText="Objetivos" priority="2">
+                                            <h:outputText value="" />
+                                        </p:column>
+
+                                        <p:column headerText="Palabras Claves" priority="2">
+                                            <h:outputText value="" />
+                                        </p:column>-->
+                                    </p:dataTable>
+
+                                    <p></p>
+
+                                    <p:dataTable value="#{ideaBean.getLstIdeasXid()}" var="ideaXid">
+                                        <!--<p:column headerText="Titulo">
+                                            <h:outputText value="#{ideaXid.TITULO_ideas}" />
+                                        </p:column>-->
+
                                         <p:column headerText="Descripción" priority="3">
-                                            <h:outputText value="#{idea.DESCRIPCION_ideas}" />
+                                            <h:outputText value="#{ideaXid.DESCRIPCION_ideas}" />
                                         </p:column>
 
                                         <p:column headerText="Objetivos" priority="2">
-                                            <h:outputText value="#{idea.DESCRIPCION_objetivo}" />
+                                            <h:outputText value="#{ideaXid.DESCRIPCION_objetivo}" />
+                                        </p:column>
+
+                                        <p:column headerText="Palabras Claves" priority="2">
+                                            <h:outputText value="#{ideaXid.PALABRASCLAVE_ideas}" />
                                         </p:column>
                                         <!--<p:column style="width:24px">
                                             <p:commandLink update=":formIdeaList:documentPanel" oncomplete="PF('documentDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search">

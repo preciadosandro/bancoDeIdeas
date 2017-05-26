@@ -208,7 +208,7 @@ public class UserDAO {
     public boolean newPassword(User user) {
         try {
             PreparedStatement ps = null;
-            String SQL = "UPDATE TB_USUARIO SET TB_Usuario = ?  WHERE ID = ?";
+            String SQL = "UPDATE TB_USUARIO SET CONTRASENA = ?  WHERE ID = ?";
             ps = this.DBConnection.prepareStatement(SQL);
             ps.setString(1, user.getContrasena());
             ps.setInt(2, user.getId());

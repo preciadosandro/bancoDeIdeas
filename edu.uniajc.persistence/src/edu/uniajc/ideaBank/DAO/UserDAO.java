@@ -38,7 +38,7 @@ public class UserDAO {
                     + "ID_T_LV_TIPOIDENTIFICACION,NUMIDENTIFICACION,PRIMERNOMBRE,"
                     + "SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,TELEFONOFIJO,"
                     + "TELEFONOCELULAR,USUARIO,CONTRASENA,CREADOPOR, GENERO, ID_T_LV_DEPENDENCIA,"
-                    + "ID_T_LV_PROGRAMAACEDEMICO, FECHANACIMIENTO) "
+                    + "ID_T_LV_PROGRAMAACADEMICO, FECHANACIMIENTO) "
                     + "VALUES(SQ_TB_USUARIO.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
             ps.setInt(1, userModel.getIdTipoUsuario());

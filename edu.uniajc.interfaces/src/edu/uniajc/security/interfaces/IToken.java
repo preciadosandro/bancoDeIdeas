@@ -13,7 +13,7 @@ import javax.ejb.Remote;
  */
 @Remote 
 public interface IToken {
-    public boolean createToken(String usuario);
+    public boolean createToken(String usuario, String urlServer);
     public boolean validateUser(String usuario);   
     public User getUserByToken(String token); 
     public boolean updateToken(String usuario,String token);

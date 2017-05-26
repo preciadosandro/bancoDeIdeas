@@ -48,16 +48,15 @@ public class TokenService implements IToken{
     
 
     @Override
-    public boolean createToken(String usuario) {
+    public boolean createToken(String usuario, String urlServer) {
         TokenDAO dao = new TokenDAO(dbConnection);
         boolean salida;
-        String ip,token;
+        String token;
         token=java.util.UUID.randomUUID().toString();
         
         if (dao.createToken(usuario, token,1)){
             SendMail obj=new SendMail();
             
-            ip=IpAddress();
             String mensaje = mensaje= "<html>"
                     + "<head>"
                     + "<title>Restablece tu contraseña</title>"
@@ -68,7 +67,7 @@ public class TokenService implements IToken{
                     + " si no hiciste esta petición puedes ignorar este correo.</p>"
                     + "<p>"
                     + "<strong>Enlace para restablecer tu contraseña</strong><br>"
-                    + "<a href='http://" + ip + ":39865/ideaBank/servlet/passwd?TOKEN=" + token + "'"
+                    + "<a href='" + urlServer + "/ideaBank/servlet/passwd?TOKEN=" + token + "'"
                     + "target='_blank+'>Pulsa Aqui para recuperar tu contraseña</a>"
                     + "</p>"
                     + "</body>"

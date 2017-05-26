@@ -6,7 +6,6 @@
 package edu.uniajc.ideaBank.view;
 
 import edu.uniajc.ideaBank.DAO.IdeaDAO;
-import edu.uniajc.ideaBank.interfaces.model.Idea;
 import edu.uniajc.ideaBank.interfaces.model.IdeasObjetivos;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -22,6 +21,10 @@ public class IdeaBean {
 
     private IdeasObjetivos IdeasObjetivos = new IdeasObjetivos();
     private List<IdeasObjetivos> lstIdeas;
+    private IdeasObjetivos IdeasObjetivosXid = new IdeasObjetivos();
+    private List<IdeasObjetivos> LstIdeasXid;
+    private Integer idSelected = 0;
+    IdeaDAO dao;
 
     public IdeasObjetivos getIdeasObjetivos() {
         return IdeasObjetivos;
@@ -29,6 +32,14 @@ public class IdeaBean {
 
     public void setIdeasObjetivos(IdeasObjetivos IdeasObjetivos) {
         this.IdeasObjetivos = IdeasObjetivos;
+    }
+
+    public IdeasObjetivos getIdeasObjetivosXid() {
+        return IdeasObjetivosXid;
+    }
+
+    public void setIdeasObjetivosXid(IdeasObjetivos IdeasObjetivosXid) {
+        this.IdeasObjetivosXid = IdeasObjetivosXid;
     }
 
     public List<IdeasObjetivos> getLstIdeas() {
@@ -40,12 +51,50 @@ public class IdeaBean {
         this.lstIdeas = lstIdeas;
     }
 
+    public Integer getIdSelected() {
+        return idSelected;
+    }
+
+    public void setIdSelected(Integer idSelected) {
+        this.idSelected = idSelected;
+    }
+
+    public List<IdeasObjetivos> getLstIdeasXid() {
+        listarxid(idSelected);
+        return LstIdeasXid;
+    }
+
+    public void setLstIdeasXid(List<IdeasObjetivos> LstIdeasXid) {
+        this.LstIdeasXid = LstIdeasXid;
+    }
+
     public void listar() {
-        IdeaDAO dao;
 
         try {
-            dao = new IdeaDAO();
+            if (dao == null) {
+                dao = new IdeaDAO();
+            }
             lstIdeas = dao.listar();
+            int a = 0;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
+
+    public void listarxid(int id) {
+
+        try {
+            System.out.println("---id---" + id);
+            if (id != 0) {
+                if (dao == null) {
+                    dao = new IdeaDAO();
+                }
+                LstIdeasXid = dao.listarxid(id);
+            }
             int a = 0;
 
         } catch (Exception e) {

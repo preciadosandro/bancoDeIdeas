@@ -5,13 +5,14 @@
  */
 package edu.uniajc.ideaBank.interfaces.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author rlara
  */
-public class ListaValor {
+public class ListaValor implements Serializable {
 
     private int id;
     private int estado;

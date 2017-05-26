@@ -66,7 +66,9 @@ public class NewPasswordBean extends ManagerBean{
                 userService.newPassword(user);
                 super.showMessage(FacesMessage.SEVERITY_INFO, "La cotraseña fue cambiada con exito");
                 // coloca objeto en la sesion
-                super.addToSession(Constants.SESSION_KEY_USER, user);                
+                super.addToSession(Constants.SESSION_KEY_USER, user);
+                password = " ";
+                passwordConfirm = " ";
             }
             else {
                 super.showMessage(FacesMessage.SEVERITY_WARN, "Las contraseñas no corresponden");

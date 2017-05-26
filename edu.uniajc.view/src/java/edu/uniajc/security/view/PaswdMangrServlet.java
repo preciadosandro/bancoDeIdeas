@@ -89,13 +89,13 @@ public class PaswdMangrServlet extends HttpServlet {
             session.setAttribute("SESSION.KEY.USER",user);  
             //User xxx = (User) session.getAttribute("SESSION.KEY.USER");
             //System.out.println(xxx.getUsuario());
-            uToken.updateToken(user.getUsuario(), myToken);
-            response.sendRedirect("../faces/newPassword.xhtml");   
-            
+            if (uToken.updateToken(user.getUsuario(), myToken)){
+                user = new User();
+                response.sendRedirect("../faces/newPassword.xhtml"); 
+            }    
         }else{
             response.sendRedirect("../faces/index.xhtml"); 
-        }
-            
+        }            
        processRequest(request, response, myToken);
     }
 

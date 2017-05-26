@@ -54,7 +54,7 @@ public class TokenService implements IToken{
         String ip,token;
         token=java.util.UUID.randomUUID().toString();
         
-        if (dao.createToken(usuario, token,0)){
+        if (dao.createToken(usuario, token,1)){
             SendMail obj=new SendMail();
             
             ip=IpAddress();

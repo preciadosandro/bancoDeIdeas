@@ -127,7 +127,7 @@ public class UserDAO {
                 + "ID_T_LV_TIPOIDENTIFICACION,NUMIDENTIFICACION,PRIMERNOMBRE,"
                 + "SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,TELEFONOFIJO,"
                 + "TELEFONOCELULAR,USUARIO,CONTRASENA,CREADOPOR, GENERO, ID_T_LV_DEPENDENCIA,"
-                + "ID_T_LV_PROGRAMAACEDEMICO, FECHANACIMIENTO "
+                + "ID_T_LV_PROGRAMAACADEMICO, FECHANACIMIENTO "
                 + "FROM TB_USUARIO ORDER BY 1";
 
         try {
@@ -150,7 +150,7 @@ public class UserDAO {
                 uRow.setUsuario(RS.getString("USUARIO"));
                 uRow.setGenero(RS.getString("GENERO"));
                 uRow.setIdDependencia(RS.getInt("ID_T_LV_DEPENDENCIA"));
-                uRow.setIdProgrmaAcademico(RS.getInt("ID_T_LV_PROGRAMAACEDEMICO"));
+                uRow.setIdProgrmaAcademico(RS.getInt("ID_T_LV_PROGRAMAACADEMICO"));
                 uRow.setFechaNacimiento(RS.getDate("FECHANACIMIENTO"));
                 itemFound.add(uRow);
             }
@@ -173,7 +173,7 @@ public class UserDAO {
                     + "ID_T_LV_TIPOIDENTIFICACION = ?, NUMIDENTIFICACION = ?, PRIMERNOMBRE = ?,"
                     + "SEGUNDONOMBRE = ?, PRIMERAPELLIDO = ?, SEGUNDOAPELLIDO = ?, TELEFONOFIJO = ?,"
                     + " FECHANACIMIENTO = ?,TELEFONOCELULAR = ?,"
-                    + "GENERO = ?,  ID_T_LV_PROGRAMAACEDEMICO = ?,"
+                    + "GENERO = ?,  ID_T_LV_PROGRAMAACADEMICO = ?,"
                     + "ID_T_LV_DEPENDENCIA = ?, MODIFICADOPOR = ?,"
                     + "MODIFICADOEN = ? WHERE ID = ?";
             ps = this.DBConnection.prepareStatement(SQL);

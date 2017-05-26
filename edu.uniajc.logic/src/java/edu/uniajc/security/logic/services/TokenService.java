@@ -95,5 +95,11 @@ public class TokenService implements IToken{
         return dao.getUserByToken(token);        
     }
 
+    @Override
+    public boolean updateToken(String usuario, String token) {
+        TokenDAO dao = new TokenDAO(dbConnection);
+        return dao.updateToken(usuario, token);
+    }
+
    
 }

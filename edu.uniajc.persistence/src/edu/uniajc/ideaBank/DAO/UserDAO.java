@@ -204,4 +204,23 @@ public class UserDAO {
         }
 
     }
+    
+    public boolean newPassword(User user) {
+        try {
+            PreparedStatement ps = null;
+            String SQL = "UPDATE TB_USUARIO SET TB_Usuario = ?  WHERE ID = ?";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ps.setString(1, user.getContrasena());
+            ps.setInt(2, user.getId());
+            ps.execute();
+            return true;
+
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+            return false;
+        }
+
+    }
+    
+    
 }

@@ -46,18 +46,19 @@ public class TokenDAO {
 
         } catch (Exception e) {
             Logger.getLogger(TokenDAO.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Error insertando token: "+e);
             return false;
         }
     }
     
     public User getUserByToken(String token){
-        User userModel = new User();                       
-        String SQL = "SELECT U.* FROM TB_TOKEN T,TB_USUARIO U "+
-                     " WHERE T.TOKEN=?"+
-                     " AND T.CREADOEN >= SYSDATE - (60/24)"+
-                     " AND U.USUARIO=T.USUARIO";   
-        PreparedStatement ps;
+        User userModel = new User();            
         try {
+            String SQL = "SELECT U.* FROM TB_TOKEN T,TB_USUARIO U "+
+                     " WHERE T.TOKEN=?"+
+                     " AND T.CREADOEN >= SYSDATE - (1/24)"+
+                     " AND U.USUARIO=T.USUARIO";   
+            PreparedStatement ps;
             ps = this.DBConnection.prepareStatement(SQL);
             ps.setString(1,token);
         
@@ -88,7 +89,7 @@ public class TokenDAO {
             return userModel;
         } catch (SQLException ex) {
             Logger.getLogger(TokenDAO.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("ERROR TOKENDAO "+ex);
+            System.out.println("Error validando token vs usuario: "+ex);
         }
         return null;
     }

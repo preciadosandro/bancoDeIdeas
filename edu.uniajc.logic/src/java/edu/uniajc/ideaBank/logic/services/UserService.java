@@ -88,4 +88,14 @@ public class UserService implements IUser {
             return -1;
         }
     }
+    
+    @Override
+    public boolean newPassword(User user) {
+        UserDAO dao = new UserDAO(dbConnection);
+        return dao.newPassword(user);
+    }
+    
+    
+    
+    
 }

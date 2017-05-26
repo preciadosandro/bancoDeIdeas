@@ -8,35 +8,37 @@ package edu.uniajc.ideaBank.view;
 import edu.uniajc.ideaBank.interfaces.IListaValor;
 import edu.uniajc.ideaBank.interfaces.model.ListaValor;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ViewScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
 
 /**
  *
  * @author rlara
  */
+
 @ManagedBean(name = "listaValorBean")
-@ViewScoped
+@SessionScoped
 public class ListaValorBean implements Serializable {
 
     private ListaValor listaValor;
+     
     private String listaValorConfirm;
+    
+    IListaValor uDao = null;
 
     public ListaValorBean() {
         listaValor = new ListaValor();
     }
-    
+
     public ListaValor getListaValor() {
         return listaValor;
     }
@@ -54,37 +56,52 @@ public class ListaValorBean implements Serializable {
     }
 
     public void newListaValor() {
-        IListaValor listaValorDao =null;
-        boolean confirmListaValor;
+
+        int validator;
         FacesContext context = FacesContext.getCurrentInstance();
-        
+
         try {
             InitialContext ctx = getContext();
-            listaValorDao = (IListaValor) ctx.lookup("java:global/edu.uniajc.view/ListaValorService!edu.uniajc.ideaBank.interfaces.IListaValor");
+            uDao = (IListaValor) ctx.lookup("java:global/edu.uniajc.view/ListaValorService!edu.uniajc.ideaBank.interfaces.IListaValor");
         } catch (Exception e) {
+            Logger.getLogger(ListaValorBean.class.getName()).log(Level.SEVERE, null, e);
         }
-        /*
-        if (listaValor.getValor().equals(this.getListaValorConfirm())) {
-            if (listaValor.getContrasena().equals(this.getPasswordConfirm())) {
-                confirmListaValor = uDao.createListaValor(this.listaValor);
-                if (confirmListaValor == false) {
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            "Los datos no fueron guardados.", ""));
-                } else {
+
+        if (listaValor.getAgrupacion().equals(this.getListaValorConfirm())) {
+            
+            validator = uDao.createListaValor(this.listaValor);
+            switch (validator) {
+                case -1:
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                            "Los datos no fueron guardados. 'Problemas en el listaValorDAO'", ""));
+                    break;
+                case 0:
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                             "Los datos fueron guardados.", ""));
                     RequestContext.getCurrentInstance().execute("PF('dialogOk').show()");
-                }
-            } else {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                        "Las contraseñas no corresponden", ""));
+                    break;
+                case -2:
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Numero de identificación ya se encuentra registrado.", ""));
+                    break;
+                case -3:
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Usuario y/o correo ya se encuentra registrado.", ""));
+                    break;
+                default:
+                    break;
             }
         } else {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Los correos electronicos no son iguales", ""));
+                    "Las contraseñas no corresponden", ""));
         }
-        */
+        /*} else {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "Los correos electronicos no son iguales", ""));
+        }*/
     }
+
+    
 
     public void linkListaValor() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -105,18 +122,18 @@ public class ListaValorBean implements Serializable {
             Properties props = new Properties();
             props.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.enterprise.naming.SerialInitContextFactory");
             props.setProperty("org.omg.CORBA.ORBInitialHost", "localhost");
-            // glassfish default port value will be 3700,
+            
             props.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
             InitialContext ctx = new InitialContext(props);
             return ctx;
         } catch (NamingException ex) {
-            Logger.getLogger(ListaValorBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListaValorBean.class.getName()).log(Level.SEVERE, null, ex);            
             return null;
         }
     }
     
     public boolean isChecked() {
-        return listaValor.getEstado() != 0;
+        return listaValor.getEstado()!= 0;
     }
 
     public void setChecked(boolean checked) {

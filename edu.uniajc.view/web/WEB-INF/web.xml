@@ -11,7 +11,7 @@
     </servlet>
     <servlet>
         <servlet-name>passwd</servlet-name>
-        <servlet-class>edu.uniajc.security.servlet.PaswdMangrServlet</servlet-class>
+        <servlet-class>edu.uniajc.security.view.PaswdMangrServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>

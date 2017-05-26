@@ -20,7 +20,7 @@ public class User {
     private int idEstadoUsuario;
     //ID_T_LV_TIPOIDENTIFICACION
     private int idTipoIdentificacion;
-    
+
     private String numIdentificacion;
     private String primerNombre;
     private String segundoNombre;
@@ -208,9 +208,5 @@ public class User {
     public void setIdDependencia(int idDependencia) {
         this.idDependencia = idDependencia;
     }
-
-    
-    
-    
 
 }

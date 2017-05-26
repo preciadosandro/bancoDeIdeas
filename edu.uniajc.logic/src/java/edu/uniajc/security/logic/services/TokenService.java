@@ -35,18 +35,16 @@ public class TokenService implements IToken{
     }
     
     public String IpAddress() {
-        InetAddress address = null;                
+        InetAddress address = null;          
         try {
             address = InetAddress.getLocalHost();
         } catch (UnknownHostException ex) {
             Logger.getLogger(TokenService.class.getName()).log(Level.SEVERE, null, ex);
         }       
+        
         return address.getHostAddress();
     }
-    
-    public void port(){
-     //   Server server=ServerFactory.getServer();
-    }
+  
     
 
     @Override
@@ -93,6 +91,12 @@ public class TokenService implements IToken{
     public User getUserByToken(String token) {        
         TokenDAO dao = new TokenDAO(dbConnection);
         return dao.getUserByToken(token);        
+    }
+
+    @Override
+    public boolean updateToken(String usuario, String token) {
+        TokenDAO dao = new TokenDAO(dbConnection);
+        return dao.updateToken(usuario, token);
     }
 
    

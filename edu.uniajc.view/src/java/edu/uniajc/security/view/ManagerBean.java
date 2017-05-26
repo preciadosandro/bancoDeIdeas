@@ -27,13 +27,10 @@ import org.primefaces.context.RequestContext;
  */
 public class ManagerBean implements Serializable {
     
-    private FacesContext session;
-   
     /**
-     * Constructor por defecto, se encarga de instanciar la sesión.
+     * Constructor por defecto.
      */
     public ManagerBean() {
-         session = FacesContext.getCurrentInstance();
     }
 
     /**
@@ -60,7 +57,7 @@ public class ManagerBean implements Serializable {
      * @param value Objeto a poner en sesión.
      */
     public void addToSession(String key, Object value) {
-        session.getExternalContext().getSessionMap().put(key, value);
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(key, value);
     }
 
     /**
@@ -69,7 +66,7 @@ public class ManagerBean implements Serializable {
      * @return Objeto en la sesión.
      */
     public Object getFromSession(String key) {
-        return session.getExternalContext().getSessionMap().get(key);
+        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(key);
     }
 
     /**
@@ -80,7 +77,7 @@ public class ManagerBean implements Serializable {
      */
     public void showMessage(FacesMessage.Severity type, String text) {
         FacesMessage message = new FacesMessage(type, text, null);
-        session.addMessage(null, message);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
     /**

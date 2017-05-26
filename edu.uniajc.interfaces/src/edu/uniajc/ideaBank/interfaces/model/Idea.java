@@ -5,13 +5,14 @@
  */
 package edu.uniajc.ideaBank.interfaces.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author LMIRANDA
  */
-public class Idea {
+public class Idea implements Serializable {
 
     private int ID;
     private int ID_T_USUARIO;

@@ -40,7 +40,7 @@ public class TokenBean implements Serializable {
         try {
             InitialContext ctx = getContext();
             uToken = (IToken) ctx.lookup("java:global/edu.uniajc.view/TokenService!edu.uniajc.security.interfaces.IToken");
-                                         
+                                          
                                          
         } catch (Exception e) {
             e.printStackTrace();

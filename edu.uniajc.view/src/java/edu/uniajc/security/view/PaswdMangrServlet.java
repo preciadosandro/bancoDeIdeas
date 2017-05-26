@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.context.FacesContext;
-
 import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -91,6 +89,7 @@ public class PaswdMangrServlet extends HttpServlet {
             session.setAttribute("SESSION.KEY.USER",user);  
             //User xxx = (User) session.getAttribute("SESSION.KEY.USER");
             //System.out.println(xxx.getUsuario());
+            uToken.updateToken(user.getUsuario(), myToken);
             response.sendRedirect("../faces/newPassword.xhtml");   
             
         }else{

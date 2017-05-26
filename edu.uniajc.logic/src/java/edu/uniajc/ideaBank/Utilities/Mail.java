@@ -27,7 +27,7 @@ public class Mail {
     
     protected String servidor = "smtp.gmail.com";
     protected int port = 465;
-    private int intentosMaximos = 1;
+    private int intentosMaximos = 2;
     
     public Mail() {
         
@@ -150,19 +150,19 @@ public class Mail {
             boolean envio = false;
             int intentos = 0;
             
-            //do {
+            do {
                 try {
                     Transport.send(message);
                     envio = true;
-                 //   break;
+                   break;
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("Error enviando mensaje para " + para + ", error: " + e.getMessage());
-                   // System.out.println("Esperando 5 segundos para intentar de nuevo");
+                    System.out.println("Esperando 5 segundos para intentar de nuevo");
                 }
-              //  Thread.sleep(5000);
-               // intentos++;
-            //} while (!envio && insistente && (intentos < intentosMaximos));
+                Thread.sleep(5000);
+                intentos++;
+            } while (!envio && insistente && (intentos < intentosMaximos));
             
             return true;
         } catch (Exception e) {

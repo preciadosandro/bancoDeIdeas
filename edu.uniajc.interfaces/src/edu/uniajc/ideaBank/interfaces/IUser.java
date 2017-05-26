@@ -6,6 +6,7 @@
 package edu.uniajc.ideaBank.interfaces;
 
 import edu.uniajc.ideaBank.interfaces.model.User;
+import java.util.List;
 import javax.ejb.Remote;
 
 /**
@@ -14,5 +15,9 @@ import javax.ejb.Remote;
  */
 @Remote  
 public interface IUser {
-    public int createUser(User userModel);    
+    public int createUser(User userModel);  
+    public List<User> listaUser();
+    public int updateUser(User userModel);
+    public boolean newPassword(User user);
+
 }

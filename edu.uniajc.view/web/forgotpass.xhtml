@@ -5,13 +5,13 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+      
     <body>
-        <ui:composition template="./Template/Home.xhtml">
+        <ui:composition template="./Template/forgotpass.xhtml">
             <ui:define name="content">
                 <div align="center">
                     <h1>Olvidaste tu contraseña?</h1>
-                    <h3>Recupere su contraseña, ingrese su usuario o correo eléctronico</h3>
+                    <h3>Recupere su contraseña, ingrese su correo eléctronico</h3>
                     <h:form id="formpass" style="padding: 10px; width: fit-content;">
                         <p:growl id="messageGeneral" autoUpdate="true" life="1500"/>
                         <p:panel header="Recuperar Contraseña">
@@ -28,8 +28,9 @@
                             </p:panelGrid>                         
                                                      
                             <p:separator/>
-                            <p:commandButton value="Enviar" icon="ui-icon-send" actionListener="#{TokenBean.forgotPass()}" 
-                                             update="messageGeneral formpass"/>                           
+                            <p:commandButton value="Enviar" icon="ui-icon-mail" actionListener="#{TokenBean.forgotPass()}" 
+                                             update="messageGeneral formpass"/> 
+                            <p:commandButton value="Limpiar" icon="ui-icon-cancel" type="reset"/>
                         </p:panel>
                     </h:form>
                 </div>

@@ -15,15 +15,9 @@
                 
                 <h:form>  
                     <p:growl id="mensajesGrowl"/>
-                    <p:messages id="mensajes" showDetail="true" autoUpdate="true" closable="true" />
                     <p:commandLink id="ajax" update="mensajesGrowl" actionListener="#{index.buttonAction}">
                         <h:outputText value="Mensaje usando Growl" />
                     </p:commandLink>
-                    &nbsp;
-                    <p:commandLink id="sinAjax" actionListener="#{index.mensaje}">
-                        <h:outputText value="Mensaje normal" />
-                    </p:commandLink>
-
                 </h:form>
                 
                 <p:chart type="pie" model="#{index.modelPieChart}" />

@@ -135,9 +135,5 @@ public class IndexBean extends ManagerBean {
     public void buttonAction(ActionEvent actionEvent) {
         super.showMessage(FacesMessage.SEVERITY_INFO, "Prueba desde evento!!!!");
     }
-
-    public void mensaje() {
-        super.showMessage(FacesMessage.SEVERITY_WARN, "Prueba!!!!");
-    }
     
 }

@@ -86,7 +86,7 @@ public class PaswdMangrServlet extends HttpServlet {
         }       
         if (user!=null && user.getUsuario()!=null){
             HttpSession session =request.getSession(true);
-            session.setAttribute("SESSION.KEY.USER",user);  
+            session.setAttribute(Constants.SESSION_KEY_USER,user);  
             //User xxx = (User) session.getAttribute("SESSION.KEY.USER");
             //System.out.println(xxx.getUsuario());
             if (uToken.updateToken(user.getUsuario(), myToken)){
@@ -94,7 +94,7 @@ public class PaswdMangrServlet extends HttpServlet {
                 response.sendRedirect("../faces/newPassword.xhtml"); 
             }    
         }else{
-            response.sendRedirect("../faces/index.xhtml"); 
+            response.sendRedirect("../faces/errorToken.xhtml"); 
         }            
        processRequest(request, response, myToken);
     }

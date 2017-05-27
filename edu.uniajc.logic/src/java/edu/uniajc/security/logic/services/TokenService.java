@@ -9,17 +9,12 @@ import edu.uniajc.ideaBank.DAO.UserDAO;
 import edu.uniajc.ideaBank.Utilities.SendMail;
 import edu.uniajc.security.interfaces.IToken;
 import edu.uniajc.ideaBank.interfaces.model.User;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
 
 /**
  *
@@ -34,25 +29,10 @@ public class TokenService implements IToken{
         this.dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
     }
     
-    public String IpAddress() {
-        InetAddress address = null;          
-        try {
-            address = InetAddress.getLocalHost();
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(TokenService.class.getName()).log(Level.SEVERE, null, ex);
-        }       
-        
-        return address.getHostAddress();
-    }
-  
-    
-
     @Override
     public boolean createToken(String usuario, String urlServer) {
-        TokenDAO dao = new TokenDAO(dbConnection);
-        boolean salida;
-        String token;
-        token=java.util.UUID.randomUUID().toString();
+        TokenDAO dao = new TokenDAO(dbConnection);        
+        String token = java.util.UUID.randomUUID().toString();
         
         if (dao.createToken(usuario, token,1)){
             SendMail obj=new SendMail();
@@ -73,11 +53,10 @@ public class TokenService implements IToken{
                     + "</body>"
                     + "</html>";
             obj.enviar_correo(usuario,"IRIS - Solicitud cambio contraseña", mensaje);
-            salida=true;
+            return true;
         }else{
-            salida=false;
-        }        
-        return salida;
+            return false;
+        }   
     } 
 
     @Override

@@ -19,8 +19,8 @@
 
                                 <p:inputText id="mail" value="#{TokenBean.user}" label="Correo electronico" required="true" 
                                              placeholder="Correo Electrónico"
-                                             requiredMessage="Correo electronico: Valor es requerido."
-                                             validatorMessage="Correo electronico: Formato incorrecto.">
+                                             requiredMessage="Debe ingresar el correo electrónico."
+                                             validatorMessage="El formato de correo electrónico no es correcto.">
                                     <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                 </p:inputText>                                
 
@@ -28,7 +28,7 @@
                                                      
                             <p:separator/>
                             <p:commandButton value="Enviar" icon="ui-icon-mail" actionListener="#{TokenBean.forgotPass()}" 
-                                             update="messageGeneral formpass" styleClass="ui-priority-primary"/> 
+                                             update="messageGeneral formpass" styleClass="ui-priority-primary" /> 
                             <p:commandButton value="Limpiar" icon="ui-icon-cancel" type="reset" styleClass="ui-priority-primary"/>
                         </p:panel>
                     </h:form>

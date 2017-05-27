@@ -33,24 +33,23 @@ import org.primefaces.event.SelectEvent;
  * @author Bladimir Morales
  */
 @ManagedBean(name = "userBean")
-@SessionScoped
+@ViewScoped
 public class UserBean extends ManagerBean implements Serializable {
 
-    private User user;
-     
+    private User user;     
     private String userConfirm;
     private String passwordConfirm;
-    private final Date currentDate = new Date();
-    private final InitialContext ctx;
+    private Date currentDate = new Date();
+    private InitialContext ctx;
      
     IUser uDao = null;
 
     public UserBean() {     
         super();
         ctx = ManagerBean.getContext();
-        //user = (User) super.getFromSession(Constants.SESSION_KEY_USER); 
+        user = new User();
     }
-
+ 
     public User getUser() {
         return user;
     }
@@ -82,10 +81,8 @@ public class UserBean extends ManagerBean implements Serializable {
     public void newUser() {
 
         int validator;
-        //FacesContext context = FacesContext.getCurrentInstance();
 
-        try {
-            
+        try {            
             uDao = (IUser) ctx.lookup("java:global/edu.uniajc.view/UserService!edu.uniajc.ideaBank.interfaces.IUser");
         } catch (Exception e) {
             Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, e);
@@ -98,11 +95,9 @@ public class UserBean extends ManagerBean implements Serializable {
                     case -1:
                         super.showMessage(FacesMessage.SEVERITY_INFO, 
                                 "Los datos no fueron guardados. 'Problemas en el userDAO'");
-                        break;
+                        break; 
                     case 0:
-                        super.showMessage(FacesMessage.SEVERITY_INFO, "Los datos fueron guardados.");
-                        super.showMessageDialog(FacesMessage.SEVERITY_INFO, "Usuario creado", "Usuario creado correctamente");
-                        //RequestContext.getCurrentInstance().execute("PF('dialogOk').show()");
+                        RequestContext.getCurrentInstance().execute("PF('dialogOk').show()");
                         break;
                     case -2:
                         super.showMessage(FacesMessage.SEVERITY_INFO, "Numero de identificación ya se encuentra registrado.");
@@ -119,9 +114,7 @@ public class UserBean extends ManagerBean implements Serializable {
         } else {
             super.showMessage(FacesMessage.SEVERITY_INFO, "Los correos electronicos no son iguales.");
         }
-    }
-
-    
+    }    
 
     public void linklogin() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -144,5 +137,4 @@ public class UserBean extends ManagerBean implements Serializable {
         requestContext.update("form:display");
         requestContext.execute("PF('dlg').show()");
     }
-
 }

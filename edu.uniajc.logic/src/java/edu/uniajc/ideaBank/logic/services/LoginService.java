@@ -33,15 +33,9 @@ public class LoginService implements ILogin {
     }
 
     @Override
-    public boolean newLogin(String user,String pass) {
-        UserDAO dao = new UserDAO(dbConnection);
-        LoginDAO daoPass=new LoginDAO(dbConnection);
-        validatorUser = dao.getUserByUser(user);   
-        validatorPassword=daoPass.getPasswordByUser(user,pass);
-        if (validatorPassword==true) {
-            return true;
-        }else{
-            return false;      
-        }
+    public User newLogin(String user, String pass) {
+        LoginDAO daoPass = new LoginDAO(dbConnection);
+        userModel = daoPass.getPasswordByUser(user, pass);
+        return userModel;
     }
 }

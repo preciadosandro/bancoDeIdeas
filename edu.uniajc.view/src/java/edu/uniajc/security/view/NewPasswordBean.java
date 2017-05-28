@@ -59,8 +59,8 @@ public class NewPasswordBean implements Serializable  {
     }
     
     public void newContraseña() {
-        IUser uDao = new UserService();
-        User userModel = new User();
+        //IUser uDao = new UserService();
+        //User userModel = new User();
         
         
         FacesContext context = FacesContext.getCurrentInstance();    

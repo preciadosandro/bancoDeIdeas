@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./Template/Home.xhtml">
+            <ui:define name="content">
+                <div align="center">
+                    <h1>Registrar Idea</h1>
+                    <p:separator/>
+                    <h:form id="formNewIdea" style="padding: 10px; width: fit-content;">
+                        
+                        <p:panel id="messageGeneral">
+                    
+                    <h:panelGrid columns="1" style="margin-bottom:10px;text-align: center" cellpadding="5" width="100%">
+                        <p:panelGrid id="grid" columns="5" columnClasses="no-border, no-border" style="text-align: center">
+                        <h:outputLabel for="titleIdea" value="Titulo: " />
+                        <p:inputText id="intitleIdea" label=" Ingresar Titulo" required="true"
+                                     requiredMessage="Valor es requerido en Titulo."
+                                     validatorMessage="Titulo: Este campo no permite numéros ni caracteres especiales.">
+                            <f:validateRegex pattern="^[_A-Za-z]+" />
+                        </p:inputText>
+                        <p:growl id="msg" />
+                        <p:selectBooleanCheckbox value="#{IdeaNewBean.privateIdea}">
+                            <p:ajax update="msg" listener="#{IdeaNewBean.addMessage()}" />
+                        </p:selectBooleanCheckbox>
+                        <h:outputText value="Privada" />
+                        </p:panelGrid>
+                        
+                        <p:panelGrid id="descrip" columns="1" columnClasses="no-border, no-border" style="text-align: center">
+                            <h:outputLabel for="descripcion" value="Descripcion: " />
+                        </p:panelGrid>
+                        
+                        <p:panelGrid id="descripUno" columns="1" columnClasses="no-border, no-border" style="text-align: center">
+                            <p:inputTextarea rows="5" cols="160" counter="display" maxlength="700" counterTemplate="{0} Caracteres Permitidos." autoResize="false" />
+                            <h:outputText id="display" />
+                        </p:panelGrid>
+                        
+                        <p:panelGrid id="Objet" columns="1" columnClasses="no-border, no-border" style="text-align: center">
+                            <h:outputLabel for="objetivos" value="Objetivos: " />
+                        </p:panelGrid>
+                        
+                        <p:panelGrid id="desObj" columns="1" columnClasses="no-border, no-border" style="text-align: center">
+                            <p:inputTextarea rows="5" cols="160" counter="displayObj" maxlength="700" counterTemplate="{0} Caracteres Permitidos." autoResize="false" />
+                            <h:outputText id="displayObj" />
+                        </p:panelGrid>
+                        
+                        <p:panelGrid id="plClave" columns="1" columnClasses="no-border, no-border" style="text-align: center">
+                            <h:outputLabel for="Palabras Claves" value="Palabras Claves: " />
+                        </p:panelGrid>
+                        
+                        <p:growl id="clave" />
+                        <p:panelGrid id="desClave" columns="3" columnClasses="no-border, no-border" style="text-align: center">
+                            <p:inputText id="pClaves" placeholder="Ingresar palabras claves" label="Palabras Claves"
+                                         requiredMessage="Valor es requerido."
+                                         validatorMessage="Palabras claves:Este campo no permite numéros ni caracteres especiales.">
+                                <f:validateRegex pattern="^[_A-Za-z]+" />
+                            </p:inputText>
+                            <p:commandButton value="Agregar" icon="ui-icon-disk" update="clave" styleClass="ui-priority-primary"/>
+                            <p:inputTextarea rows="5" cols="30" counter="display" maxlength="100" autoResize="false" />
+                            <h:outputText id="displayClave" />
+                        </p:panelGrid>
+                        
+                        <p:commandButton value="Guardar" icon="ui-icon-disk" actionListener="#{userBean.newUser()}"
+                                         update="messageGeneral" styleClass="ui-priority-primary"/>
+                        
+                        <p:dialog header="Values" modal="true" resizable="false" showEffect="fade" widgetVar="dlg">
+                            <h:panelGrid columns="1" id="displaypri">
+                            <h:outputText value="Value 1: #{IdeaNewBean.privateIdea}" />
+                            </h:panelGrid>
+                        </p:dialog>
+                    </h:panelGrid>
+                        </p:panel>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

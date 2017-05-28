@@ -73,6 +73,9 @@ public class IdeaNewBean implements Serializable{
         String summary = PrivateIdea ? "Privada" : "Publica";        
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(summary));
                
-    }      
+    } 
+      public void newIdea() {
+          
+      }
     
 }

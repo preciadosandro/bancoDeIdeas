@@ -11,49 +11,49 @@
         <ui:composition template="./Template/Home.xhtml">
             <ui:define name="content">
                 <div align="center">
-                    <h1>Iniciar sesión</h1>
+                    <h1 style="color: #E04500">Gestor de Ideas</h1>
                     <h:form style="padding: 10px; width: fit-content;">
                         <p:growl autoUpdate="true" life="4000"/>
-                        <p:panel header="Login">
+                        <p:panel style="color: #555C6D" header="Iniciar Sesión">
                             <!--<p:messages  autoUpdate="true"/>-->
                             <p:panelGrid columns="1" columnClasses="no-border, no-border">
                                                                                                 
-                                <h:panelGrid columns="1" style="margin-bottom:10px;text-align: center" cellpadding="5" width="100%">
-                                    <p:selectOneRadio id="radio" style="display: inline-block" required="true" requiredMessage="Su intento para conectarse no tuvo éxito. Causa: No se ha seleccionado modulo a ingresar.">                                        
+                                <h:panelGrid title="Ayuda: En primer lugar, seleccione si ingresara a Ideas o Anteproyecto." columns="1" style="margin-bottom:10px;text-align: center" cellpadding="5" width="100%">
+                                    <p:selectOneRadio  id="radio" style="display: inline-block;color: #555C6D" required="true" requiredMessage="Su intento para conectarse no tuvo éxito. Causa: No se ha seleccionado modulo a ingresar.">                                        
                                         <f:selectItem itemLabel="Ideas" itemValue="Xbox One" />
                                         <f:selectItem itemLabel="Anteproyecto" itemValue="PS4" />                                      
                                     </p:selectOneRadio>                                    
-                                    <p:inputText id="user" value="#{loginBean.user}" placeholder="Correo Electronico*" style="width: 100%; text-align: center" required="true"
+                                    <p:inputText  id="user" title="Ayuda: Ingrese el correo electronico o E-mail con el cual se registrado." value="#{loginBean.user}" placeholder="Correo Electronico*" style="width: 100%; text-align: center; ." required="true"
                                         requiredMessage="Su intento para conectarse no tuvo éxito. Causa: No se ha ingresado el usuario"
-                                        validatorMessage="Su intento para conectarse no tuvo éxito. Causa: Usuario o Contraseña inválido, por favor revise los datos ingresados">
+                                        validatorMessage="Su intento para conectarse no tuvo éxito. Causa: Usuario o Contraseña inválido, por favor revise los datos ingresados" >
                                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />                                        
                                     </p:inputText>
-                                    <p:password id="password" value="#{loginBean.password}" placeholder="Contraseña*" required="true" label="password" style="width: 100%; text-align: center" feedback="false"
+                                    <p:password id="password" title="Ayuda: Ingrese contraseña con la cual se ha registrado." value="#{loginBean.password}" placeholder="Contraseña*" required="true" label="password" style="width: 100%; text-align: center" feedback="false"
                                         requiredMessage="Su intento para conectarse no tuvo éxito. Causa: No se ha ingresado la contraseña"
                                         validatorMessage="Su intento para conectarse no tuvo éxito. Causa: Usuario o Contraseña inválido, por favor revise los datos ingresados">
                                         <f:validateLength minimum="5"/>                                                                    
-                                        <f:validateRegex pattern="^[_A-Za-z0-9]+" />
+                                        <!--<f:validateRegex pattern="^[_A-Za-z0-9]+" />-->
                                     </p:password>                                    
                                 </h:panelGrid>
                                 
                                 <p:panelGrid id="grid1" columns="2" columnClasses="no-border, no-border">
                                     
                                     <h:panelGrid columns="2" style="margin-bottom:8px" cellpadding="5">
-                                        <h:outputText value="Recordarme " />
-                                        <p:selectBooleanCheckbox id="cookiesCheck" value="#{loginBean.cookiesCheck}" />                                        
+                                        <h:outputText style="color: #555C6D" value="Recordarme " />
+                                        <p:selectBooleanCheckbox title="Ayuda: Seleccione esta opcion para que el sistema recuerde su usuario la proxima vez." id="cookiesCheck" value="#{loginBean.cookiesCheck}" />                                        
                                     </h:panelGrid>                                    
-                                    <p:link value="¿He olvidado mi contraseña?" outcome="forgotpass">
+                                    <p:link style="color: #4C7DA7" title="Ayuda: En caso de no recordar su contraseña, haga Clic aqui." value="¿He olvidado mi contraseña?" outcome="forgotpass">
                                             <f:param name="productId" value="10" />
                                         </p:link>                                                                            
                                 </p:panelGrid>
                                 
                                 <h:panelGrid columns="1" style="margin-bottom:10px;text-align: center" cellpadding="5" width="100%">                                                                       
-                                    <p:commandButton value="Acceder" icon="ui-icon-disk" style="display: inline-block" actionListener="#{loginBean.newLogin()}">                                         
+                                    <p:commandButton value="Acceder" icon="ui-icon-disk" style="display: inline-block; color: #555C6D" actionListener="#{loginBean.newLogin()}">                                         
                                     </p:commandButton>                                  
                                 </h:panelGrid>
                                 
                                 <h:panelGrid columns="1" style="margin-bottom:10px;text-align: right" width="100%">                                                                       
-                                    <p:link value="Registrarse" style="text-align: right" outcome="registrator">
+                                    <p:link title="Ayuda: En caso de no estar registrado, haga Clic aqui." value="Registrarse" style="text-align: right; color: #4C7DA7" outcome="registrator">
                                         <f:param name="productId" value="10" />
                                     </p:link>                                                                                  
                                 </h:panelGrid>                                                                                              

@@ -7,6 +7,7 @@ package edu.uniajc.ideaBank.view;
 
 
 
+import edu.uniajc.ideaBank.Utilities.Utilities;
 import edu.uniajc.ideaBank.interfaces.ILogin;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import static edu.uniajc.ideaBank.view.UserBean.getContext;
@@ -62,6 +63,12 @@ public class LoginBean implements Serializable {
         return user;
     }
     public void setUser(String user) {
+
+                /*userModel.setContrasena(Utilities.Encriptar(userModel.getContrasena()));
+                userModel.setIdEstadoUsuario(30);
+                confirmUser = dao.createUser(userModel);     */
+        //user=Utilities.Encriptar(user);
+        
         this.user = user;
     }
 
@@ -70,6 +77,7 @@ public class LoginBean implements Serializable {
     }   
        
     public void newLogin() {  
+        String temp=Utilities.Encriptar(this.password);
         ILogin lDao =null;
         User validator;
         FacesContext context = FacesContext.getCurrentInstance();
@@ -81,7 +89,9 @@ public class LoginBean implements Serializable {
         }        
 
        if(user!=null){
-            validator = lDao.newLogin(this.user, this.password);
+           String password=Utilities.Encriptar(this.password);
+           
+            validator = lDao.newLogin(this.user, password);
                 if( validator!=null && validator.getId()>0 ){
 
                     if(cookiesCheck == true) {
@@ -96,6 +106,7 @@ public class LoginBean implements Serializable {
                     ((HttpServletResponse)(context.getExternalContext().getResponse())).addCookie(cPassword);
                     ((HttpServletResponse)(context.getExternalContext().getResponse())).addCookie(cVirtualCheck);            
                     // se llama clase que coloca user en session
+                    
                     linklogin(); 
 
                     } else {
@@ -106,7 +117,7 @@ public class LoginBean implements Serializable {
                     }
                                                             
                 }else{
-                    context.addMessage(null, new FacesMessage("Usuario y/o Contraseña incorrecto!"));
+                    context.addMessage(null, new FacesMessage("Su intento para conectarse no tuvo éxito. Causa: Usuario o Contraseña inválido, por favor revise los datos ingresados"));
                 }
             }
        }

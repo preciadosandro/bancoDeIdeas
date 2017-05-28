@@ -25,6 +25,25 @@ public class TokenDAO {
         this.DBConnection = openConnection;
     }
     
+    public boolean updateToken(String usuario,String token){
+        try {
+            PreparedStatement ps = null;
+            String SQL = "UPDATE TB_TOKEN SET ESTADO=0 WHERE TOKEN=?"+
+                         " AND USUARIO=? AND ESTADO=1";
+                  
+            ps = this.DBConnection.prepareStatement(SQL);            
+            ps.setString(1, token);
+            ps.setString(2, usuario);            
+            ps.execute();
+            return true;
+
+        } catch (Exception e) {
+            Logger.getLogger(TokenDAO.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Error actualizando token: "+e);
+            return false;
+        }        
+    }
+    
     public boolean createToken(String usuario,String token, int estado){
         try {
             Token tokenModel = new Token();            
@@ -46,18 +65,20 @@ public class TokenDAO {
 
         } catch (Exception e) {
             Logger.getLogger(TokenDAO.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Error insertando token: "+e);
             return false;
         }
     }
     
     public User getUserByToken(String token){
-        User userModel = new User();                       
-        String SQL = "SELECT U.* FROM TB_TOKEN T,TB_USUARIO U "+
-                     " WHERE T.TOKEN=?"+
-                     " AND T.CREADOEN >= SYSDATE - (60/24)"+
-                     " AND U.USUARIO=T.USUARIO";   
-        PreparedStatement ps;
+        User userModel = new User();            
         try {
+            String SQL = "SELECT U.* FROM TB_TOKEN T,TB_USUARIO U "+
+                     " WHERE T.TOKEN=?"+
+                     " AND T.CREADOEN >= SYSDATE - (1/24)"+
+                     " AND U.USUARIO=T.USUARIO"+
+                     " AND T.ESTADO=1";   
+            PreparedStatement ps;
             ps = this.DBConnection.prepareStatement(SQL);
             ps.setString(1,token);
         
@@ -88,7 +109,7 @@ public class TokenDAO {
             return userModel;
         } catch (SQLException ex) {
             Logger.getLogger(TokenDAO.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("ERROR TOKENDAO "+ex);
+            System.out.println("Error validando token vs usuario: "+ex);
         }
         return null;
     }

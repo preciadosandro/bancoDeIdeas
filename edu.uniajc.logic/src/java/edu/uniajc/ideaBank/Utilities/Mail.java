@@ -27,7 +27,7 @@ public class Mail {
     
     protected String servidor = "smtp.gmail.com";
     protected int port = 465;
-    private int intentosMaximos = 5;
+    private int intentosMaximos = 2;
     
     public Mail() {
         
@@ -154,7 +154,7 @@ public class Mail {
                 try {
                     Transport.send(message);
                     envio = true;
-                    break;
+                   break;
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("Error enviando mensaje para " + para + ", error: " + e.getMessage());

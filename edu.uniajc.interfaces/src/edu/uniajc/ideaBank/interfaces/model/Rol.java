@@ -5,6 +5,7 @@
  */
 package edu.uniajc.ideaBank.interfaces.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Date;
  * @author shpreciado
  * @version 1.0
  */
-public class Rol {
+public class Rol implements Serializable {
     private int id;
     private String descripcion;
     private String tipo ;

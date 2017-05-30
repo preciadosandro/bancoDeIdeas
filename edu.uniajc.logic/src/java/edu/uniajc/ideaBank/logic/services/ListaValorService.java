@@ -44,7 +44,7 @@ public class ListaValorService implements IListaValor {
         validatorAgrupacion = dao.getListaValorByAgrupacion(listaValorModel.getAgrupacion());
         if (validatorAgrupacion == false) {
             listaValorModel.setAgrupacion(listaValorModel.getAgrupacion());
-            listaValorModel.setEstado(30);
+            listaValorModel.setEstado(1);
             confirmListaValor = dao.createListaValor(listaValorModel);
             
             if (confirmListaValor == true) {

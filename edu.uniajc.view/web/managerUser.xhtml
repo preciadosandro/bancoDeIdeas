@@ -156,25 +156,67 @@
                     <h1>Solicitudes de roles pendientes</h1>
                     <p:dataTable id="tbSolRol" paginator="true" rows="10" reflow="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 rowsPerPageTemplate="5,10,15" emptyMessage="No hay solicitudes pendientes">
+                                 rowsPerPageTemplate="5,10,15" 
+                                 var="us1" value="#{role_requestBean.rolrequestsList2}" emptyMessage="No hay Solicitudes">
 
                         <p:column headerText="Id">
-                            <h:outputText value="#{us.id}"/>
-                        </p:column>
-                        <p:column headerText="Nombre y apellido">
-                            <h:outputText value="#{us.primerApellido} #{us.primerNombre}"/>
+                            <h:outputText value="#{us1.id}"/>
                         </p:column>
                         <p:column headerText="Usuario">
-                            <h:outputText value="#{us.usuario}"/>
+                            <h:outputText value="#{us1.usuario}"/>
                         </p:column>
                         <p:column headerText="Fecha de solicitud">
-                            <h:outputText value="#{us.idTipoUsuario}"/>
+                            <h:outputText value="#{us1.fechasolicitud}"/>
                         </p:column>
                         <p:column headerText="Estudiante" >
                         </p:column>
                         <p:column headerText="Administrador" >                            
                         </p:column>
+                        <p:column headerText="Editar" style="width:32px;text-align: center">
+                            <p:commandButton oncomplete="PF('dialogUpdateRol').show()" 
+                                             icon="ui-icon-pencil" title="Editar" update="formUpdaterol">
+                                <f:setPropertyActionListener target="#{role_requestBean.userrolre}" value="#{us}"/>
+                            </p:commandButton>
+                        </p:column>
                     </p:dataTable>
+                </h:form>
+                <h:form id="formUpdaterol">
+                    <p:growl id="messageGeneral" autoUpdate="true" life="4000"/>
+                    <p:dialog id="digUpdateUser" widgetVar="dialogUpdateRol" 
+                              resizable="false" showEffect="explote"
+                              hideEffect="explode" modal="true" header="Actualizar Rol Usuario" >
+                        <p:panelGrid id="grid" columns="4" style="text-align: right;" columnClasses="no-border, no-border, no-border, no-border">
+
+                            
+                            <h:outputText value="Nombre:"/>
+                            <h:outputText value="#{role_requestBean.userrolre.primernombre}"/>
+                            
+                            <p:outputLabel value="Nombre: *" />
+                            <p:inputText id="firstName" value="#{role_requestBean.userrolre.primernombre}" label="Primer nombre" required="true">
+
+                            </p:inputText>     
+                            <p:outputLabel value="Primer apellido: *"/>
+                            <p:inputText id="lastName" value="#{role_requestBean.userrolre.primerapellido}" label="Primer apellido" required="true"
+                                         requiredMessage="Primer apellido: Valor es requerido."
+                                         validatorMessage="Primer apellido: Este campo no permite numéros ni caracteres especiales.">
+                                <f:validateRegex pattern="^[_A-Za-z]+" />
+                            </p:inputText>                        
+
+
+                            <p:outputLabel value="Estado: *"/>
+                            <p:selectOneMenu id="state" value="#{role_requestBean.userrolre.descripcion}" label="Estado"
+                                             required="true">
+                                <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Activo" itemValue="30" />
+                                <f:selectItem itemLabel="Inactivo" itemValue="31" />
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <p:separator/>
+                        <p:commandButton value="Guardar" icon="ui-icon-disk" actionListener="#{userManagerBean.updateUser()}"
+                                         styleClass="ui-priority-primary"  update="formListUser:tbUser" />
+                        <p:commandButton value="Cancelar" icon="ui-icon-cancel" oncomplete="PF('dialogUpdateUser').hide();"
+                                         styleClass="ui-priority-primary"/>
+                    </p:dialog>
                 </h:form>
 
             </ui:define>

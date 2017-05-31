@@ -26,7 +26,7 @@ public class Mail {
     private String bcc = null;
     
     protected String servidor = "smtp.gmail.com";
-    protected int port = 465;    
+    protected int port = 465; 
     
     public Mail() {
         
@@ -141,8 +141,7 @@ public class Mail {
                     salida=true;           
                 } catch (Exception e) {
                     e.printStackTrace();
-                    System.out.println("Error enviando mensaje para " + para + ", error: " + e.getMessage());
-                    System.out.println("Esperando 5 segundos para intentar de nuevo");
+                    System.out.println("Error enviando mensaje para " + para + ", error: " + e.getMessage());                    
                     salida= false;
                 }               
         } catch (Exception e) {

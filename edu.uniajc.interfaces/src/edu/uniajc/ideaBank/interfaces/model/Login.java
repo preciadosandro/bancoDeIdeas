@@ -5,11 +5,13 @@
  */
 package edu.uniajc.ideaBank.interfaces.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Hector
  */
-public class Login {
+public class Login implements Serializable {
 
     private boolean typeProject;      
     private String password;

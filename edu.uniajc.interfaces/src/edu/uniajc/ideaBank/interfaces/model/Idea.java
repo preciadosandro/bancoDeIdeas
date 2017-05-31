@@ -5,112 +5,108 @@
  */
 package edu.uniajc.ideaBank.interfaces.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
+ * @author Nathalia Riascos
  * @author LMIRANDA
  */
-public class Idea {
+public class Idea implements Serializable {
+    private int id;
+    private int idUsuario;
+    private int idEstadoidea;
+    private String titulo;
+    private String descripcion;
+    private String ideaPrivada;
+    private String palabrasClaves;
+    private String creadoPor;
+    private Date creadoEn;
+    private String modificadoPor;
+    private Date modificadoEn;
 
-    private int ID;
-    private int ID_T_USUARIO;
-    private String TITULO;
-    private String DESCRIPCION;
-    private int IDEAPRIVADA;
-    private int ID_T_LV_ESTADOIDEA;
-    private String PALABRASCLAVE;
-    private String CREADOPOR;
-    private Date CREADOEN;
-    private String MODIFICADOPOR;
-    private Date MODIFICADOEN;
-
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getID_T_USUARIO() {
-        return ID_T_USUARIO;
+    public int getidUsuario() {
+        return idUsuario;
     }
 
-    public void setID_T_USUARIO(int ID_T_USUARIO) {
-        this.ID_T_USUARIO = ID_T_USUARIO;
+    public void setidUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public String getTITULO() {
-        return TITULO;
+    public int getidEstadoidea() {
+        return idEstadoidea;
     }
 
-    public void setTITULO(String TITULO) {
-        this.TITULO = TITULO;
+    public void setidEstadoidea(int idEstadoidea) {
+        this.idEstadoidea = idEstadoidea;
     }
 
-    public String getDESCRIPCION() {
-        return DESCRIPCION;
+     public String gettitulo() {
+        return titulo;
     }
 
-    public void setDESCRIPCION(String DESCRIPCION) {
-        this.DESCRIPCION = DESCRIPCION;
+    public void settitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public int getIDEAPRIVADA() {
-        return IDEAPRIVADA;
+     public String getdescripcion() {
+        return descripcion;
     }
 
-    public void setIDEAPRIVADA(int IDEAPRIVADA) {
-        this.IDEAPRIVADA = IDEAPRIVADA;
+    public void setdescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public int getID_T_LV_ESTADOIDEA() {
-        return ID_T_LV_ESTADOIDEA;
+     public String getideaPrivada() {
+        return ideaPrivada;
     }
 
-    public void setID_T_LV_ESTADOIDEA(int ID_T_LV_ESTADOIDEA) {
-        this.ID_T_LV_ESTADOIDEA = ID_T_LV_ESTADOIDEA;
+    public void setideaPrivada(String ideaPrivada) {
+        this.ideaPrivada = ideaPrivada;
+    }
+     public String getpalabrasClaves() {
+        return palabrasClaves;
     }
 
-    public String getPALABRASCLAVE() {
-        return PALABRASCLAVE;
+    public void setpalabrasClaves(String palabrasClaves) {
+        this.palabrasClaves = palabrasClaves;
+    }
+     public String getcreadoPor() {
+        return creadoPor;
     }
 
-    public void setPALABRASCLAVE(String PALABRASCLAVE) {
-        this.PALABRASCLAVE = PALABRASCLAVE;
+    public void setcreadoPor(String creadoPor) {
+        this.creadoPor = creadoPor;
+    }
+     public Date getcreadoEn() {
+        return creadoEn;
     }
 
-    public String getCREADOPOR() {
-        return CREADOPOR;
+    public void setcreadoEn(Date creadoEn) {
+        this.creadoEn = creadoEn;
+    }
+     public String getmodificadoPor() {
+        return modificadoPor;
     }
 
-    public void setCREADOPOR(String CREADOPOR) {
-        this.CREADOPOR = CREADOPOR;
+    public void setmodificadoPor(String modificadoPor) {
+        this.modificadoPor = modificadoPor;
+    }
+     public Date getmodificadoEn() {
+        return modificadoEn;
     }
 
-    public Date getCREADOEN() {
-        return CREADOEN;
-    }
-
-    public void setCREADOEN(Date CREADOEN) {
-        this.CREADOEN = CREADOEN;
-    }
-
-    public String getMODIFICADOPOR() {
-        return MODIFICADOPOR;
-    }
-
-    public void setMODIFICADOPOR(String MODIFICADOPOR) {
-        this.MODIFICADOPOR = MODIFICADOPOR;
-    }
-
-    public Date getMODIFICADOEN() {
-        return MODIFICADOEN;
-    }
-
-    public void setMODIFICADOEN(Date MODIFICADOEN) {
-        this.MODIFICADOEN = MODIFICADOEN;
+    public void setmodificadoEn(Date modificadoEn) {
+        this.modificadoEn = modificadoEn;
     }
 
 }

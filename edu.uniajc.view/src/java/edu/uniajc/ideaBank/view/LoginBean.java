@@ -7,14 +7,21 @@ package edu.uniajc.ideaBank.view;
 
 
 
+import edu.uniajc.ideaBank.Utilities.Utilities;
 import edu.uniajc.ideaBank.interfaces.ILogin;
+import edu.uniajc.ideaBank.interfaces.model.User;
 import static edu.uniajc.ideaBank.view.UserBean.getContext;
 import java.io.Serializable;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,6 +63,12 @@ public class LoginBean implements Serializable {
         return user;
     }
     public void setUser(String user) {
+
+                /*userModel.setContrasena(Utilities.Encriptar(userModel.getContrasena()));
+                userModel.setIdEstadoUsuario(30);
+                confirmUser = dao.createUser(userModel);     */
+        //user=Utilities.Encriptar(user);
+        
         this.user = user;
     }
 
@@ -64,8 +77,9 @@ public class LoginBean implements Serializable {
     }   
        
     public void newLogin() {  
+        String temp=Utilities.Encriptar(this.password);
         ILogin lDao =null;
-        boolean validator;
+        User validator;
         FacesContext context = FacesContext.getCurrentInstance();
         
        try {
@@ -75,8 +89,10 @@ public class LoginBean implements Serializable {
         }        
 
        if(user!=null){
-            validator = lDao.newLogin(this.user, this.password);
-                if(validator==true){
+           String password=Utilities.Encriptar(this.password);
+           
+            validator = lDao.newLogin(this.user, password);
+                if( validator!=null && validator.getId()>0 ){
 
                     if(cookiesCheck == true) {
                     virtualCheck = "true";
@@ -89,6 +105,8 @@ public class LoginBean implements Serializable {
                     ((HttpServletResponse)(context.getExternalContext().getResponse())).addCookie(cUserId);
                     ((HttpServletResponse)(context.getExternalContext().getResponse())).addCookie(cPassword);
                     ((HttpServletResponse)(context.getExternalContext().getResponse())).addCookie(cVirtualCheck);            
+                    // se llama clase que coloca user en session
+                    
                     linklogin(); 
 
                     } else {
@@ -99,7 +117,7 @@ public class LoginBean implements Serializable {
                     }
                                                             
                 }else{
-                    context.addMessage(null, new FacesMessage("Usuario y/o Contraseña incorrecto!"));
+                    context.addMessage(null, new FacesMessage("Su intento para conectarse no tuvo éxito. Causa: Usuario o Contraseña inválido, por favor revise los datos ingresados"));
                 }
             }
        }
@@ -145,10 +163,24 @@ public class LoginBean implements Serializable {
                 return "success";
     }
     
+        public static InitialContext getContext() {
+        try {
+            Properties props = new Properties();
+            props.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.enterprise.naming.SerialInitContextFactory");
+            props.setProperty("org.omg.CORBA.ORBInitialHost", "localhost");
+            // glassfish default port value will be 3700,
+            props.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
+            InitialContext ctx = new InitialContext(props);
+            return ctx;
+        } catch (NamingException ex) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
     
     
  
-    
     
     
     

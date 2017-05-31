@@ -17,7 +17,7 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class IdeaBean {
+public class IdeaListBean {
 
     private IdeasObjetivos IdeasObjetivos = new IdeasObjetivos();
     private List<IdeasObjetivos> lstIdeas;

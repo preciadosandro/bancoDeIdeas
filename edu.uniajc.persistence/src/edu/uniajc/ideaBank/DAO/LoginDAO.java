@@ -5,6 +5,7 @@
  */
 package edu.uniajc.ideaBank.DAO;
 
+import edu.uniajc.ideaBank.interfaces.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +20,8 @@ import java.util.logging.Logger;
  * @author Hector
  */
 public class LoginDAO {
+    
+        User userModel;
 
 private Connection DBConnection = null;
 
@@ -26,28 +29,44 @@ private Connection DBConnection = null;
         this.DBConnection = openConnection;
     }
     
-     public boolean getPasswordByUser(String user, String pass) {
+     public User getPasswordByUser(String username, String pass) {
         PreparedStatement prepStm = null;
-        final String SQL = "SELECT USUARIO,CONTRASENA FROM TB_USUARIO WHERE USUARIO ='"+user+"' AND CONTRASENA='"+pass+"'";
+        User user = null;
+        final String SQL = "SELECT * FROM TB_USUARIO WHERE USUARIO=? AND CONTRASENA=?";
 
         try {
-            prepStm = this.DBConnection.prepareStatement(SQL);
-          //  prepStm.setString(1, user);
-            ResultSet RS = prepStm.executeQuery();
-            if (RS.next()) {
-              //  if (RS.getString("CONTRASENA").equals("")) {
-                  //  return false;
-            //    } else {
-                    return true;
+            prepStm = DBConnection.prepareStatement(SQL);
+            prepStm.setString(1, username);
+            prepStm.setString(2, pass);
+            ResultSet rs = prepStm.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setContrasena(pass);
+                user.setUsuario(username);
+                user.setId( rs.getInt("ID") );
+                user.setIdTipoUsuario( rs.getInt("ID_T_LV_TIPOUSUARIO"));
+                user.setIdEstadoUsuario(rs.getInt("ID_T_LV_ESTADOUSUARIO"));                
+                user.setIdTipoIdentificacion(rs.getInt("ID_T_LV_TIPOIDENTIFICACION"));                                
+                user.setNumIdentificacion(rs.getString("NUMIDENTIFICACION"));                                                
+                user.setPrimerNombre(rs.getString("PRIMERNOMBRE"));
+                user.setSegundoNombre(rs.getString("SEGUNDONOMBRE"));                                                
+                user.setPrimerApellido( rs.getString("PRIMERAPELLIDO"));
+                user.setSegundoApellido(rs.getString("SEGUNDOAPELLIDO"));                
+                user.setFechaNacimiento(rs.getDate("FECHANACIMIENTO"));                
+                user.setGenero(rs.getString("GENERO"));
+                user.setTelefonoFijo(rs.getString("TELEFONOFIJO"));                
+                user.setTelefonoCelular(rs.getString("TELEFONOCELULAR"));                                
+                user.setIdProgrmaAcademico(rs.getInt("ID_T_LV_PROGRAMAACEDEMICO"));                                                
+                user.setIdDependencia(rs.getInt("ID_T_LV_DEPENDENCIA"));                                                                
+                user.setCreadoPor(rs.getString("CREADOPOR"));                                                                                                
+                user.setCreadoEn( rs.getDate("CREADOEN"));
+                user.setModificadoPor(rs.getString("MODIFICADOPOR"));                
+                user.setModificadoEn(rs.getDate("MODIFICADOEN"));                
                 }
-             else {
-                return false;
-            }
-
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, SQL, ex);
-            return false;
         }
+        return user;
     }
     
     }

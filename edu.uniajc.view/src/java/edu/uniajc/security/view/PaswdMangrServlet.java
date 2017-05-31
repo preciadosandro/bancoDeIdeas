@@ -1,4 +1,4 @@
-package servlet;
+package edu.uniajc.security.view;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -6,26 +6,28 @@ package servlet;
  * and open the template in the editor.
  */
 
-import edu.uniajc.ideaBank.interfaces.IToken;
+import edu.uniajc.security.interfaces.IToken;
 import edu.uniajc.ideaBank.interfaces.model.User;
-import edu.uniajc.ideaBank.logic.services.TokenService;
+import edu.uniajc.security.logic.services.TokenService;
 import static edu.uniajc.ideaBank.view.UserBean.getContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+
 
 /**
  *
  * @author Felipe
  */
-public class PaswdMangrServlet extends HttpServlet {
+public class PaswdMangrServlet extends HttpServlet {  
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,11 +49,11 @@ public class PaswdMangrServlet extends HttpServlet {
             out.println("<title>Servlet PaswdMangrServlet</title>");
             out.println("</head>");
             out.println("<h1>");
-            out.println("Este es mi token  " + token);
+            out.println("TOKEN INVALIDO");
             out.println("<br>");            
             out.println("</h1>");
             out.println("<body>");
-            out.println("<h1>Servlet PaswdMangrServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1><a href='../faces/login.xhtml'>link text</a></h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,29 +69,33 @@ public class PaswdMangrServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       String myToken = request.getParameter("TOKEN");
-       User user=new User();
-       FacesContext context = FacesContext.getCurrentInstance();       
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        String myToken = request.getParameter("TOKEN");
+        User user=new User();
+             
         IToken uToken =null;
         try {
             InitialContext ctx = getContext();
-            uToken = (IToken) ctx.lookup("java:global/edu.uniajc.view/TokenService!edu.uniajc.ideaBank.interfaces.IToken");
+            uToken = (IToken) ctx.lookup("java:global/edu.uniajc.view/TokenService!edu.uniajc.security.interfaces.IToken");                                         
             user=uToken.getUserByToken(myToken);
-            System.out.println(user.getUsuario());
+            //System.out.println(user.getUsuario());
         } catch (Exception e) {
             Logger.getLogger(TokenService.class.getName()).log(Level.SEVERE, null, e);
-            System.out.println();
+            System.out.println(e);
+        }       
+        if (user!=null && user.getUsuario()!=null){
+            HttpSession session =request.getSession(true);
+            session.setAttribute(Constants.SESSION_KEY_USER,user);  
+            //User xxx = (User) session.getAttribute("SESSION.KEY.USER");
+            //System.out.println(xxx.getUsuario());
+            if (uToken.updateToken(user.getUsuario(), myToken)){
+                user = new User();
+                response.sendRedirect("../faces/newPassword.xhtml"); 
+            }    
+        }else{
+            response.sendRedirect("../faces/errorToken.xhtml"); 
         }            
-        
-      //  if (myToken.equals("1234567890")) {
-        
-            response.sendRedirect("../faces/newPassword.xhtml"); 
-        
-                   
-        //request.getRequestDispatcher("/faces/newPassword.xhtml").forward(request, response);
-       // }
        processRequest(request, response, myToken);
     }
 

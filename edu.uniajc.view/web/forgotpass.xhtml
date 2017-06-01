@@ -32,6 +32,11 @@
                             <p:commandButton value="Limpiar" icon="ui-icon-cancel" type="reset" styleClass="ui-priority-primary"/>
                         </p:panel>
                     </h:form>
+                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" 
+                              showHeader="false">
+                        <p:graphicImage  value="resources/image/ajax-loader.gif" />
+                    </p:dialog>
                 </div>
             </ui:define>
 

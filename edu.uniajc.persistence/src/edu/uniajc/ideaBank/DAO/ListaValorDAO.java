@@ -37,7 +37,7 @@ public class ListaValorDAO {
             ps = this.DBConnection.prepareStatement(SQL);
             ps.setString(1, listaValorModel.getAgrupacion());
             ps.setString(2, listaValorModel.getDescripcion());
-            ps.setString(3, listaValorModel.getCreadoPor());
+            ps.setString(3, "rlara");
             ps.execute();
             return true;
 

@@ -5,6 +5,7 @@
  */
 package edu.uniajc.ideaBank.interfaces;
 
+import edu.uniajc.ideaBank.interfaces.model.User;
 import javax.ejb.Remote;
 
 /**
@@ -14,7 +15,7 @@ import javax.ejb.Remote;
 
 @Remote
 public interface ILogin {
-    public boolean newLogin(String user,String pass);
+    public User newLogin(String user,String pass);
 
     
 

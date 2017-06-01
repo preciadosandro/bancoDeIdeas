@@ -5,26 +5,45 @@
  */
 package edu.uniajc.ideaBank.view;
 
-import edu.uniajc.ideaBank.DAO.IdeaDAO;
+import edu.uniajc.ideaBank.interfaces.IIdeasObjetivos;
 import edu.uniajc.ideaBank.interfaces.model.IdeasObjetivos;
+import edu.uniajc.ideaBank.interfaces.model.User;
+import edu.uniajc.security.view.Constants;
+import edu.uniajc.security.view.ManagerBean;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.naming.InitialContext;
 
 /**
  *
  * @author LMIRANDA
  */
 @ManagedBean
-@RequestScoped
-public class IdeaBean {
+@ViewScoped
+public class IdeaListBean extends ManagerBean {
 
     private IdeasObjetivos IdeasObjetivos = new IdeasObjetivos();
     private List<IdeasObjetivos> lstIdeas;
     private IdeasObjetivos IdeasObjetivosXid = new IdeasObjetivos();
     private List<IdeasObjetivos> LstIdeasXid;
     private Integer idSelected = 0;
-    IdeaDAO dao;
+    private User user;
+    private InitialContext ctx;
+
+    public IdeaListBean() {
+        super();
+        ctx = super.getContext();
+        // obtiene objeto de la sesion
+        user = (User) super.getFromSession(Constants.SESSION_KEY_USER);
+        if (user == null || user.getId()== 0) {
+            // No esta autenticado ==> direccionar a pantalla login
+            super.redirect("login.xhtml");
+        }
+    }    
 
     public IdeasObjetivos getIdeasObjetivos() {
         return IdeasObjetivos;
@@ -69,18 +88,14 @@ public class IdeaBean {
     }
 
     public void listar() {
-
+        
         try {
-            if (dao == null) {
-                dao = new IdeaDAO();
-            }
-            lstIdeas = dao.listar();
-            int a = 0;
-
+            IIdeasObjetivos userService = (IIdeasObjetivos) ctx.lookup("java:global/edu.uniajc.view/IdeasObjetivosService!edu.uniajc.ideaBank.interfaces.IIdeasObjetivos");
+            lstIdeas = userService.lista();            
         } catch (Exception e) {
-
+            Logger.getLogger(IdeaListBean.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
-
+            super.showMessage(FacesMessage.SEVERITY_ERROR, e.toString());
         }
 
     }
@@ -88,19 +103,12 @@ public class IdeaBean {
     public void listarxid(int id) {
 
         try {
-            System.out.println("---id---" + id);
-            if (id != 0) {
-                if (dao == null) {
-                    dao = new IdeaDAO();
-                }
-                LstIdeasXid = dao.listarxid(id);
-            }
-            int a = 0;
-
+            IIdeasObjetivos userService = (IIdeasObjetivos) ctx.lookup("java:global/edu.uniajc.view/IdeasObjetivosService!edu.uniajc.ideaBank.interfaces.IIdeasObjetivos");
+            LstIdeasXid = userService.listarXid(id);
         } catch (Exception e) {
-
+            Logger.getLogger(IdeaListBean.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
-
+            super.showMessage(FacesMessage.SEVERITY_ERROR, e.toString());
         }
 
     }

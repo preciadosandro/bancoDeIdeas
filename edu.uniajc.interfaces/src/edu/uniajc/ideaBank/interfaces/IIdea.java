@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author LMIRANDA
  */
 public interface IIdea {
-    
-    public ArrayList<Idea> lista();   
+   
+    public boolean createIdea(Idea idea);
     
 }

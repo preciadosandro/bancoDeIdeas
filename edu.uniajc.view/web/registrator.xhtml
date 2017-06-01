@@ -14,103 +14,116 @@
                     <h3>Cree su cuenta y permita que sus ideas las conozcan miles de usuarios</h3>
                     <h:form id="formNewUser" style="padding: 10px; width: fit-content;">
                         <!--<p:growl id="messageGeneral" autoUpdate="true" life="1500"/>-->
-                        <p:panel id="messageGeneral" header="Datos de usuario">
+                        <p:panel id="panel1" header="Datos de usuario">
                             <p:messages  autoUpdate="true"/>
-                            <p:panelGrid id="grid" columns="2" columnClasses="no-border, no-border">
+                            <p:panelGrid id="grid" columns="4" style="text-align: right;" columnClasses="no-border, no-border, no-border, no-border">
 
-                                <p:inputText id="firstName" placeholder="Primer nombre *" value="#{userBean.user.primerNombre}" label="Primer nombre" required="true"
+                                <p:outputLabel value="Primer nombre: *" />
+                                <p:inputText id="firstName" value="#{userBean.user.primerNombre}" label="Primer nombre" required="true"
                                              requiredMessage="Primer nombre: Valor es requerido."
                                              validatorMessage="Primer nombre: Este campo no permite numéros ni caracteres especiales.">
                                     <f:validateRegex pattern="^[_A-Za-z]+" />
-                                </p:inputText>                                
-                                <p:inputText id="secondName" placeholder="Segundo nombre" value="#{userBean.user.segundoNombre}" label="Segundo nombre"
+                                </p:inputText>  
+                                <p:outputLabel value="Segundo nombre:  "/>
+                                <p:inputText id="secondName" value="#{userBean.user.segundoNombre}" label="Segundo nombre"
                                              validatorMessage="Segundo nombre: Este campo no permite numéros ni caracteres especiales.">
                                     <f:validateRegex pattern="^[_A-Za-z]*" />
                                 </p:inputText>      
-
-                                <p:inputText id="lastName" placeholder="Primer apellido *" value="#{userBean.user.primerApellido}" label="Primer apellido" required="true"
+                                <p:outputLabel value="Primer apellido: *"/>
+                                <p:inputText id="lastName" value="#{userBean.user.primerApellido}" label="Primer apellido" required="true"
                                              requiredMessage="Primer apellido: Valor es requerido."
                                              validatorMessage="Primer apellido: Este campo no permite numéros ni caracteres especiales.">
                                     <f:validateRegex pattern="^[_A-Za-z]+" />
-                                </p:inputText>                                       
-                                <p:inputText id="lastName2" placeholder="Segundo apellido" value="#{userBean.user.segundoApellido}" label="Segundo apellido"
+                                </p:inputText>  
+                                <p:outputLabel value="Segundo apellido:  "/>
+                                <p:inputText id="lastName2" value="#{userBean.user.segundoApellido}" label="Segundo apellido"
                                              validatorMessage="Segundo apellido: Este campo no permite numéros ni caracteres especiales.">
                                     <f:validateRegex pattern="^[_A-Za-z]*" />
                                 </p:inputText>                        
-
+                                <p:outputLabel value="Tipo Identificación: *"/>
                                 <p:selectOneMenu id="typeId" value="#{userBean.user.idTipoIdentificacion}" label="tipo de documento" 
-                                                 required="true" style="width:145px" >
-                                    <f:selectItem itemLabel="Tipo Identificación *" itemValue="-1" noSelectionOption="true" />
-                                    <f:selectItem itemLabel="Cedula de ciudadania" itemValue="1" />
+                                                 required="true">
+                                    <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="C.C." itemValue="1" />
                                     <f:selectItem itemLabel="Pasaporte" itemValue="2" />
                                 </p:selectOneMenu>
-                                <p:inputText id="numId" placeholder="Numero de identificación *" value="#{userBean.user.numIdentificacion}" label="Numero de identificación" 
+                                <p:outputLabel value="Numero de identificación: *"/>
+                                <p:inputText id="numId" value="#{userBean.user.numIdentificacion}" label="Numero de identificación" 
                                              validatorMessage="Numero de documento: Este campo no permite letras ni caracteres especiales."
                                              required="true" requiredMessage="Numero de documento: Valor es requerido.">
                                     <f:validateRegex pattern="^[0-9]*" />
                                 </p:inputText>   
-
-                                <p:calendar id="databorn" placeholder="Fecha de nacimiento *" value="#{userBean.user.fechaNacimiento}" 
-                                            maxdate="#{userBean.currentDate}"  pattern="dd-MM-yyyy" mask="true"
+                                <p:outputLabel value="Fecha de nacimiento:  "/>
+                                <p:calendar id="databorn" value="#{userBean.user.fechaNacimiento}"
+                                            maxdate="#{userBean.currentDate}" navigator="true"  
+                                            pattern="dd-MM-yyyy" mask="true" effect="explode" 
                                             required="true" requiredMessage="Fecha de nacimiento: Valor es requerido."/>
-
-                                <p:inputText id="numPhone" placeholder="Telefono fijo" value="#{userBean.user.telefonoFijo}" label="Telefóno fijo"
+                                <p:outputLabel value="Telefono fijo:  "/>
+                                <p:inputText id="numPhone" value="#{userBean.user.telefonoFijo}" label="Telefóno fijo"
                                              validatorMessage="Telefóno fijo: Este campo no permite letras ni caracteres especiales.">
                                     <f:validateRegex pattern="^[0-9]*" />
-                                </p:inputText>    
-                                <p:inputText id="NumCellPhone" placeholder="Telefono celular *" value="#{userBean.user.telefonoCelular}" label="Telefóno celular" required="true"
-                                             requiredMessage="Telefóno celular: Valor es requerido."
+                                </p:inputText>  
+                                <p:outputLabel value="Telefono celular:"/>
+                                <p:inputText id="NumCellPhone" value="#{userBean.user.telefonoCelular}" label="Telefóno celular"
                                              validatorMessage="Telefóno celular: Este campo no permite letras ni caracteres especiales.">
                                     <f:validateRegex pattern="^[0-9]*" />
                                 </p:inputText>    
-
-                                <p:inputText id="mail" placeholder="E-Mail *" value="#{userBean.user.usuario}" label="Correo electronico" required="true" 
+                                <p:outputLabel value="E-Mail: *"/>
+                                <p:inputText id="mail" value="#{userBean.user.usuario}" label="Correo electronico" required="true" 
                                              requiredMessage="Correo electronico: Valor es requerido."
                                              validatorMessage="Correo electronico: Formato incorrecto.">
                                     <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                 </p:inputText>
-                                <p:inputText id="mail2" placeholder="Confirmar E-Mail *" value="#{userBean.userConfirm}" label="Confirmar correo electronico" required="true" 
+                                <p:outputLabel value="Confirmar E-Mail: *"/>
+                                <p:inputText id="mail2" value="#{userBean.userConfirm}" label="Confirmar correo electronico" required="true" 
                                              requiredMessage="Confirmar correo electronico: Valor es requerido."
                                              validatorMessage="Confirmar correo electronico: Formato incorrecto.">
                                     <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                 </p:inputText>
-
-                                <p:password id="password" placeholder="Contraseña *" value="#{userBean.user.contrasena}" label="Contraseña" required="true" 
+                                <p:outputLabel value="Contraseña: *"/>
+                                <p:password id="password" value="#{userBean.user.contrasena}" label="Contraseña" required="true" 
                                             requiredMessage="Contraseña: Valor es requerido."
                                             validatorMessage="Contraseña: Cantidad minima de caracteres 5.">
                                     <f:validateLength minimum="5"  />                                
                                 </p:password>
-                                <p:password id="password2" placeholder="Confirmar contraseña *" value="#{userBean.passwordConfirm}" label="Confirmar contraseña" required="true"/>
-
+                                <p:outputLabel value="Confirmar contraseña: *"/>
+                                <p:password id="password2" value="#{userBean.passwordConfirm}" 
+                                            label="Confirmar contraseña" required="true"
+                                            requiredMessage="Confirmar contraseña: Valor es requerido.">
+                                    <f:validateLength minimum="5"  />     
+                                </p:password>
+                                <p:outputLabel value="Tipo de usuario: *"/>
                                 <p:selectOneMenu id="typeUser" value="#{userBean.user.idTipoUsuario}" label="Tipo de usuario" 
-                                                 style="width:145px" required="true">
-                                    <f:selectItem itemLabel="Tipo de usuario *" itemValue="-1" noSelectionOption="true" />
-                                    <f:selectItem itemLabel="Estudiante" itemValue="3" />
-                                    <f:selectItem itemLabel="Docente" itemValue="4" />
+                                                 required="true">
+                                    <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Estudiante" itemValue="25" />
+                                    <f:selectItem itemLabel="Docente" itemValue="26" />
                                 </p:selectOneMenu>
+                                <p:outputLabel value="Género: *"/>
                                 <p:selectOneMenu id="gender" value="#{userBean.user.genero}" label="Género" 
-                                                 style="width:145px" required="true">
-                                    <f:selectItem itemLabel="Género *" itemValue="-1" noSelectionOption="true" />
+                                                 required="true">
+                                    <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
                                     <f:selectItem itemLabel="Masculino" itemValue="M" />
                                     <f:selectItem itemLabel="Femenino" itemValue="F" />
                                 </p:selectOneMenu>
+                                <p:outputLabel value="Programa académico: *"/>
                                 <p:selectOneMenu id="acadProg" value="#{userBean.user.idProgrmaAcademico}" label="Programa Académico"
-                                                 style="width:145px" required="true">
-                                    <f:selectItem itemLabel="P. académico *" itemValue="-1" noSelectionOption="true" />
+                                                 required="true">
+                                    <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
                                     <f:selectItem itemLabel="Sistemas" itemValue="7" />
                                     <f:selectItem itemLabel="Industrial" itemValue="8" />
                                 </p:selectOneMenu>
+                                <p:outputLabel value="Dependencia: *"/>
                                 <p:selectOneMenu id="dependent" value="#{userBean.user.idDependencia}" label="Dependencia"
-                                                 style="width:145px" required="true">
-                                    <f:selectItem itemLabel="Dependencia *" itemValue="-1" noSelectionOption="true" />
-                                    <f:selectItem itemLabel="Tesoreria" itemValue="9" />
-                                    <f:selectItem itemLabel="Cafeteria" itemValue="10" />
+                                                 required="true">
+                                    <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Tesoreria" itemValue="4" />
+                                    <f:selectItem itemLabel="Cafeteria" itemValue="5" />
                                 </p:selectOneMenu>
                             </p:panelGrid>
                             <p:separator/>
-                            <p:commandButton value="Guardar" icon="ui-icon-disk" actionListener="#{userBean.newUser()}" 
-                                             update="messageGeneral" styleClass="ui-priority-primary" />
-                            <p:commandButton value="Cancelar" icon="ui-icon-cancel" styleClass="ui-priority-primary"/>
+                            <p:commandButton value="Crear" icon="ui-icon-disk" actionListener="#{userBean.newUser()}" 
+                                             update="panel1" styleClass="ui-priority-primary" />
                         </p:panel>
                     </h:form>
                     <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
@@ -119,13 +132,15 @@
                               showHeader="false">
                         <p:graphicImage  value="resources/image/ajax-loader.gif" />
                     </p:dialog>
-                    <h:form id="formOk">                        
+                    <h:form id="formOk">
                         <p:dialog  id="digOk" widgetVar="dialogOk" resizable="false" showEffect="explote"
                                    hideEffect="explode" modal="true" header="Mensaje">
                             <h:outputText style="text-align: center;" value="Usuario creado correctamente"/>
                             <p:separator/>
                             <p:commandButton style="text-align: center;" value="Ok" oncomplete="PF('dialogOk').hide()" 
-                                             actionListener="#{userBean.linklogin()}"/>
+                                             actionListener="#{userBean.linklogin()}">
+                            <p:resetInput target="panel1" />
+                            </p:commandButton>
                         </p:dialog>
                     </h:form>
                 </div>

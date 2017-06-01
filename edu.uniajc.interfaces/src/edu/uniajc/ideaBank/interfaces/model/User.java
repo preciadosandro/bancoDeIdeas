@@ -5,13 +5,14 @@
  */
 package edu.uniajc.ideaBank.interfaces.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author bmorales
  */
-public class User {
+public class User implements Serializable {
 
     private int id;
     //ID_T_LV_TIPOUSUARIO
@@ -20,7 +21,7 @@ public class User {
     private int idEstadoUsuario;
     //ID_T_LV_TIPOIDENTIFICACION
     private int idTipoIdentificacion;
-    
+
     private String numIdentificacion;
     private String primerNombre;
     private String segundoNombre;
@@ -208,9 +209,5 @@ public class User {
     public void setIdDependencia(int idDependencia) {
         this.idDependencia = idDependencia;
     }
-
-    
-    
-    
 
 }

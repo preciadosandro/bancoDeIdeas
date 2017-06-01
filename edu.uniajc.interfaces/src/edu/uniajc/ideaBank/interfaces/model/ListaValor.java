@@ -10,15 +10,16 @@ import java.util.Date;
 
 /**
  *
- * @author shpreciado
- * @version 1.0
+ * @author rlara
  */
-public class Rol implements Serializable {
+public class ListaValor implements Serializable {
+
     private int id;
+    private int estado;
+    
+    private String agrupacion;
     private String descripcion;
-    private String tipo ;
     private String creadoPor;
-    private Date creadoEn;
     private String modificadoPor;
     private Date modificadoEn;
 
@@ -30,6 +31,22 @@ public class Rol implements Serializable {
         this.id = id;
     }
 
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public String getAgrupacion() {
+        return agrupacion;
+    }
+
+    public void setAgrupacion(String agrupacion) {
+        this.agrupacion = agrupacion;
+    }
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -38,28 +55,12 @@ public class Rol implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     public String getCreadoPor() {
         return creadoPor;
     }
 
     public void setCreadoPor(String creadoPor) {
         this.creadoPor = creadoPor;
-    }
-
-    public Date getCreadoEn() {
-        return creadoEn;
-    }
-
-    public void setCreadoEn(Date creadoEn) {
-        this.creadoEn = creadoEn;
     }
 
     public String getModificadoPor() {

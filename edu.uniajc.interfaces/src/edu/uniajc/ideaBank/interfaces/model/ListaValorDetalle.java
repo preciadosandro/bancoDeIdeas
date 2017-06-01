@@ -10,15 +10,17 @@ import java.util.Date;
 
 /**
  *
- * @author shpreciado
- * @version 1.0
+ * @author rlara
  */
-public class Rol implements Serializable {
+public class ListaValorDetalle implements Serializable {
+
     private int id;
-    private String descripcion;
-    private String tipo ;
+    //ID_T_ListaValor
+    private int idListaValor;
+    private int estado;
+    
+    private String valor;
     private String creadoPor;
-    private Date creadoEn;
     private String modificadoPor;
     private Date modificadoEn;
 
@@ -30,20 +32,28 @@ public class Rol implements Serializable {
         this.id = id;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public int getIdListaValor() {
+        return idListaValor;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setIdListaValor(int idListaValor) {
+        this.idListaValor = idListaValor;
     }
 
-    public String getTipo() {
-        return tipo;
+    public int getEstado() {
+        return estado;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public String getValor() {
+        return valor;
+    }
+
+    public void setValor(String valor) {
+        this.valor = valor;
     }
 
     public String getCreadoPor() {
@@ -52,14 +62,6 @@ public class Rol implements Serializable {
 
     public void setCreadoPor(String creadoPor) {
         this.creadoPor = creadoPor;
-    }
-
-    public Date getCreadoEn() {
-        return creadoEn;
-    }
-
-    public void setCreadoEn(Date creadoEn) {
-        this.creadoEn = creadoEn;
     }
 
     public String getModificadoPor() {
@@ -77,6 +79,5 @@ public class Rol implements Serializable {
     public void setModificadoEn(Date modificadoEn) {
         this.modificadoEn = modificadoEn;
     }
-    
     
 }

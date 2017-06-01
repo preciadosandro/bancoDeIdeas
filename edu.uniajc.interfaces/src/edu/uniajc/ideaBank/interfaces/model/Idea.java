@@ -5,13 +5,15 @@
  */
 package edu.uniajc.ideaBank.interfaces.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Nathalia Riascos
+ * @author LMIRANDA
  */
-public class Idea {
+public class Idea implements Serializable {
     private int id;
     private int idUsuario;
     private int idEstadoidea;
@@ -23,7 +25,7 @@ public class Idea {
     private Date creadoEn;
     private String modificadoPor;
     private Date modificadoEn;
-    
+
     public int getId() {
         return id;
     }
@@ -31,7 +33,7 @@ public class Idea {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public int getidUsuario() {
         return idUsuario;
     }
@@ -39,7 +41,7 @@ public class Idea {
     public void setidUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
-    
+
     public int getidEstadoidea() {
         return idEstadoidea;
     }
@@ -47,7 +49,7 @@ public class Idea {
     public void setidEstadoidea(int idEstadoidea) {
         this.idEstadoidea = idEstadoidea;
     }
-    
+
      public String gettitulo() {
         return titulo;
     }
@@ -55,7 +57,7 @@ public class Idea {
     public void settitulo(String titulo) {
         this.titulo = titulo;
     }
-    
+
      public String getdescripcion() {
         return descripcion;
     }
@@ -63,7 +65,7 @@ public class Idea {
     public void setdescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
+
      public String getideaPrivada() {
         return ideaPrivada;
     }
@@ -106,5 +108,5 @@ public class Idea {
     public void setmodificadoEn(Date modificadoEn) {
         this.modificadoEn = modificadoEn;
     }
-    
+
 }

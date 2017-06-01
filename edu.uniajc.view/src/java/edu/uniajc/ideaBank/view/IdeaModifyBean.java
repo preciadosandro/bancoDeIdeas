@@ -20,27 +20,27 @@ import javax.faces.context.FacesContext;
 public class IdeaModifyBean implements Serializable{
      private String titleIdea;
      private boolean PrivateIdea;
-     
+
         public String gettitleIdea() {
         return titleIdea;
     }
-      
+
       public void settitleIdea(String titleIdea) {
         this.titleIdea = titleIdea;
     }
-      
+
      public boolean getPrivateIdea() {
         return PrivateIdea;
     }
-      
+
       public void setPrivateIdea(boolean  PrivateIdea) {
         this.PrivateIdea = PrivateIdea;
     }
-      
+
       public void addMessage() {
-        String summary = PrivateIdea ? "Checked" : "Unchecked";        
+        String summary = PrivateIdea ? "Checked" : "Unchecked";
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(summary));
-               
-    }      
-    
+
+    }
+
 }

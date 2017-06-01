@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Gestor De Ideas</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <ui:composition template="./Template/Home.xhtml">
+
+            <ui:define name="content">
+                <div align="center">
+                    <h1>Lista de Ideas</h1>
+
+                    <h:form id="formIdeaList" style="padding: 10px; width: fit-content;">
+                        <p:growl id="messageGeneral" autoUpdate="true" life="1500"/>
+                        <p:panel header="">
+                            <p:messages  autoUpdate="true"/>
+
+
+                            <p:dataTable value="#{ideaBean.lstIdeas}" var="idea">
+                                <p:column headerText="Titulo">
+                                    <h:outputText value="#{idea.TITULO_ideas}" />
+                                </p:column>
+
+                                <p:column headerText="Descripción" priority="3">
+                                    <h:outputText value="#{idea.DESCRIPCION_ideas}" />
+                                </p:column>
+
+                                <p:column headerText="Objetivos" priority="2">
+                                    <h:outputText value="#{idea.DESCRIPCION_objetivo}" />
+                                </p:column>
+                                <p:column style="width:24px">
+                                    <p:commandLink update=":formIdeaList:documentPanel" oncomplete="PF('documentDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search">
+                                        <f:setPropertyActionListener value="#{idea.ID_ideas}" target="#{ideaBean.idSelected}" />
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+
+                            <p:dialog id="dialog" header="Información" showEffect="fade" hideEffect="explode" widgetVar="documentDialog" modal="true" resizable="false">
+                                <p:outputPanel id="documentPanel">
+                                    <h:outputLabel for="Asignado:" value="Asignado a:" />
+                                    <p></p>
+                                    <h:outputLabel for="Correo Electronico:" value="Correo Electronico:" />
+
+                                    <p:dataTable value="#{ideaBean.getLstIdeasXid()}" var="ideaXid">
+                                        <p:column headerText="CreadordeIdea">
+                                            <h:outputText value="#{ideaXid.CREADOPOR_ideas}" />
+                                        </p:column>
+
+                                        <p:column headerText="Correo Electronico" priority="3">
+                                            <h:outputText value="#{ideaXid.usuario_usuario}" />
+                                        </p:column>
+
+                                        <!--<p:column headerText="Objetivos" priority="2">
+                                            <h:outputText value="" />
+                                        </p:column>
+
+                                        <p:column headerText="Palabras Claves" priority="2">
+                                            <h:outputText value="" />
+                                        </p:column>-->
+                                    </p:dataTable>
+
+                                    <p></p>
+
+                                    <p:dataTable value="#{ideaBean.getLstIdeasXid()}" var="ideaXid">
+                                        <!--<p:column headerText="Titulo">
+                                            <h:outputText value="#{ideaXid.TITULO_ideas}" />
+                                        </p:column>-->
+
+                                        <p:column headerText="Descripción" priority="3">
+                                            <h:outputText value="#{ideaXid.DESCRIPCION_ideas}" />
+                                        </p:column>
+
+                                        <p:column headerText="Objetivos" priority="2">
+                                            <h:outputText value="#{ideaXid.DESCRIPCION_objetivo}" />
+                                        </p:column>
+
+                                        <p:column headerText="Palabras Claves" priority="2">
+                                            <h:outputText value="#{ideaXid.PALABRASCLAVE_ideas}" />
+                                        </p:column>
+                                        <!--<p:column style="width:24px">
+                                            <p:commandLink update=":formIdeaList:documentPanel" oncomplete="PF('documentDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search">
+                                                <f:setPropertyActionListener value="#{idea}" target="#{ideaBean.lstIdeas}" />
+                                            </p:commandLink>
+                                        </p:column>-->
+                                    </p:dataTable>
+                                </p:outputPanel>
+                            </p:dialog>
+                        </p:panel>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

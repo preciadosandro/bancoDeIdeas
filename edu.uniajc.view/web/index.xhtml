@@ -1,14 +1,49 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+          >
 
     <body>
 
         <ui:composition template="./Template/Home.xhtml">
 
             <ui:define name="content">
-                HOME
+                <p:panelGrid>
+                    <p:row>
+                        <p:column >
+                            <p>
+                                Un objetivo de las Instituciones de Educación Superior es formar profesionales capaces de hacer investigación.
+                                La mayoría de los estudios se centran en la investigación, los grupos y los proyectos. 
+                            </p>
+                            <p>
+                                Este trabajo se centra en dos aspectos: una metodología estándar para el desarrollo de proyectos para estudiantes
+                                de Ingeniería de Sistemas con énfasis en ingeniería de software y sistemas de información, y un sistema de 
+                                información para la gestión de información de los proyectos.
+                            </p>
+                            <p>
+                                La motivación más importante para este proyecto es que las IES que tienen procesos maduros de Investigación y 
+                                cuentan con sistemas de información para la investigación.
+                            </p>
+                            <p>
+                                Igual justificación se encuentra en la evidente falta de un sistema de información alrededor del cual se integren
+                                todas las funciones de investigación, en este caso, de la UNIAJC. Se pretende, entonces, fortalecer los procesos 
+                                de desarrollo de proyectos con una metodología estándar para desarrollo de proyectos de software y su aplicación 
+                                para el desarrollo de IRIS.
+                            </p>
+                        </p:column>
+                        <p:column>
+                            <p:chart type="pie" model="#{index.modelPieChart}" style="width:400px; height:200px" />
+                            <!--
+                            <p:chart type="line" model="#{index.modelLineChart}" style="width:400px; height:200px" />
+                            -->
+                            <p:chart type="bar" model="#{index.barModel}" style="width:400px; height:200px" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
             </ui:define>
 
         </ui:composition>

@@ -11,6 +11,7 @@ import edu.uniajc.ideaBank.interfaces.model.User;
 import edu.uniajc.ideaBank.interfaces.model.V_rolrequest;
 import edu.uniajc.ideaBank.logic.services.V_rolrequestService;
 import static edu.uniajc.ideaBank.view.UserBean.getContext;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -32,7 +33,7 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean(name = "userManagerBean")
 @SessionScoped
-public class UserManagerBean {
+public class UserManagerBean implements Serializable{
     
     private User user;
     private List<ListaValorDetalleBean> listValDetal;

@@ -7,6 +7,9 @@ package edu.uniajc.ideaBank.view;
 
 import edu.uniajc.ideaBank.interfaces.IUser;
 import edu.uniajc.ideaBank.interfaces.model.User;
+import edu.uniajc.ideaBank.logic.services.UserService;
+import edu.uniajc.security.view.Constants;
+import edu.uniajc.security.view.ManagerBean;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,21 +33,23 @@ import org.primefaces.event.SelectEvent;
  * @author Bladimir Morales
  */
 @ManagedBean(name = "userBean")
-@SessionScoped
-public class UserBean implements Serializable {
+@ViewScoped
+public class UserBean extends ManagerBean implements Serializable {
 
-    private User user;
-     
+    private User user;     
     private String userConfirm;
     private String passwordConfirm;
     private Date currentDate = new Date();
-    
+    private InitialContext ctx;
+     
     IUser uDao = null;
 
-    public UserBean() {
+    public UserBean() {     
+        super();
+        ctx = ManagerBean.getContext();
         user = new User();
     }
-
+ 
     public User getUser() {
         return user;
     }
@@ -76,12 +81,11 @@ public class UserBean implements Serializable {
     public void newUser() {
 
         int validator;
-        FacesContext context = FacesContext.getCurrentInstance();
 
-        try {
-            InitialContext ctx = getContext();
+        try {            
             uDao = (IUser) ctx.lookup("java:global/edu.uniajc.view/UserService!edu.uniajc.ideaBank.interfaces.IUser");
         } catch (Exception e) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, e);
         }
 
         if (user.getUsuario().equals(this.getUserConfirm())) {
@@ -89,42 +93,35 @@ public class UserBean implements Serializable {
                 validator = uDao.createUser(this.user);
                 switch (validator) {
                     case -1:
-                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
-                                "Los datos no fueron guardados. 'Problemas en el userDAO'", ""));
-                        break;
+                        super.showMessage(FacesMessage.SEVERITY_INFO, 
+                                "Los datos no fueron guardados. 'Problemas en el userDAO'");
+                        break; 
                     case 0:
-                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Los datos fueron guardados.", ""));
                         RequestContext.getCurrentInstance().execute("PF('dialogOk').show()");
                         break;
                     case -2:
-                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                "Numero de identificación ya se encuentra registrado.", ""));
+                        super.showMessage(FacesMessage.SEVERITY_INFO, "Numero de identificación ya se encuentra registrado.");
                         break;
                     case -3:
-                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                "Usuario y/o correo ya se encuentra registrado.", ""));
+                        super.showMessage(FacesMessage.SEVERITY_INFO, "Usuario y/o correo ya se encuentra registrado.");
                         break;
                     default:
                         break;
                 }
             } else {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                        "Las contraseñas no corresponden", ""));
+                super.showMessage(FacesMessage.SEVERITY_INFO, "Las contraseñas no corresponden.");
             }
         } else {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Los correos electronicos no son iguales", ""));
+            super.showMessage(FacesMessage.SEVERITY_INFO, "Los correos electronicos no son iguales.");
         }
-    }
-
-    
+    }    
 
     public void linklogin() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
             context.getExternalContext().redirect("login.xhtml");
         } catch (Exception e) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -139,20 +136,5 @@ public class UserBean implements Serializable {
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.update("form:display");
         requestContext.execute("PF('dlg').show()");
-    }
-
-    public static InitialContext getContext() {
-        try {
-            Properties props = new Properties();
-            props.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.enterprise.naming.SerialInitContextFactory");
-            props.setProperty("org.omg.CORBA.ORBInitialHost", "localhost");
-            // glassfish default port value will be 3700,
-            props.setProperty("org.omg.CORBA.ORBInitialPort", "39822");
-            InitialContext ctx = new InitialContext(props);
-            return ctx;
-        } catch (NamingException ex) {
-            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
     }
 }

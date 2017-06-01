@@ -34,18 +34,13 @@ public class UserDAO {
             PreparedStatement ps = null;
             String SQL;
 
-            /* SQL = "select SQ_TB_USUARIO.nextval ID from dual";
-            ps = this.DBConnection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
-            int id = rs.getInt("ID");*/
             SQL = "INSERT INTO TB_USUARIO(ID,ID_T_LV_TIPOUSUARIO,ID_T_LV_ESTADOUSUARIO,"
                     + "ID_T_LV_TIPOIDENTIFICACION,NUMIDENTIFICACION,PRIMERNOMBRE,"
                     + "SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,TELEFONOFIJO,"
                     + "TELEFONOCELULAR,USUARIO,CONTRASENA,CREADOPOR, GENERO, ID_T_LV_DEPENDENCIA,"
-                    + "ID_T_LV_PROGRAMAACEDEMICO, FECHANACIMIENTO) "
+                    + "ID_T_LV_PROGRAMAACADEMICO, FECHANACIMIENTO) "
                     + "VALUES(SQ_TB_USUARIO.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
-            //ps.setInt(1, id);
             ps.setInt(1, userModel.getIdTipoUsuario());
             ps.setInt(2, userModel.getIdEstadoUsuario());
             ps.setInt(3, userModel.getIdTipoIdentificacion());
@@ -132,7 +127,7 @@ public class UserDAO {
                 + "ID_T_LV_TIPOIDENTIFICACION,NUMIDENTIFICACION,PRIMERNOMBRE,"
                 + "SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,TELEFONOFIJO,"
                 + "TELEFONOCELULAR,USUARIO,CONTRASENA,CREADOPOR, GENERO, ID_T_LV_DEPENDENCIA,"
-                + "ID_T_LV_PROGRAMAACEDEMICO, FECHANACIMIENTO "
+                + "ID_T_LV_PROGRAMAACADEMICO, FECHANACIMIENTO "
                 + "FROM TB_USUARIO ORDER BY 1";
 
         try {
@@ -155,7 +150,7 @@ public class UserDAO {
                 uRow.setUsuario(RS.getString("USUARIO"));
                 uRow.setGenero(RS.getString("GENERO"));
                 uRow.setIdDependencia(RS.getInt("ID_T_LV_DEPENDENCIA"));
-                uRow.setIdProgrmaAcademico(RS.getInt("ID_T_LV_PROGRAMAACEDEMICO"));
+                uRow.setIdProgrmaAcademico(RS.getInt("ID_T_LV_PROGRAMAACADEMICO"));
                 uRow.setFechaNacimiento(RS.getDate("FECHANACIMIENTO"));
                 itemFound.add(uRow);
             }
@@ -178,7 +173,7 @@ public class UserDAO {
                     + "ID_T_LV_TIPOIDENTIFICACION = ?, NUMIDENTIFICACION = ?, PRIMERNOMBRE = ?,"
                     + "SEGUNDONOMBRE = ?, PRIMERAPELLIDO = ?, SEGUNDOAPELLIDO = ?, TELEFONOFIJO = ?,"
                     + " FECHANACIMIENTO = ?,TELEFONOCELULAR = ?,"
-                    + "GENERO = ?,  ID_T_LV_PROGRAMAACEDEMICO = ?,"
+                    + "GENERO = ?,  ID_T_LV_PROGRAMAACADEMICO = ?,"
                     + "ID_T_LV_DEPENDENCIA = ?, MODIFICADOPOR = ?,"
                     + "MODIFICADOEN = ? WHERE ID = ?";
             ps = this.DBConnection.prepareStatement(SQL);
@@ -209,4 +204,23 @@ public class UserDAO {
         }
 
     }
+    
+    public boolean newPassword(User user) {
+        try {
+            PreparedStatement ps = null;
+            String SQL = "UPDATE TB_USUARIO SET CONTRASENA = ?  WHERE ID = ?";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ps.setString(1, user.getContrasena());
+            ps.setInt(2, user.getId());
+            ps.execute();
+            return true;
+
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+            return false;
+        }
+
+    }
+    
+    
 }

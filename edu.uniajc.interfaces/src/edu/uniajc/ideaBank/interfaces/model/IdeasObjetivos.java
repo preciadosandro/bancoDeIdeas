@@ -5,13 +5,14 @@
  */
 package edu.uniajc.ideaBank.interfaces.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author LMIRANDA
  */
-public class IdeasObjetivos {
+public class IdeasObjetivos implements Serializable {
 
     private int ID_ideas;
     private int ID_T_USUARIO_ideas;
@@ -32,6 +33,11 @@ public class IdeasObjetivos {
     private Date CREADOEN_objetivo;
     private String MODIFICADOPOR_objetivo;
     private Date MODIFICADOEN_objetivo;
+
+    private int id_usuario;
+    private String primerNombre_usuario;
+    private String primerApellido_usuario;
+    private String usuario_usuario;
 
     public int getID_ideas() {
         return ID_ideas;
@@ -175,6 +181,38 @@ public class IdeasObjetivos {
 
     public void setMODIFICADOEN_objetivo(Date MODIFICADOEN_objetivo) {
         this.MODIFICADOEN_objetivo = MODIFICADOEN_objetivo;
+    }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+
+    public String getPrimerNombre_usuario() {
+        return primerNombre_usuario;
+    }
+
+    public void setPrimerNombre_usuario(String primerNombre_usuario) {
+        this.primerNombre_usuario = primerNombre_usuario;
+    }
+
+    public String getPrimerApellido_usuario() {
+        return primerApellido_usuario;
+    }
+
+    public void setPrimerApellido_usuario(String primerApellido_usuario) {
+        this.primerApellido_usuario = primerApellido_usuario;
+    }
+
+    public String getUsuario_usuario() {
+        return usuario_usuario;
+    }
+
+    public void setUsuario_usuario(String usuario_usuario) {
+        this.usuario_usuario = usuario_usuario;
     }
 
 }

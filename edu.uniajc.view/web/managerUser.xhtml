@@ -19,7 +19,8 @@
                                  var="us" value="#{userManagerBean.listUser}" emptyMessage="No hay datos de usuarios">
 
                         <p:column headerText="Ver" style="width:32px;text-align: center">
-                            <p:commandButton oncomplete="PF('carDialog').show()" icon="ui-icon-search" title="Ver">
+                            <p:commandButton oncomplete="PF('dialogUpdateViewUser').show()" icon="ui-icon-search" title="Ver" update="formUpdateuser">
+                                              <f:setPropertyActionListener target="#{userManagerBean.user}" value="#{us}"/>
 
                             </p:commandButton>
                         </p:column>
@@ -43,13 +44,49 @@
                         
                         
                         <p:column headerText="Editar" style="width:32px;text-align: center">
-                            <p:commandButton oncomplete="PF('dialogUpdateUser').show()" 
-                                             icon="ui-icon-pencil" title="Editar" update="formUpdateuser">
+                            <p:commandButton oncomplete="PF('dialogUpdateUser').show()" icon="ui-icon-pencil" title="Editar" update="formUpdateuser">
                                 <f:setPropertyActionListener target="#{userManagerBean.user}" value="#{us}"/>
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>
+                </h:form> 
+                
+                <h:form id="formUpdateViewuser">
+                    <p:growl id="messageGeneral" autoUpdate="true" life="4000"/>
+                    <p:dialog id="digUpdateUser" widgetVar="dialogUpdateViewUser" 
+                              resizable="false" showEffect="explote"
+                              hideEffect="explode" modal="true" header="Informacion Del Usuario" >                    
+                        <p:panelGrid id="grid" columns="2" style="text-align: right;" 
+                                     columnClasses="no-border, no-border, no-border, no-border">
+                    
+                    <h:outputText value="Nombre:" /> 
+                    <h:outputText value="#{userManagerBean.user.primerNombre}" />
+                    
+                    <h:outputText value="" /> 
+                    <h:outputText value="#{userManagerBean.user.segundoNombre}" />
+                    
+                    <h:outputText value="Apellidos:" /> 
+                    <h:outputText value="#{userManagerBean.user.primerApellido}" />
+                    
+                    <h:outputText value="" /> 
+                    <h:outputText value="#{userManagerBean.user.segundoApellido}" />
+                    
+                    <h:outputText value="Telefono fijo:" /> 
+                    <h:outputText value="#{userManagerBean.user.telefonoFijo}" />
+                    
+                    <h:outputText value="Telefono Celular:" /> 
+                    <h:outputText value="#{userManagerBean.user.telefonoCelular}" />
+                    
+                    <h:outputText value="E-mail:" /> 
+                    <h:outputText value="#{userManagerBean.user.usuario}" />
+                    </p:panelGrid>
+                      </p:dialog>
                 </h:form>
+                
+                
+                
+                
+                
                 <h:form id="formUpdateuser">
                     <p:growl id="messageGeneral" autoUpdate="true" life="4000"/>
                     <p:dialog id="digUpdateUser" widgetVar="dialogUpdateUser" 

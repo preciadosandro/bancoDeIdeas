@@ -9,7 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="css/default.css"/>
         <h:outputStylesheet name="css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <title>IRIS-D</title>
     </h:head>
 
     <h:body>
@@ -33,6 +33,9 @@
                     </h:form>
                 </div>
                 <div style="clear:both;"></div>
+            </div>
+            <div id="left" class="left_content">
+                <ui:insert name="content_left">Content left</ui:insert>
             </div>
             <div id="content" class="center_content">
                 <ui:insert name="content">Content</ui:insert>

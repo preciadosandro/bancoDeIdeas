@@ -11,7 +11,7 @@
         <ui:composition template="./Template/Home.xhtml">
             <ui:define name="content">
                 <div align="center">
-                    <h1 style="color: #E04500">Gestor de Ideas</h1>
+                    <h1 style="color: #E04500;padding-right: 180px">Gestor de Ideas</h1>
                     <h:form style="padding: 10px; width: fit-content;">
                         <p:growl autoUpdate="true" life="4000"/>
                         <p:panel style="color: #555C6D" header="Iniciar Sesión">
@@ -43,7 +43,7 @@
                                         <p:selectBooleanCheckbox title="Ayuda: Seleccione esta opcion para que el sistema recuerde su usuario la proxima vez." id="cookiesCheck" value="#{loginBean.cookiesCheck}" />                                        
                                     </h:panelGrid>                                    
                                     <p:link style="color: #4C7DA7" title="Ayuda: En caso de no recordar su contraseña, haga Clic aqui." value="¿He olvidado mi contraseña?" outcome="forgotpass">
-                                            <f:param name="productId" value="10" />
+                                            
                                         </p:link>                                                                            
                                 </p:panelGrid>
                                 

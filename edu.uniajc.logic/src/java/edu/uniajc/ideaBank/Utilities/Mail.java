@@ -26,8 +26,7 @@ public class Mail {
     private String bcc = null;
     
     protected String servidor = "smtp.gmail.com";
-    protected int port = 465;
-    private int intentosMaximos = 2;
+    protected int port = 465; 
     
     public Mail() {
         
@@ -44,10 +43,6 @@ public class Mail {
     
     public void setPort(int port) {
         this.port = port;
-    }
-    
-    public void setIntentosMaximos(int numero) {
-        this.intentosMaximos = numero;
     }
     
     public void setSubject(String subject){
@@ -89,18 +84,15 @@ public class Mail {
     }
     
     public boolean mail(String para) {
-        
+        boolean salida=false;
         if (para == null && bcc == null) {
             return false;
-        }
-        
+        }        
         para = para.trim();
-        para = para.replace(" ", "");
-        
+        para = para.replace(" ", "");        
         if (para.replace(",", "").trim().isEmpty() && bcc == null) {
             return false;
-        }
-            
+        }            
         Properties props = new Properties();
         props.put("mail.smtp.host", servidor);
         props.put("mail.smtp.socketFactory.port", port);
@@ -117,11 +109,9 @@ public class Mail {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(usuario));
             if (bcc != null) {
-                message.setRecipients(Message.RecipientType.BCC,
-                        InternetAddress.parse(bcc));
+                message.setRecipients(Message.RecipientType.BCC,InternetAddress.parse(bcc));
             }
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(para));
+            message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(para));
             message.setSubject(subject);
             if (replyTo != null) {
                 message.setReplyTo(new javax.mail.Address[] {
@@ -144,30 +134,20 @@ public class Mail {
                     body.setFileName(archivos[i].getName());
                     parts.addBodyPart(body);
                 }
-            }
-            
+            }            
             message.setContent(parts);
-            boolean envio = false;
-            int intentos = 0;
-            
-            do {
-                try {
-                    Transport.send(message);
-                    envio = true;
-                   break;
+            try {
+                    Transport.send(message);              
+                    salida=true;           
                 } catch (Exception e) {
                     e.printStackTrace();
-                    System.out.println("Error enviando mensaje para " + para + ", error: " + e.getMessage());
-                    System.out.println("Esperando 5 segundos para intentar de nuevo");
-                }
-                Thread.sleep(5000);
-                intentos++;
-            } while (!envio && insistente && (intentos < intentosMaximos));
-            
-            return true;
+                    System.out.println("Error enviando mensaje para " + para + ", error: " + e.getMessage());                    
+                    salida= false;
+                }               
         } catch (Exception e) {
             e.printStackTrace();
+            salida=false;
         }
-        return false;
+        return salida;
     } 
 }

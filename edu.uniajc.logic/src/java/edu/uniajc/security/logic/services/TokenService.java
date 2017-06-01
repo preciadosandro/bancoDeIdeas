@@ -33,6 +33,7 @@ public class TokenService implements IToken{
     public boolean createToken(String usuario, String urlServer) {
         TokenDAO dao = new TokenDAO(dbConnection);        
         String token = java.util.UUID.randomUUID().toString();
+        boolean salida=false;
         
         if (dao.createToken(usuario, token,1)){
             SendMail obj=new SendMail();
@@ -52,11 +53,9 @@ public class TokenService implements IToken{
                     + "</p>"
                     + "</body>"
                     + "</html>";
-            obj.enviar_correo(usuario,"IRIS - Solicitud cambio contraseña", mensaje);
-            return true;
-        }else{
-            return false;
-        }   
+            salida = obj.enviar_correo(usuario,"IRIS - Solicitud cambio contraseña", mensaje);    
+        }
+        return salida;
     } 
 
     @Override

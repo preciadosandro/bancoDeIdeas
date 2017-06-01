@@ -7,13 +7,19 @@ package edu.uniajc.ideaBank.interfaces;
 
 
 
+import edu.uniajc.ideaBank.interfaces.model.V_rolrequest;
 import java.util.ArrayList;
+import javax.ejb.Remote;
 
 /**
  *
  * @author jorge.castaño
  */
-public interface V_rolrequest {
+@Remote
+public interface IV_rolrequest {
    
    public ArrayList<V_rolrequest> getRolrequests2();
+   public int updateUserRol(V_rolrequest V_rolrequestModel);
+
+
 }

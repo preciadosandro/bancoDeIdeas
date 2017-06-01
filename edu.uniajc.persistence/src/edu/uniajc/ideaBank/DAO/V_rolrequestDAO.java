@@ -14,6 +14,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -64,6 +67,30 @@ public class V_rolrequestDAO {
         }
         
     };
+       
+       
+       public boolean updateUserRol(V_rolrequest V_rolrequestModel) {
+         System.out.println(V_rolrequestModel.getId_t_rol());
+         System.out.println(V_rolrequestModel.getId());
+        try {
+            
+            PreparedStatement ps = null;
+            String SQL;
+            SQL = "UPDATE TB_SOLICITUDROL SET ID_T_ROL = ? WHERE ID = ?";
+            ps = this.DBConnection.prepareStatement(SQL);
+            //ps.setInt(1, id);
+            ps.setInt(1, V_rolrequestModel.getId_t_rol());
+            ps.setInt(2, V_rolrequestModel.getId());
+            ps.execute();
+            System.out.println(ps);
+            return true;
+
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+            return false;
+        }
+
+    }
        
 
     

@@ -6,7 +6,10 @@
 package edu.uniajc.ideaBank.view;
 
 import edu.uniajc.ideaBank.interfaces.IUser;
+import edu.uniajc.ideaBank.interfaces.IV_rolrequest;
 import edu.uniajc.ideaBank.interfaces.model.User;
+import edu.uniajc.ideaBank.interfaces.model.V_rolrequest;
+import edu.uniajc.ideaBank.logic.services.V_rolrequestService;
 import static edu.uniajc.ideaBank.view.UserBean.getContext;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +20,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -31,9 +35,13 @@ import org.primefaces.context.RequestContext;
 public class UserManagerBean {
     
     private User user;
+    private List<ListaValorDetalleBean> listValDetal;
     private List<User> listUser;
     IUser uDao = null;
+    IV_rolrequest VuDao = null;
+    
     private Date currentDate = new Date();
+    
     public User getUser() {
         return user;
     }
@@ -61,6 +69,14 @@ public class UserManagerBean {
 
     public void setCurrentDate(Date currentDate) {
         this.currentDate = currentDate;
+    }
+
+    public List<ListaValorDetalleBean> getListValDetal() {
+        return listValDetal;
+    }
+
+    public void setListValDetal(List<ListaValorDetalleBean> listValDetal) {
+        this.listValDetal = listValDetal;
     }
     
     
@@ -91,6 +107,8 @@ public class UserManagerBean {
         }
     }
     
+
+    
     public static InitialContext getContext() {
         try {
             Properties props = new Properties();
@@ -105,4 +123,8 @@ public class UserManagerBean {
             return null;
         }
     }
+    
+   
+    
+    
 }

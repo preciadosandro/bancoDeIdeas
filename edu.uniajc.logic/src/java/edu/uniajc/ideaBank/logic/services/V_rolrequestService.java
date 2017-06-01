@@ -6,12 +6,16 @@
 package edu.uniajc.ideaBank.logic.services;
 
 
+
 import edu.uniajc.ideaBank.DAO.V_rolrequestDAO;
+import edu.uniajc.ideaBank.interfaces.IV_rolrequest;
+
 
 import edu.uniajc.ideaBank.interfaces.model.V_rolrequest;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.ejb.Stateless;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -20,9 +24,14 @@ import javax.sql.DataSource;
  *
  * @author jorge.castaño
  */
-public class V_rolrequestService {
+@Stateless
+public class V_rolrequestService implements IV_rolrequest{
     
-        public ArrayList<V_rolrequest> getRolrequests2() {      
+    Connection dbConnection;
+    
+   
+    
+    public ArrayList<V_rolrequest> getRolrequests2() {      
         try {
             Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
             V_rolrequestDAO dao = new V_rolrequestDAO(dbConnection);
@@ -35,7 +44,21 @@ public class V_rolrequestService {
         }
     }
         
-        
+    @Override
+    public int updateUserRol(V_rolrequest V_rolrequestModel) {
+        V_rolrequestDAO dao = new V_rolrequestDAO(dbConnection);
+        boolean confirmUser;
+
+        confirmUser = dao.updateUserRol(V_rolrequestModel);
+        if (confirmUser == true) {
+            return 0;
+           } else {
+            return -1;
+        }
+
+    }
+
+   
         
 
     

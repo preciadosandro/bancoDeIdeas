@@ -18,4 +18,5 @@ public interface IUser {
     public int createUser(User userModel);  
     public List<User> listaUser();
     public int updateUser(User userModel);
+   
 }

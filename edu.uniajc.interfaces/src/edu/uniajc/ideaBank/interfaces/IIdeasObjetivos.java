@@ -15,4 +15,5 @@ import java.util.ArrayList;
 public interface IIdeasObjetivos {
 
     public ArrayList<IdeasObjetivos> lista();
+    public ArrayList<IdeasObjetivos> listarXid(int id);
 }

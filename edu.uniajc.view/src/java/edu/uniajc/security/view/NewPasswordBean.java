@@ -8,7 +8,6 @@ package edu.uniajc.security.view;
 import edu.uniajc.ideaBank.Utilities.Utilities;
 import edu.uniajc.ideaBank.interfaces.IUser;
 import edu.uniajc.ideaBank.interfaces.model.User;
-import edu.uniajc.ideaBank.logic.services.UserService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -37,6 +36,10 @@ public class NewPasswordBean extends ManagerBean{
         ctx = super.getContext();
         // obtiene objeto de la sesion
         user = (User) super.getFromSession(Constants.SESSION_KEY_USER);        
+        if (user == null || user.getId()== 0) {
+            // No esta autenticado ==> direccionar a pantalla login
+            super.redirect("login.xhtml");
+        }
     }
     
     public String getPassword() {

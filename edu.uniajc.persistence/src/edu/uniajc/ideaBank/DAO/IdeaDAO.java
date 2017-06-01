@@ -10,9 +10,7 @@ import edu.uniajc.ideaBank.interfaces.model.IdeasObjetivos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,8 +61,8 @@ public class IdeaDAO {
 
     }
 
-    public List<IdeasObjetivos> listar()  {
-        List<IdeasObjetivos> lista = null;
+    public ArrayList<IdeasObjetivos> listar()  {
+        ArrayList<IdeasObjetivos> lista = null;
 
         try {
             //this.Conectar();
@@ -94,8 +92,8 @@ public class IdeaDAO {
     }
 
     //------------------------------------------------------------------------//
-    public List<IdeasObjetivos> listarxid(int id) {
-        List<IdeasObjetivos> listaxid = null;
+    public ArrayList<IdeasObjetivos> listarxid(int id) {
+        ArrayList<IdeasObjetivos> listaxid = null;
 
         try {
             //this.Conectar();

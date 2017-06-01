@@ -57,7 +57,11 @@ public class ManagerBean implements Serializable {
      * @param value Objeto a poner en sesión.
      */
     public void addToSession(String key, Object value) {
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(key, value);
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(key, value);
+        } catch (Exception e) {
+            Logger.getLogger(ManagerBean.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     /**
@@ -66,7 +70,12 @@ public class ManagerBean implements Serializable {
      * @return Objeto en la sesión.
      */
     public Object getFromSession(String key) {
-        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(key);
+        try {
+            return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(key);
+        } catch (Exception e) {
+            Logger.getLogger(ManagerBean.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        }
     }
 
     /**
@@ -76,8 +85,12 @@ public class ManagerBean implements Serializable {
      * @code showMessage(FacesMessage.SEVERITY_ERROR, "Se presentó un error!!!");
      */
     public void showMessage(FacesMessage.Severity type, String text) {
-        FacesMessage message = new FacesMessage(type, text, null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        try {
+            FacesMessage message = new FacesMessage(type, text, null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } catch (Exception e) {
+            Logger.getLogger(ManagerBean.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
     
     /**
@@ -88,7 +101,20 @@ public class ManagerBean implements Serializable {
      * @code showMessageDialog(FacesMessage.SEVERITY_ERROR, "Errores", "Se presentó un error!!!");
      */
     public void showMessageDialog(FacesMessage.Severity type, String title, String text) {
-        FacesMessage message = new FacesMessage(type, title, text);
-        RequestContext.getCurrentInstance().showMessageInDialog(message);
+        try {
+            FacesMessage message = new FacesMessage(type, title, text);
+            RequestContext.getCurrentInstance().showMessageInDialog(message);
+        } catch (Exception e) {
+            Logger.getLogger(ManagerBean.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
+    
+    public void redirect(String page) {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect(page);
+        } catch (Exception e) {
+            Logger.getLogger(ManagerBean.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
 }

@@ -72,5 +72,14 @@ public class TokenBean extends ManagerBean{
         }else{
             super.showMessage(FacesMessage.SEVERITY_WARN, "Usuario no existe.");
         }
-    }   
+    }  
+    
+    public void confirmation() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            context.getExternalContext().redirect("login.xhtml");
+        } catch (Exception e) {
+            Logger.getLogger(TokenBean.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
 }

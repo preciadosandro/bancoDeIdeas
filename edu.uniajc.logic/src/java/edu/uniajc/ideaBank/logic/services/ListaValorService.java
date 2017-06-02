@@ -5,7 +5,6 @@
  */
 package edu.uniajc.ideaBank.logic.services;
 
-import edu.uniajc.ideaBank.Utilities.Utilities;
 import edu.uniajc.ideaBank.DAO.ListaValorDAO;
 import edu.uniajc.ideaBank.interfaces.model.ListaValor;
 import java.sql.Connection;
@@ -14,6 +13,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import edu.uniajc.ideaBank.interfaces.IListaValor;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 
 /**
@@ -24,34 +26,59 @@ import javax.ejb.Stateless;
 public class ListaValorService implements IListaValor {
 
     Connection dbConnection;
-    boolean validatorListaValor, validatorId;
-    ListaValor listaValorModel;    
+    boolean validatorAgrupacion;
+    ListaValor listaValorModel;
     
-    @Override
-    public boolean createListaValor(ListaValor listaValorModel) {
+    public ListaValorService() {
         try {
-            dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
-            ListaValorDAO dao = new ListaValorDAO(dbConnection);
-            validatorListaValor = dao.getListaValorByAgrupacion(listaValorModel.getAgrupacion());
-            validatorId = dao.getListaValorById(listaValorModel.getId());
-            
-            if (validatorListaValor == false && validatorId == false) {
-                return dao.createListaValor(listaValorModel);
-            } else {
-                return false;
-            }
-        } catch (SQLException | NamingException e) {
-            System.out.println(e.getMessage());
-            return false;
-        } finally {
-            try {
-                if (null != dbConnection) {
-                    dbConnection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
+            this.dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+        } catch (NamingException | SQLException e) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, e);
         }
     }
+    
+    @Override
+    public int createListaValor(ListaValor listaValorModel) {
+        ListaValorDAO dao = new ListaValorDAO(dbConnection);
+        boolean confirmListaValor;
+        validatorAgrupacion = dao.getListaValorByAgrupacion(listaValorModel.getAgrupacion());
+        if (validatorAgrupacion == false) {
+            confirmListaValor = dao.createListaValor(listaValorModel);
+            
+            if (confirmListaValor == true) {
+                return 0;
+            } else {
+                return -1;
+            }
+        } else {
+            return -2;
+        }
+    }
+    
+    @Override
+    public List<ListaValor> listaValorEncabezado() {
+        try {
+            ListaValorDAO dao = new ListaValorDAO(dbConnection);
+            List<ListaValor> list = dao.listListaValor();
+            return list;
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public int updateListaValor(ListaValor listaValorModel) {
+        ListaValorDAO dao = new ListaValorDAO(dbConnection);
+        boolean confirmListaValor;
+        
+        confirmListaValor = dao.updateListaValor(listaValorModel);
+        if (confirmListaValor == true) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+    
 }

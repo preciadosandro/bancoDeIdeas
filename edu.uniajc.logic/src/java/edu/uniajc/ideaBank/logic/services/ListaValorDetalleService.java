@@ -5,7 +5,6 @@
  */
 package edu.uniajc.ideaBank.logic.services;
 
-import edu.uniajc.ideaBank.Utilities.Utilities;
 import edu.uniajc.ideaBank.DAO.ListaValorDetalleDAO;
 import edu.uniajc.ideaBank.interfaces.model.ListaValorDetalle;
 import java.sql.Connection;
@@ -14,6 +13,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import edu.uniajc.ideaBank.interfaces.IListaValorDetalle;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 
 /**
@@ -24,34 +26,55 @@ import javax.ejb.Stateless;
 public class ListaValorDetalleService implements IListaValorDetalle {
 
     Connection dbConnection;
-    boolean validatorListaValorDetalle, validatorId;
-    ListaValorDetalle listaValorDetalleModel;    
+    boolean validatorValor;
+    ListaValorDetalle listaValorDetalleModel;
     
-    @Override
-    public boolean createListaValorDetalle(ListaValorDetalle listaValorDetalleModel) {
+    public ListaValorDetalleService() {
         try {
-            dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
-            ListaValorDetalleDAO dao = new ListaValorDetalleDAO(dbConnection);
-            validatorListaValorDetalle = dao.getListaValorDetalleById(listaValorDetalleModel.getId());
-            validatorId = dao.getListaValorDetalleById(listaValorDetalleModel.getId());
-            
-            if (validatorListaValorDetalle == false && validatorId == false) {
-                return dao.createListaValorDetalle(listaValorDetalleModel);
-            } else {
-                return false;
-            }
-        } catch (SQLException | NamingException e) {
-            System.out.println(e.getMessage());
-            return false;
-        } finally {
-            try {
-                if (null != dbConnection) {
-                    dbConnection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
+            this.dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+        } catch (NamingException | SQLException e) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, e);
         }
     }
+    
+    @Override
+    public int createListaValorDetalle(ListaValorDetalle listaValorDetalleModel) {
+        ListaValorDetalleDAO dao = new ListaValorDetalleDAO(dbConnection);
+        boolean confirmListaValorDetalle;
+        
+        confirmListaValorDetalle = dao.createListaValorDetalle(listaValorDetalleModel);
+
+        if (confirmListaValorDetalle == true) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+    
+    @Override
+    public List<ListaValorDetalle> listaValorDetalleDesc() {
+        try {
+            ListaValorDetalleDAO dao = new ListaValorDetalleDAO(dbConnection);
+            List<ListaValorDetalle> list = dao.getListaValorDetalleByIdListaValor(listaValorDetalleModel.getIdListaValor());
+            return list;
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public int updateListaValorDetalle(ListaValorDetalle listaValorDetalleModel) {
+        ListaValorDetalleDAO dao = new ListaValorDetalleDAO(dbConnection);
+        boolean confirmListaValorDetalle;
+        
+        confirmListaValorDetalle = dao.updateListaValorDetalle(listaValorDetalleModel);
+        if (confirmListaValorDetalle == true) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+    
 }

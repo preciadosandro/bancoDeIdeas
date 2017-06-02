@@ -6,6 +6,7 @@
 package edu.uniajc.ideaBank.interfaces;
 
 import edu.uniajc.ideaBank.interfaces.model.ListaValorDetalle;
+import java.util.List;
 import javax.ejb.Remote;
 
 /**
@@ -14,5 +15,10 @@ import javax.ejb.Remote;
  */
 @Remote  
 public interface IListaValorDetalle {
-    public boolean createListaValorDetalle(ListaValorDetalle listaValorDetalleModel);    
+    
+    public int createListaValorDetalle(ListaValorDetalle listaValorDetalleModel);
+    
+    public List<ListaValorDetalle> listaValorDetalleDesc();
+    
+    public int updateListaValorDetalle(ListaValorDetalle listaValorDetalleModel);
 }

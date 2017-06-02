@@ -6,6 +6,7 @@
 package edu.uniajc.ideaBank.interfaces;
 
 import edu.uniajc.ideaBank.interfaces.model.ListaValor;
+import java.util.List;
 import javax.ejb.Remote;
 
 /**
@@ -14,5 +15,10 @@ import javax.ejb.Remote;
  */
 @Remote  
 public interface IListaValor {
-    public boolean createListaValor(ListaValor listaValorModel);    
+    
+    public int createListaValor(ListaValor listaValorModel);
+    
+    public List<ListaValor> listaValorEncabezado();
+    
+    public int updateListaValor(ListaValor listaValorModel);
 }

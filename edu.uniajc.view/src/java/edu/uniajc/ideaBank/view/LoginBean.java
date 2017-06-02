@@ -125,7 +125,7 @@ public class LoginBean implements Serializable {
     public void linklogin() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
-            context.getExternalContext().redirect("index.xhtml");
+            context.getExternalContext().redirect("managerUser.xhtml");
         } catch (Exception e) {
         }
     }

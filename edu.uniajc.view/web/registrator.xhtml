@@ -82,13 +82,13 @@
                                 </p:inputText>
                                 <p:outputLabel value="Contraseña: *"/>
                                 <p:password id="password" value="#{userBean.user.contrasena}" label="Contraseña" required="true" 
-                                            requiredMessage="Contraseña: Valor es requerido."
+                                            requiredMessage="Contraseña: Valor es requerido." feedback="true"
                                             validatorMessage="Contraseña: Cantidad minima de caracteres 5.">
                                     <f:validateLength minimum="5"  />                                
                                 </p:password>
                                 <p:outputLabel value="Confirmar contraseña: *"/>
                                 <p:password id="password2" value="#{userBean.passwordConfirm}" 
-                                            label="Confirmar contraseña" required="true"
+                                            label="Confirmar contraseña" required="true" feedback="true"
                                             requiredMessage="Confirmar contraseña: Valor es requerido.">
                                     <f:validateLength minimum="5"  />     
                                 </p:password>

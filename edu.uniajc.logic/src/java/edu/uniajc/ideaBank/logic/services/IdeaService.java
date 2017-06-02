@@ -6,11 +6,13 @@
 package edu.uniajc.ideaBank.logic.services;
 
 import edu.uniajc.ideaBank.DAO.IdeaDAO;
-import edu.uniajc.ideaBank.interfaces.IIdeasObjetivos;
-import edu.uniajc.ideaBank.interfaces.model.IdeasObjetivos;
+import edu.uniajc.ideaBank.interfaces.IIdea;
+import edu.uniajc.ideaBank.interfaces.model.Idea;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -19,19 +21,23 @@ import javax.sql.DataSource;
  *
  * @author LMIRANDA
  */
-public class IdeaService implements IIdeasObjetivos {
+public class IdeaService implements IIdea {
+
+    Connection dbConnection = null;
+
+    public IdeaService() throws NamingException, SQLException {
+        this.dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+    }    
 
     @Override
-    public ArrayList<IdeasObjetivos> lista() {
+    public boolean createIdea(Idea idea) {
         try {
-            Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
             IdeaDAO dao = new IdeaDAO(dbConnection);
-            //consulta las ideas que conincidan con el nombre buscado
-            ArrayList<IdeasObjetivos> list = dao.lista();
-            return list;
-        } catch (SQLException | NamingException e) {
+            return dao.createIdea(idea);
+        } catch (Exception e) {
+            Logger.getLogger(IdeaService.class.getName()).log(Level.SEVERE, null, e);
             System.out.println(e.getMessage());
-            return null;
+            return false;
         }
     }
 

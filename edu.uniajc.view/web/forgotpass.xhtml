@@ -22,10 +22,8 @@
                                              requiredMessage="Debe ingresar el correo electrónico."
                                              validatorMessage="El formato de correo electrónico no es correcto.">
                                     <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                                </p:inputText>                                
-
-                            </p:panelGrid>                         
-                                                     
+                                </p:inputText>   
+                            </p:panelGrid>                                                                         
                             <p:separator/>
                             <p:commandButton value="Enviar" icon="ui-icon-mail" actionListener="#{TokenBean.forgotPass()}" 
                                              update="messageGeneral formpass" styleClass="ui-priority-primary" /> 
@@ -37,6 +35,14 @@
                               showHeader="false">
                         <p:graphicImage  value="resources/image/ajax-loader.gif" />
                     </p:dialog>
+                    <h:form id="formOk">
+                        <p:dialog  id="digOk" widgetVar="dialogOk" resizable="false" showEffect="explote"
+                                   hideEffect="explode" modal="true" header="Mensaje">
+                            <h:outputText style="text-align: center;" value="Correo enviado correctamente"/>
+                            <p:separator/>
+                            <p:commandButton style="text-align: center;" value="Ok" oncomplete="PF('dialogOk').hide()"/>                            
+                        </p:dialog>
+                    </h:form>
                 </div>
             </ui:define>
 

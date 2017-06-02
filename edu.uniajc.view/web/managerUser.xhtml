@@ -201,7 +201,7 @@
                                  var="us1" value="#{role_requestBean.rolrequestsList2}" emptyMessage="No hay Solicitudes">
 
                         <p:column headerText="Id">
-                            <h:outputText value="#{us1.id}"/>
+                            <h:outputText value="#{us1.id_sol_rol}"/>
                         </p:column>
                         <p:column headerText="Usuario">
                             <h:outputText value="#{us1.usuario}"/>
@@ -214,7 +214,7 @@
                         </p:column>
                         <p:column headerText="Editar" style="width:32px;text-align: center">
                             <p:commandButton oncomplete="PF('dialogUpdateRol').show()" 
-                                             icon="ui-icon-pencil" title="Editar" update="formUpdaterol">
+                                             icon="ui-icon-pencil" title="Editar" update="formListSolRol">
                                 <f:setPropertyActionListener target="#{role_requestBean.userrolre}" value="#{us1}"/>
                             </p:commandButton>
                         </p:column>                      
@@ -245,7 +245,7 @@
                         </p:panelGrid>
                         <p:separator/>
                         <p:commandButton value="Guardar" icon="ui-icon-disk" actionListener="#{role_requestBean.updateUserROL()}"
-                                         styleClass="ui-priority-primary"  update="formListSolRol:tbSolRol" />
+                                         styleClass="ui-priority-primary"  update="formListSolRol"/>
                         <p:commandButton value="Cancelar" icon="ui-icon-cancel" oncomplete="PF('dialogUpdateRol').hide();"
                                          styleClass="ui-priority-primary"/>
                     </p:dialog>

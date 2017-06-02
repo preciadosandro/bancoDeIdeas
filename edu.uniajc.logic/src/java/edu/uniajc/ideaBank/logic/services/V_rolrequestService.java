@@ -15,6 +15,8 @@ import edu.uniajc.ideaBank.interfaces.model.V_rolrequest;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -29,17 +31,23 @@ public class V_rolrequestService implements IV_rolrequest{
     
     Connection dbConnection;
     
-   
+    public V_rolrequestService() {
+        try {
+            this.dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+        } catch (NamingException | SQLException e) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
     
     public ArrayList<V_rolrequest> getRolrequests2() {      
         try {
             Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
             V_rolrequestDAO dao = new V_rolrequestDAO(dbConnection);
-            //consulta las solicitudes de Roles que coincidan.
+         //  consulta las solicitudes de Roles que coincidan.
             ArrayList<V_rolrequest> list = dao.getRolesrequest2();
             return list;
         } catch (SQLException | NamingException e) {
-            System.out.println(e.getMessage());
+           System.out.println(e.getMessage());
             return null;
         }
     }

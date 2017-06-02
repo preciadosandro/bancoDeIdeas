@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class V_rolrequest {
     
-    
+    private int id_sol_rol;
     private int id;
     private String descripcion;
     private String usuario;
@@ -87,6 +87,15 @@ public class V_rolrequest {
     public void setPrimerapellido(String primerapellido) {
         this.primerapellido = primerapellido;
     }
+
+    public int getId_sol_rol() {
+        return id_sol_rol;
+    }
+
+    public void setId_sol_rol(int id_sol_rol) {
+        this.id_sol_rol = id_sol_rol;
+    }
+    
     
     
 }

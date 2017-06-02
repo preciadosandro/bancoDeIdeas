@@ -6,7 +6,9 @@
 package edu.uniajc.ideaBank.view;
 
 import edu.uniajc.ideaBank.interfaces.IListaValor;
+import edu.uniajc.ideaBank.interfaces.IListaValorDetalle;
 import edu.uniajc.ideaBank.interfaces.model.ListaValor;
+import edu.uniajc.ideaBank.interfaces.model.ListaValorDetalle;
 import edu.uniajc.security.view.ManagerBean;
 import java.io.Serializable;
 import java.util.Properties;
@@ -30,14 +32,17 @@ import org.primefaces.context.RequestContext;
 public class ListaValorBean extends ManagerBean implements Serializable {
 
     private ListaValor listaValor;
+    private ListaValorDetalle listaValorDetalle;
     private InitialContext ctx;
     
     IListaValor uDao = null;
+    IListaValorDetalle uDaoDetalle = null;
 
     public ListaValorBean() {
         super();
         ctx = super.getContext();
         listaValor = new ListaValor();
+        listaValorDetalle = new ListaValorDetalle();
     }
 
     public ListaValor getListaValor() {
@@ -86,4 +91,48 @@ public class ListaValorBean extends ManagerBean implements Serializable {
     public void setChecked(boolean checked) {
         listaValor.setEstado(checked ? 1 : 0);
     }
+
+    public ListaValorDetalle getListaValorDetalle() {
+        return listaValorDetalle;
+    }
+
+    public void setListaValorDetalle(ListaValorDetalle listaValorDetalle) {
+        this.listaValorDetalle = listaValorDetalle;
+    }
+    
+    public boolean isCheckedDetalle() {
+        return listaValorDetalle.getEstado()!= 0;
+    }
+
+    public void setCheckedDetalle(boolean checked) {
+        listaValorDetalle.setEstado(checked ? 1 : 0);
+    }
+    
+    public void newListaValorDetalle() {
+
+        int validator;
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        try {
+            uDaoDetalle = (IListaValorDetalle) ctx.lookup("java:global/edu.uniajc.view/ListaValorDetalleService!edu.uniajc.ideaBank.interfaces.IListaValorDetalle");
+        } catch (Exception e) {
+            Logger.getLogger(ListaValorBean.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        validator = uDaoDetalle.createListaValorDetalle(this.listaValorDetalle);
+        switch (validator) {
+            case 0:
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Los datos fueron guardados.", ""));
+                RequestContext.getCurrentInstance().execute("PF('dialogOk').show()");
+                break;
+            case -1:
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                        "Los datos no fueron guardados. 'Problemas en el listaValorDAO'", ""));
+                break;
+            default:
+                break;
+        }
+    }
+    
 }

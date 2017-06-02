@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
-        <ui:composition template="./Template/Home.xhtml">
+        <ui:composition template="./Template/template_principal.xhtml">
             <ui:define name="content">
                 <div align="center">
                     <h1>Lista de Valores</h1>
@@ -51,9 +51,37 @@
                                    hideEffect="explode" modal="true" header="Mensaje">
                             <h:outputText style="text-align: center;" value="Lista principal creada!"/>
                             <p:separator/>
-                            <p:commandButton style="text-align: center;" value="Ok" oncomplete="PF('dialogOk').hide()" 
-                                             actionListener="#{userBean.linkListaValor()}"/>
+                            <p:commandButton style="text-align: center;" value="Ok" oncomplete="PF('dialogOk').hide()">
+                                <p:resetInput target="messageGeneral" />
+                            </p:commandButton>
                         </p:dialog>
+                    </h:form>
+                    <h:form id="formNuevaListaValorDetalle" style="padding: 10px; width: fit-content;">
+                        <!--<p:growl id="messageGeneral" autoUpdate="true" life="1500"/>-->
+                        <p:panel id="valorDetalle" header="Detalle de la lista principal">
+                            <p:messages autoUpdate="true"/>
+                            <p:panelGrid id="grid" columns="2" columnClasses="no-border, no-border">
+                                <h:outputText value="Agrupacion*" />
+                                <p:selectOneMenu id="typeId"  label="Agrupacion" required="true">
+                                    <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="C.C." itemValue="1" />
+                                    <f:selectItem itemLabel="Pasaporte" itemValue="2" />
+                                </p:selectOneMenu>
+                                <h:outputText value="Valor" />
+                                <p:inputText id="valor" label="Valor" required="true" size="30"
+                                    title="Valor a mostrar en la lista no mayor de 30 caracteres"
+                                    value="#{listaValorBean.listaValorDetalle.valor}" maxlength="30"
+                                    requiredMessage="Agrupacion: Campo requerido."
+                                    validatorMessage="Agrupacion: Este campo no permite números ni caracteres especiales.">
+                                    <f:validateRegex pattern="^[A-Za-z ]+" />
+                                </p:inputText>    
+                                <h:outputText value="Estado" /><p:selectBooleanCheckbox value="#{listaValorBean.checkedDetalle}" />
+                            </p:panelGrid>
+                            <p:separator/>
+                            <p:commandButton value="Guardar" icon="ui-icon-disk" actionListener="#{listaValorBean.newListaValorDetalle()}" 
+                                update="valorDetalle" styleClass="ui-priority-primary" />
+                            <p:commandButton value="Cancelar" icon="ui-icon-cancel" styleClass="ui-priority-primary"/>
+                        </p:panel>
                     </h:form>
                 </div>
             </ui:define>

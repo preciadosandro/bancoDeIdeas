@@ -35,6 +35,14 @@
                               showHeader="false">
                         <p:graphicImage  value="resources/image/ajax-loader.gif" />
                     </p:dialog>
+                    <h:form id="formOk">
+                        <p:dialog  id="digOk" widgetVar="dialogOk" resizable="false" showEffect="explote"
+                                   hideEffect="explode" modal="true" header="Mensaje">
+                            <h:outputText style="text-align: center;" value="Correo enviado correctamente"/>
+                            <p:separator/>
+                            <p:commandButton style="text-align: center;" value="Ok" oncomplete="PF('dialogOk').hide()"/>                            
+                        </p:dialog>
+                    </h:form>
                 </div>
             </ui:define>
 

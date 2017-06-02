@@ -17,14 +17,19 @@
             <div id="top">
                 <ui:insert name="top">
                     <div id="logo">
-                        <p:graphicImage value="resources/image/LOGO CAMACHO.png"/>
+                        <p:graphicImage value="resources/image/LOGO-CAMACHO.png"/>
                     </div>
                     <div id="logotipo">
                         <h1>IRIS</h1>
                     </div>
                     <div id="menuHome">
                         <h:form>
-                            <p:button outcome="login" value="Cerrar session" />      
+                            <p:growl id="messages"/>
+                        <p:menubar>
+                            <p:menuitem value="Inicio" outcome="index" />
+                            <p:menuitem value="Ayuda" url="#" />
+                            <p:menuitem outcome="login" value="Cerrar session" rendered="#{templetePrincipalBean.enableCloseSession}"/>
+                        </p:menubar>       
                         </h:form>
                     </div>
                     <div style="clear:both;"></div></ui:insert>
@@ -43,7 +48,7 @@
                         </h:form>
                     </ui:insert>
                 </div>
-                <div id="content" class="left_content">
+                <div id="content" class="left_content" >
                     <ui:insert name="content">Content</ui:insert>
                 </div>
             </div>

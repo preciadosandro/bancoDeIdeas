@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class V_rolrequestDAO {
     
-        private Connection DBConnection = null;
+    private Connection DBConnection = null;
 
     public V_rolrequestDAO(Connection openConnection) {
         this.DBConnection = openConnection;
@@ -38,7 +38,7 @@ public class V_rolrequestDAO {
             ArrayList<V_rolrequest> items = new ArrayList<>(0);
                
             PreparedStatement ps = null;
-        final String SQL ="SELECT U.ID,U.USUARIO,RO.DESCRIPCION,R.ESTADO,R.FECHASOLICITUD,R.ID_T_ROL,U.PRIMERNOMBRE,U.PRIMERAPELLIDO FROM PRUEBA.TB_SOLICITUDROL R,PRUEBA.TB_USUARIO U ,PRUEBA.TB_ROL RO WHERE R.ID_T_USUARIO=U.ID AND R.ID_T_ROL=RO.ID";
+        final String SQL ="SELECT R.ID,U.ID,U.USUARIO,RO.DESCRIPCION,R.ESTADO,R.FECHASOLICITUD,R.ID_T_ROL,U.PRIMERNOMBRE,U.PRIMERAPELLIDO FROM PRUEBA.TB_SOLICITUDROL R,PRUEBA.TB_USUARIO U ,PRUEBA.TB_ROL RO WHERE R.ID_T_USUARIO=U.ID AND R.ID_T_ROL=RO.ID AND R.ESTADO=1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
 
@@ -46,7 +46,8 @@ public class V_rolrequestDAO {
             
             while (rs.next()) {
                 V_rolrequest rol = new V_rolrequest();
-
+      
+                rol.setId_sol_rol(rs.getInt("id"));
                 rol.setId(rs.getInt("id"));
                 rol.setUsuario(rs.getString("usuario"));
                 rol.setDescripcion(rs.getString("descripcion"));
@@ -70,17 +71,16 @@ public class V_rolrequestDAO {
        
        
        public boolean updateUserRol(V_rolrequest V_rolrequestModel) {
-         System.out.println(V_rolrequestModel.getId_t_rol());
+        
          System.out.println(V_rolrequestModel.getId());
         try {
             
             PreparedStatement ps = null;
-            String SQL;
-            SQL = "UPDATE TB_SOLICITUDROL SET ID_T_ROL = ? WHERE ID = ?";
+            final String SQL;
+            SQL = "UPDATE TB_SOLICITUDROL SET ESTADO=0 WHERE ID=?";
             ps = this.DBConnection.prepareStatement(SQL);
             //ps.setInt(1, id);
-            ps.setInt(1, V_rolrequestModel.getId_t_rol());
-            ps.setInt(2, V_rolrequestModel.getId());
+            ps.setInt(1, V_rolrequestModel.getId_sol_rol());
             ps.execute();
             System.out.println(ps);
             return true;

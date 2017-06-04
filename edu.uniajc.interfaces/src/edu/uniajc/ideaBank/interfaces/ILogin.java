@@ -15,8 +15,5 @@ import javax.ejb.Remote;
 
 @Remote
 public interface ILogin {
-    public User newLogin(String user,String pass);
-
-    
-
+    public User newLogin(String user,String pass);    
 }

@@ -71,9 +71,8 @@ private Connection DBConnection = null;
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, SQL, ex);
         }
         return user;
-    }
-    
-    }
+    }    
+}
                   
     
 

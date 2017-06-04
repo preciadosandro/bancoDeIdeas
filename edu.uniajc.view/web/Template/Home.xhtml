@@ -22,13 +22,14 @@
                     <h1 style="padding-left: 20px; padding-top: 20px"><u>IRIS</u></h1>
                 </div>
                 <div id="menuHome">
-                     <h:form>  
+                    <h:form>  
                         <p:growl id="messages"/>
                         <p:menubar>
                             <p:menuitem value="Inicio" outcome="index" />
                             <p:menuitem value="Ayuda" url="#" />
-                            <p:menuitem value="Registrarme" outcome="registrator" />                       
-                            <p:menuitem value="Ingresar" outcome="login" />
+                            <p:menuitem value="Registrarme" outcome="registrator" rendered="#{templeteHomeBean.enableMenu}"/>                       
+                            <p:menuitem value="Ingresar" outcome="login" rendered="#{templeteHomeBean.enableMenu}" />
+                            <p:menuitem outcome="login" value="Cerrar session" rendered="#{templeteHomeBean.enableCloseSession}"/>
                         </p:menubar>                
                     </h:form>
                 </div>

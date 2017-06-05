@@ -544,7 +544,7 @@ COMMENT ON COLUMN TB_Usuario.TelefonoFijo IS 'Telefono fijo del usuario';
 COMMENT ON COLUMN TB_Usuario.TelefonoCelular IS 'Telefono celular del usuario';
 COMMENT ON COLUMN TB_Usuario.Usuario IS 'Nombre unico del usuario. El nombre de usuario es el mismo Email';
 COMMENT ON COLUMN TB_Usuario.Contrasena IS 'Contrasena del usuario';
-COMMENT ON COLUMN TB_Usuario.ID_T_LV_ProgramaAcedemico IS 'Identificador unico de la tabla TB_ListaValorDetalle';
+COMMENT ON COLUMN TB_Usuario.ID_T_LV_ProgramaAcademico IS 'Identificador unico de la tabla TB_ListaValorDetalle';
 COMMENT ON COLUMN TB_Usuario.ID_T_LV_Dependencia IS 'Identificador unico de la tabla TB_ListaValorDetalle';
 
 
@@ -627,7 +627,7 @@ ALTER TABLE TB_Usuario ADD CONSTRAINT FK_TB_Usuario_002 FOREIGN KEY ( ID_T_LV_Es
 
 ALTER TABLE TB_Usuario ADD CONSTRAINT FK_TB_Usuario_003 FOREIGN KEY ( ID_T_LV_TipoIdentificacion ) REFERENCES TB_ListaValorDetalle ( ID ) NOT DEFERRABLE ;
 
-ALTER TABLE TB_Usuario ADD CONSTRAINT FK_TB_Usuario_004 FOREIGN KEY ( ID_T_LV_ProgramaAcedemico ) REFERENCES TB_ListaValorDetalle ( ID ) NOT DEFERRABLE ;
+ALTER TABLE TB_Usuario ADD CONSTRAINT FK_TB_Usuario_004 FOREIGN KEY ( ID_T_LV_ProgramaAcademico ) REFERENCES TB_ListaValorDetalle ( ID ) NOT DEFERRABLE ;
 
 ALTER TABLE TB_Usuario ADD CONSTRAINT FK_TB_Usuario_005 FOREIGN KEY ( ID_T_LV_Dependencia ) REFERENCES TB_ListaValorDetalle ( ID ) NOT DEFERRABLE ;
 

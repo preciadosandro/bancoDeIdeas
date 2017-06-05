@@ -61,7 +61,7 @@ private Connection DBConnection = null;
                 user.setModificadoEn(rs.getDate("MODIFICADOEN"));                                
                 user.setGenero(rs.getString("GENERO"));
                 user.setFechaNacimiento(rs.getDate("FECHANACIMIENTO"));                             
-                user.setIdProgrmaAcademico(rs.getInt("ID_T_LV_PROGRAMAACEDEMICO"));                                                
+                user.setIdProgrmaAcademico(rs.getInt("ID_T_LV_PROGRAMAACADEMICO"));                                                
                 user.setIdDependencia(rs.getInt("ID_T_LV_DEPENDENCIA"));                                                                
 
 

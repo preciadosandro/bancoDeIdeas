@@ -120,7 +120,7 @@ public class LoginBean extends ManagerBean {
                         Cookie cVirtualCheck = new Cookie("cVirtualCheck", virtualCheck);
                         ((HttpServletResponse)(context.getExternalContext().getResponse())).addCookie(cVirtualCheck);
                         super.addToSession(Constants.SESSION_KEY_USER, validator);                                        
-                        super.redirect("managerUser.xhtml");          
+                        super.redirect("listofideas.xhtml");          
                     }
                                                             
                 }else{

@@ -22,7 +22,7 @@ public class TempletePrincipalBean extends ManagerBean implements Serializable {
      * Creates a new instance of TempletePrincipalBean
      */
     private User user;
-    private boolean enableMenu;
+    private boolean enableMenuTop;
     private boolean enableCloseSession;
     public TempletePrincipalBean() {
         
@@ -30,10 +30,10 @@ public class TempletePrincipalBean extends ManagerBean implements Serializable {
         
         if (user == null || user.getId() == 0) {
             // No esta autenticado ==> direccionar a pantalla login
-            enableMenu = true;
+            enableMenuTop = true;
             enableCloseSession = false;
         } else {
-            enableMenu = false;
+            enableMenuTop = false;
             enableCloseSession = true;
         }
     }
@@ -46,12 +46,12 @@ public class TempletePrincipalBean extends ManagerBean implements Serializable {
         this.user = user;
     }
 
-    public boolean isEnableMenu() {
-        return enableMenu;
+    public boolean isEnableMenuTop() {
+        return enableMenuTop;
     }
 
-    public void setEnableMenu(boolean enableMenu) {
-        this.enableMenu = enableMenu;
+    public void setEnableMenuTop(boolean enableMenuTop) {
+        this.enableMenuTop = enableMenuTop;
     }
 
     public boolean isEnableCloseSession() {

@@ -20,7 +20,7 @@ public class TempleteHomeBean extends ManagerBean implements Serializable {
 
     /**
      * Creates a new instance of TempleteHomeBean
-     */
+     */ 
     private User user;
     private boolean enableMenu;
     private boolean enableCloseSession;
@@ -36,6 +36,7 @@ public class TempleteHomeBean extends ManagerBean implements Serializable {
             enableMenu = false;
             enableCloseSession = true;
         }
+        System.out.println("Habilitado: " + enableMenu);
     }
 
     public boolean isEnableMenu() {

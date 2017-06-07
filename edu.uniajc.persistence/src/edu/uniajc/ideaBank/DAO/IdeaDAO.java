@@ -122,5 +122,28 @@ public class IdeaDAO {
         }
         return listaxid;
     }
+    
+    
+    public boolean updateStateIdea(Idea idea) {
+
+        try {
+            String SQL;
+            PreparedStatement ps = null;
+            SQL = "UPDATE TB_IDEA SET MODIFICADOEN=sysdate, MODIFICADOPOR = ?, ID_T_LV_ESTADOIDEA = ? WHERE ID = ?";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ps.setString(1, idea.getmodificadoPor());
+            ps.setInt(2, idea.getidEstadoidea());
+            ps.setInt(3, idea.getId());
+            ps.execute();
+            return true;
+
+        } catch (Exception e) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+    
 
 }

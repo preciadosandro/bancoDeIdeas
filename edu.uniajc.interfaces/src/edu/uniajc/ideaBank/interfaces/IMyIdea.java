@@ -6,16 +6,18 @@
 package edu.uniajc.ideaBank.interfaces;
 
 import edu.uniajc.ideaBank.interfaces.model.Idea;
+import edu.uniajc.ideaBank.interfaces.model.User;
 import java.util.ArrayList;
 import javax.ejb.Remote;
 
 /**
  *
- * @author LMIRANDA
+ * @author juanmanuel
  */
 @Remote 
-public interface IIdea {
-   
-    public boolean createIdea(Idea idea);
+public interface IMyIdea {
+    
+    //public ArrayList<Idea> lista();
+    public boolean asignarIdea(Idea idea,User user);
     
 }

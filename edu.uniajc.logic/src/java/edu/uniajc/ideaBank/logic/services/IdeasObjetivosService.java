@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -21,6 +22,7 @@ import javax.sql.DataSource;
  *
  * @author LMIRANDA
  */
+@Stateless
 public class IdeasObjetivosService implements IIdeasObjetivos {
 
     Connection dbConnection = null;

@@ -6,8 +6,9 @@
 package edu.uniajc.ideaBank.logic.services;
 
 import edu.uniajc.ideaBank.DAO.IdeaDAO;
-import edu.uniajc.ideaBank.interfaces.IIdea;
+import edu.uniajc.ideaBank.interfaces.IMyIdea;
 import edu.uniajc.ideaBank.interfaces.model.Idea;
+import edu.uniajc.ideaBank.interfaces.model.User;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,27 +21,34 @@ import javax.sql.DataSource;
 
 /**
  *
- * @author LMIRANDA
+ * @author juanmanuel
  */
 @Stateless
-public class IdeaService implements IIdea {
+public class MyIdeaService implements IMyIdea {
 
     Connection dbConnection = null;
 
-    public IdeaService() throws NamingException, SQLException {
+    public MyIdeaService() throws NamingException, SQLException {
         this.dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
     }    
 
     @Override
-    public boolean createIdea(Idea idea) {
+    public boolean asignarIdea(Idea idea, User user) {
         try {
             IdeaDAO dao = new IdeaDAO(dbConnection);
-            return dao.createIdea(idea);
+            return dao.updateStateIdea(idea);
         } catch (Exception e) {
             Logger.getLogger(IdeaService.class.getName()).log(Level.SEVERE, null, e);
             System.out.println(e.getMessage());
             return false;
         }
     }
+
+    /*
+    @Override
+    public ArrayList<Idea> lista() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+*/
 
 }

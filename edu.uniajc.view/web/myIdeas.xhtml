@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Gestor De Ideas</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <ui:composition template="./Template/Home.xhtml">
+
+            <ui:define name="content">
+                <div align="center">
+                    <h1>Lista de ideas</h1>
+
+                    <h:form id="formIdeaList" style="padding: 10px; width: fit-content;">
+                        <p:growl id="messageGeneral" autoUpdate="true" life="1500"/>
+                        <p:panel header="">
+                            <p:messages  autoUpdate="true"/>
+
+
+                            <p:dataTable value="#{myIdeaBean.lstIdeas}" var="idea">
+                                <p:column headerText="Titulo">
+                                    <h:outputText value="#{myIdeaBean.lstIdeas.TITULO_ideas}" />
+                                </p:column>
+
+                                <p:column headerText="Descripción" priority="3">
+                                    <h:outputText value="#{myIdeaBean.DESCRIPCION_ideas}" />
+                                </p:column>
+
+                                <p:column headerText="Objetivos" priority="2">
+                                    <h:outputText value="#{myIdeaBean.DESCRIPCION_objetivo}" />
+                                </p:column>
+                                <p:column style="width:24px">
+                                    <!--<p:commandLink update=":formIdeaList:documentPanel" oncomplete="PF('documentDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search">
+                                        <f:setPropertyActionListener value="#{myIdeaBean.ID_ideas}" target="#{myIdeaBean.IdeasObjetivos}" />
+                                    </p:commandLink>-->
+                                    <p:commandLink id="nonAjax" actionListener="PF('documentDialog').show()" ajax="false" target="#{myIdeaBean.IdeasObjetivos}">
+                                        <h:outputText value="Pedir idea" />
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+
+                            <p:dialog id="dialog" header="Mensaje" showEffect="fade" hideEffect="explode" widgetVar="documentDialog" modal="true" resizable="false" style="left:40px!important; right:40px;">
+                                <h:outputText style="text-align: center;" value="¿Esta seguro que desea solicitar idea?"/>
+                                <br>
+                                <h:outputText style="text-align: center;" value="Recuerde que si lo hace debe de ser un estudiante activo e la institución y será evaluado por un administrador del sistemas"/>
+                                <p:separator/>
+                                <p:commandButton style="text-align: center;" value="Ok" 
+                                                 actionListener="#{myIdeaBean.solicitarIdea()}"
+                                                 oncomplete="PF('documentDialog').hide()">
+                                    <p:resetInput target="panel1" />
+                                </p:commandButton>
+                            </p:dialog>
+                            
+                                <p:dialog  id="digOk" widgetVar="dialogOk" resizable="false" showEffect="explote"
+                                           hideEffect="explode" modal="true" header="Mensaje">
+                                    <h:outputText style="text-align: center;" value="Usuario creado correctamente"/>
+                                    <p:separator/>
+                                    <p:commandButton style="text-align: center;" value="Ok" oncomplete="PF('dialogOk').hide()" >
+                                        <p:resetInput target="panel1" />
+                                    </p:commandButton>
+                                </p:dialog>
+                            
+                            
+                            
+                            
+                            
+                             <p:dialog id="dialog" header="Información de idea" showEffect="fade" hideEffect="explode" widgetVar="documentDialog" modal="true" resizable="false" style="left:40px!important; right:40px;">
+                                <p:outputPanel id="documentPanel">
+                                    <p:dataTable value="#{ideaBean.getLstIdeasXid()}" var="ideaXid">
+                                        <p:column headerText="Titulo idea:">
+                                            <div style="text-align: center;">
+                                                <h:outputText value="#{ideaXid.TITULO_ideas}" />
+                                            </div>
+                                        </p:column>
+                                    </p:dataTable>
+                                    <p:dataTable value="#{ideaBean.getLstIdeasXid()}" var="ideaXid">
+                                        <p:column headerText="Creador:">
+                                            <div style="text-align: center;">
+                                                <h:outputText value="#{ideaXid.CREADOPOR_ideas}" />
+                                            </div>
+                                        </p:column>
+                                        <p:column headerText="Correo electrónico:" priority="3">
+                                            <div style="text-align: center;">
+                                                <h:outputText value="#{ideaXid.usuario_usuario}" />
+                                            </div>
+                                        </p:column>
+                                    </p:dataTable>
+                                    <p:dataTable value="#{ideaBean.getLstIdeasXid()}" var="ideaXid">
+                                        <p:column headerText="Descripción:" priority="3">
+                                            <div style="text-align: center;">
+                                                <h:outputText value="#{ideaXid.DESCRIPCION_ideas}" />
+                                            </div>
+                                        </p:column>
+                                    </p:dataTable>
+                                    <p:dataTable value="#{ideaBean.getLstIdeasXid()}" var="ideaXid">
+                                        <p:column headerText="Objetivos:" priority="2">
+                                            <div style="text-align: center;">
+                                                <h:outputText value="#{ideaXid.DESCRIPCION_objetivo}" />
+                                            </div>
+                                        </p:column>
+                                    </p:dataTable>
+                                    <p:dataTable value="#{ideaBean.getLstIdeasXid()}" var="ideaXid">
+                                        <p:column headerText="Palabras claves:" priority="2">
+                                            <div style="text-align: center;">
+                                                <h:outputText value="#{ideaXid.PALABRASCLAVE_ideas}" />
+                                            </div>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:outputPanel>
+
+                                <h:panelGrid columns="1" style="margin-bottom:10px;text-align: right" cellpadding="5" width="100%">                                                                       
+                                    <p:button value="Salir" icon="ui-icon-arrowthick-1-w" style="display: inline-block">
+                                        <f:param name="productId" value="10" />
+                                    </p:button>                                    
+                                </h:panelGrid> 
+                            </p:dialog>
+                            
+                        </p:panel>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

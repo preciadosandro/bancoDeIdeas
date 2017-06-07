@@ -59,7 +59,7 @@ public class TempletePrincipalBean extends ManagerBean implements Serializable {
         this.enableMenuTop = enableMenuTop;
     }
 
-    public boolean isEnableCloseSession() {
+    public boolean isEnableCloseSession() {          
         return enableCloseSession;
     }
 

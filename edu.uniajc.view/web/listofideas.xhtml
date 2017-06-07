@@ -10,7 +10,10 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-   
+    <head>
+        <title>Gestor De Ideas</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
     <body>
         <ui:composition template="./Template/template_principal.xhtml">
 
@@ -24,7 +27,7 @@ and open the template in the editor.
                             <p:messages  autoUpdate="true"/>
 
 
-                            <p:dataTable value="#{ideaBean.lstIdeas}" var="idea">
+                            <p:dataTable value="#{IdeaListBean.lstIdeas}" var="idea">
                                 <p:column headerText="Titulo">
                                     <h:outputText value="#{idea.TITULO_ideas}" />
                                 </p:column>
@@ -38,21 +41,21 @@ and open the template in the editor.
                                 </p:column>
                                 <p:column style="width:24px">
                                     <p:commandLink update=":formIdeaList:documentPanel" oncomplete="PF('documentDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search">
-                                        <f:setPropertyActionListener value="#{idea.ID_ideas}" target="#{ideaBean.idSelected}" />
+                                        <f:setPropertyActionListener value="#{idea.ID_ideas}" target="#{IdeaListBean.idSelected}" />
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>
 
                             <p:dialog id="dialog" header="Información de idea" showEffect="fade" hideEffect="explode" widgetVar="documentDialog" modal="true" resizable="false" style="left:40px!important; right:40px;">
                                 <p:outputPanel id="documentPanel">
-                                    <p:dataTable value="#{ideaBean.getLstIdeasXid()}" var="ideaXid">
+                                    <p:dataTable value="#{IdeaListBean.getLstIdeasXid()}" var="ideaXid">
                                         <p:column headerText="Titulo idea:">
                                             <div style="text-align: center;">
                                                 <h:outputText value="#{ideaXid.TITULO_ideas}" />
                                             </div>
                                         </p:column>
                                     </p:dataTable>
-                                    <p:dataTable value="#{ideaBean.getLstIdeasXid()}" var="ideaXid">
+                                    <p:dataTable value="#{IdeaListBean.getLstIdeasXid()}" var="ideaXid">
                                         <p:column headerText="Creador:">
                                             <div style="text-align: center;">
                                                 <h:outputText value="#{ideaXid.CREADOPOR_ideas}" />
@@ -64,21 +67,21 @@ and open the template in the editor.
                                             </div>
                                         </p:column>
                                     </p:dataTable>
-                                    <p:dataTable value="#{ideaBean.getLstIdeasXid()}" var="ideaXid">
+                                    <p:dataTable value="#{IdeaListBean.getLstIdeasXid()}" var="ideaXid">
                                         <p:column headerText="Descripción:" priority="3">
                                             <div style="text-align: center;">
                                                 <h:outputText value="#{ideaXid.DESCRIPCION_ideas}" />
                                             </div>
                                         </p:column>
                                     </p:dataTable>
-                                    <p:dataTable value="#{ideaBean.getLstIdeasXid()}" var="ideaXid">
+                                    <p:dataTable value="#{IdeaListBean.getLstIdeasXid()}" var="ideaXid">
                                         <p:column headerText="Objetivos:" priority="2">
                                             <div style="text-align: center;">
                                                 <h:outputText value="#{ideaXid.DESCRIPCION_objetivo}" />
                                             </div>
                                         </p:column>
                                     </p:dataTable>
-                                    <p:dataTable value="#{ideaBean.getLstIdeasXid()}" var="ideaXid">
+                                    <p:dataTable value="#{IdeaListBean.getLstIdeasXid()}" var="ideaXid">
                                         <p:column headerText="Palabras claves:" priority="2">
                                             <div style="text-align: center;">
                                                 <h:outputText value="#{ideaXid.PALABRASCLAVE_ideas}" />

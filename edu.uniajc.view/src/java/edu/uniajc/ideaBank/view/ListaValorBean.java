@@ -11,16 +11,13 @@ import edu.uniajc.ideaBank.interfaces.model.ListaValor;
 import edu.uniajc.ideaBank.interfaces.model.ListaValorDetalle;
 import edu.uniajc.security.view.ManagerBean;
 import java.io.Serializable;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -37,7 +34,7 @@ public class ListaValorBean extends ManagerBean implements Serializable {
     
     IListaValor uDao = null;
     IListaValorDetalle uDaoDetalle = null;
-
+    
     public ListaValorBean() {
         super();
         ctx = super.getContext();

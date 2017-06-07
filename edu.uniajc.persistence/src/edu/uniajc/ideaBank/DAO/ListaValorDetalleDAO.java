@@ -47,23 +47,23 @@ public class ListaValorDetalleDAO {
             return false;
         }
     }
-    
+
     public List<ListaValorDetalle> getListaValorDetalleByIdListaValor(int idListaValor) {
         List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
         PreparedStatement prepStm = null;
         final String SQL = "SELECT Valor FROM TB_ListaValorDetalle WHERE ID_T_ListaValor =? ORDER BY 1";
-        
+
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
             ResultSet RS = prepStm.executeQuery();
-            
+
             while (RS.next()) {
                 ListaValorDetalle uRow = new ListaValorDetalle();
                 uRow.setId(RS.getInt("ID"));
                 uRow.setIdListaValor(RS.getInt("ID_T_ListaValor"));
                 uRow.setValor(RS.getString("Valor"));
                 uRow.setEstado(RS.getInt("Estado"));
-                
+
                 itemFound.add(uRow);
             }
         } catch (SQLException ex) {
@@ -76,18 +76,18 @@ public class ListaValorDetalleDAO {
         List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
         PreparedStatement prepStm = null;
         final String SQL = "SELECT Valor FROM TB_ListaValorDetalle WHERE Id = ?";
-        
+
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
             ResultSet RS = prepStm.executeQuery();
-            
+
             while (RS.next()) {
                 ListaValorDetalle uRow = new ListaValorDetalle();
                 uRow.setId(RS.getInt("ID"));
                 uRow.setIdListaValor(RS.getInt("ID_T_ListaValor"));
                 uRow.setValor(RS.getString("Valor"));
                 uRow.setEstado(RS.getInt("Estado"));
-                
+
                 itemFound.add(uRow);
             }
         } catch (SQLException ex) {
@@ -95,37 +95,377 @@ public class ListaValorDetalleDAO {
         }
         return itemFound;
     }
-    
+
     public boolean updateListaValorDetalle(ListaValorDetalle listaValorDetalleModel) {
-        
+
         try {
             PreparedStatement ps = null;
             String SQL;
             SQL = "UPDATE TB_ListaValorDetalle SET Estado = ? WHERE ID = ?";
-            
+
             ps = this.DBConnection.prepareStatement(SQL);
             ps.setInt(1, listaValorDetalleModel.getEstado());
             ps.setInt(2, listaValorDetalleModel.getId());
             ps.execute();
             return true;
-            
+
         } catch (Exception e) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
             return false;
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
-    
-    
-    
+    public List<ListaValorDetalle> getTipoIdentificacion() {
+        List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
+        PreparedStatement prepStm = null;
+        final String SQL = "SELECT TB_ListaValor.ID AS IDListaValor,"
+                + " TB_ListaValorDetalle.ID AS IDListaValorDetalle,"
+                + " TB_ListaValorDetalle.Valor AS Valor"
+                + " FROM TB_ListaValor, "
+                + " TB_ListaValorDetalle "
+                + " WHERE TB_ListaValor.ID = TB_ListaValorDetalle.ID_T_ListaValores "
+                + " AND TB_ListaValor.Estado = 1"
+                + " AND TB_ListaValorDetalle.Estado = 1"
+                + " AND TB_ListaValor.Agrupacion = 'TipoIdentificacion'";
+
+        try {
+            System.out.println("DAO");
+            prepStm = this.DBConnection.prepareStatement(SQL);
+            ResultSet RS = prepStm.executeQuery();
+
+            while (RS.next()) {
+                ListaValorDetalle uRow = new ListaValorDetalle();
+                uRow.setId(RS.getInt("IDListaValor"));
+                uRow.setIdListaValor(RS.getInt("IDListaValorDetalle"));
+                uRow.setValor(RS.getString("Valor"));
+
+                itemFound.add(uRow);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaValorDetalleDAO.class.getName()).log(Level.SEVERE, SQL, ex);
+        }
+        return itemFound;
+    }
+
+    public List<ListaValorDetalle> getTipoIntegrante() {
+        List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
+        PreparedStatement prepStm = null;
+        final String SQL = "EXEC PKG_ListaValor.fnGetTipoIntegrante;";
+
+        try {
+            prepStm = this.DBConnection.prepareStatement(SQL);
+            ResultSet RS = prepStm.executeQuery();
+
+            while (RS.next()) {
+                ListaValorDetalle uRow = new ListaValorDetalle();
+                uRow.setId(RS.getInt("IDListaValor"));
+                uRow.setIdListaValor(RS.getInt("IDListaValorDetalle"));
+                uRow.setValor(RS.getString("Valor"));
+
+                itemFound.add(uRow);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaValorDetalleDAO.class.getName()).log(Level.SEVERE, SQL, ex);
+        }
+        return itemFound;
+    }
+
+    public List<ListaValorDetalle> getEstadoIntegrante() {
+        List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
+        PreparedStatement prepStm = null;
+        final String SQL = "EXEC PKG_ListaValor.fnGetEstadoIntegrante;";
+
+        try {
+            prepStm = this.DBConnection.prepareStatement(SQL);
+            ResultSet RS = prepStm.executeQuery();
+
+            while (RS.next()) {
+                ListaValorDetalle uRow = new ListaValorDetalle();
+                uRow.setId(RS.getInt("IDListaValor"));
+                uRow.setIdListaValor(RS.getInt("IDListaValorDetalle"));
+                uRow.setValor(RS.getString("Valor"));
+
+                itemFound.add(uRow);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaValorDAO.class.getName()).log(Level.SEVERE, SQL, ex);
+        }
+        return itemFound;
+    }
+
+    public List<ListaValorDetalle> getEstadoProyecto() {
+        List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
+        PreparedStatement prepStm = null;
+        final String SQL = "EXEC PKG_ListaValor.fnGetEstadoProyecto;";
+
+        try {
+            prepStm = this.DBConnection.prepareStatement(SQL);
+            ResultSet RS = prepStm.executeQuery();
+
+            while (RS.next()) {
+                ListaValorDetalle uRow = new ListaValorDetalle();
+                uRow.setId(RS.getInt("IDListaValor"));
+                uRow.setIdListaValor(RS.getInt("IDListaValorDetalle"));
+                uRow.setValor(RS.getString("Valor"));
+
+                itemFound.add(uRow);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaValorDAO.class.getName()).log(Level.SEVERE, SQL, ex);
+        }
+        return itemFound;
+    }
+
+    public List<ListaValorDetalle> getTipoEvaluacion() {
+        List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
+        PreparedStatement prepStm = null;
+        final String SQL = "EXEC PKG_ListaValor.fnGetTipoEvaluacion;";
+
+        try {
+            prepStm = this.DBConnection.prepareStatement(SQL);
+            ResultSet RS = prepStm.executeQuery();
+
+            while (RS.next()) {
+                ListaValorDetalle uRow = new ListaValorDetalle();
+                uRow.setId(RS.getInt("IDListaValor"));
+                uRow.setIdListaValor(RS.getInt("IDListaValorDetalle"));
+                uRow.setValor(RS.getString("Valor"));
+
+                itemFound.add(uRow);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaValorDAO.class.getName()).log(Level.SEVERE, SQL, ex);
+        }
+        return itemFound;
+    }
+
+    public List<ListaValorDetalle> getPeriodoEntrega() {
+        List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
+        PreparedStatement prepStm = null;
+        final String SQL = "EXEC PKG_ListaValor.fnGetPeriodoEntrega;";
+
+        try {
+            prepStm = this.DBConnection.prepareStatement(SQL);
+            ResultSet RS = prepStm.executeQuery();
+
+            while (RS.next()) {
+                ListaValorDetalle uRow = new ListaValorDetalle();
+                uRow.setId(RS.getInt("IDListaValor"));
+                uRow.setIdListaValor(RS.getInt("IDListaValorDetalle"));
+                uRow.setValor(RS.getString("Valor"));
+
+                itemFound.add(uRow);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaValorDAO.class.getName()).log(Level.SEVERE, SQL, ex);
+        }
+        return itemFound;
+    }
+
+    public List<ListaValorDetalle> getEstadoEntrega() {
+        List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
+        PreparedStatement prepStm = null;
+        final String SQL = "EXEC PKG_ListaValor.fnGetEstadoEntrega;";
+
+        try {
+            prepStm = this.DBConnection.prepareStatement(SQL);
+            ResultSet RS = prepStm.executeQuery();
+
+            while (RS.next()) {
+                ListaValorDetalle uRow = new ListaValorDetalle();
+                uRow.setId(RS.getInt("IDListaValor"));
+                uRow.setIdListaValor(RS.getInt("IDListaValorDetalle"));
+                uRow.setValor(RS.getString("Valor"));
+
+                itemFound.add(uRow);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaValorDAO.class.getName()).log(Level.SEVERE, SQL, ex);
+        }
+        return itemFound;
+    }
+
+    public List<ListaValorDetalle> getEstadoIdea() {
+        List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
+        PreparedStatement prepStm = null;
+        final String SQL = "EXEC PKG_ListaValor.fnGetEstadoIdea;";
+
+        try {
+            prepStm = this.DBConnection.prepareStatement(SQL);
+            ResultSet RS = prepStm.executeQuery();
+
+            while (RS.next()) {
+                ListaValorDetalle uRow = new ListaValorDetalle();
+                uRow.setId(RS.getInt("IDListaValor"));
+                uRow.setIdListaValor(RS.getInt("IDListaValorDetalle"));
+                uRow.setValor(RS.getString("Valor"));
+
+                itemFound.add(uRow);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaValorDAO.class.getName()).log(Level.SEVERE, SQL, ex);
+        }
+        return itemFound;
+    }
+
+    public List<ListaValorDetalle> getEstadoIdeaUsuario() {
+        List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
+        PreparedStatement prepStm = null;
+        final String SQL = "EXEC PKG_ListaValor.fnGetEstadoIdeaUsuario;";
+
+        try {
+            prepStm = this.DBConnection.prepareStatement(SQL);
+            ResultSet RS = prepStm.executeQuery();
+
+            while (RS.next()) {
+                ListaValorDetalle uRow = new ListaValorDetalle();
+                uRow.setId(RS.getInt("IDListaValor"));
+                uRow.setIdListaValor(RS.getInt("IDListaValorDetalle"));
+                uRow.setValor(RS.getString("Valor"));
+
+                itemFound.add(uRow);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaValorDAO.class.getName()).log(Level.SEVERE, SQL, ex);
+        }
+        return itemFound;
+    }
+
+    public List<ListaValorDetalle> getTipoUsuario() {
+        List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
+        PreparedStatement prepStm = null;
+        final String SQL = "EXEC PKG_ListaValor.fnGetTipoUsuario;";
+
+        try {
+            prepStm = this.DBConnection.prepareStatement(SQL);
+            ResultSet RS = prepStm.executeQuery();
+
+            while (RS.next()) {
+                ListaValorDetalle uRow = new ListaValorDetalle();
+                uRow.setId(RS.getInt("IDListaValor"));
+                uRow.setIdListaValor(RS.getInt("IDListaValorDetalle"));
+                uRow.setValor(RS.getString("Valor"));
+
+                itemFound.add(uRow);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaValorDAO.class.getName()).log(Level.SEVERE, SQL, ex);
+        }
+        return itemFound;
+    }
+
+    public List<ListaValorDetalle> getEstadoUsuario() {
+        List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
+        PreparedStatement prepStm = null;
+        final String SQL = "EXEC PKG_ListaValor.fnGetEstadoUsuario;";
+
+        try {
+            prepStm = this.DBConnection.prepareStatement(SQL);
+            ResultSet RS = prepStm.executeQuery();
+
+            while (RS.next()) {
+                ListaValorDetalle uRow = new ListaValorDetalle();
+                uRow.setId(RS.getInt("IDListaValor"));
+                uRow.setIdListaValor(RS.getInt("IDListaValorDetalle"));
+                uRow.setValor(RS.getString("Valor"));
+
+                itemFound.add(uRow);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaValorDAO.class.getName()).log(Level.SEVERE, SQL, ex);
+        }
+        return itemFound;
+    }
+
+    public List<ListaValorDetalle> getEstadoSolicitudRol() {
+        List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
+        PreparedStatement prepStm = null;
+        final String SQL = "EXEC PKG_ListaValor.fnGetEstadoSolicitudRol;";
+
+        try {
+            prepStm = this.DBConnection.prepareStatement(SQL);
+            ResultSet RS = prepStm.executeQuery();
+
+            while (RS.next()) {
+                ListaValorDetalle uRow = new ListaValorDetalle();
+                uRow.setId(RS.getInt("IDListaValor"));
+                uRow.setIdListaValor(RS.getInt("IDListaValorDetalle"));
+                uRow.setValor(RS.getString("Valor"));
+
+                itemFound.add(uRow);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaValorDAO.class.getName()).log(Level.SEVERE, SQL, ex);
+        }
+        return itemFound;
+    }
+
+    public List<ListaValorDetalle> getEstadoUsuarioRol() {
+        List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
+        PreparedStatement prepStm = null;
+        final String SQL = "EXEC PKG_ListaValor.fnGetEstadoUsuarioRol;";
+
+        try {
+            prepStm = this.DBConnection.prepareStatement(SQL);
+            ResultSet RS = prepStm.executeQuery();
+
+            while (RS.next()) {
+                ListaValorDetalle uRow = new ListaValorDetalle();
+                uRow.setId(RS.getInt("IDListaValor"));
+                uRow.setIdListaValor(RS.getInt("IDListaValorDetalle"));
+                uRow.setValor(RS.getString("Valor"));
+
+                itemFound.add(uRow);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaValorDAO.class.getName()).log(Level.SEVERE, SQL, ex);
+        }
+        return itemFound;
+    }
+
+    public List<ListaValorDetalle> getProgramaAcademico() {
+        List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
+        PreparedStatement prepStm = null;
+        final String SQL = "EXEC PKG_ListaValor.fnGetProgramaAcademico;";
+
+        try {
+            prepStm = this.DBConnection.prepareStatement(SQL);
+            ResultSet RS = prepStm.executeQuery();
+
+            while (RS.next()) {
+                ListaValorDetalle uRow = new ListaValorDetalle();
+                uRow.setId(RS.getInt("IDListaValor"));
+                uRow.setIdListaValor(RS.getInt("IDListaValorDetalle"));
+                uRow.setValor(RS.getString("Valor"));
+
+                itemFound.add(uRow);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaValorDAO.class.getName()).log(Level.SEVERE, SQL, ex);
+        }
+        return itemFound;
+    }
+
+    public List<ListaValorDetalle> getDependencia() {
+        List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
+        PreparedStatement prepStm = null;
+        final String SQL = "EXEC PKG_ListaValor.fnGetDependencia;";
+
+        try {
+            prepStm = this.DBConnection.prepareStatement(SQL);
+            ResultSet RS = prepStm.executeQuery();
+
+            while (RS.next()) {
+                ListaValorDetalle uRow = new ListaValorDetalle();
+                uRow.setId(RS.getInt("IDListaValor"));
+                uRow.setIdListaValor(RS.getInt("IDListaValorDetalle"));
+                uRow.setValor(RS.getString("Valor"));
+
+                itemFound.add(uRow);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaValorDAO.class.getName()).log(Level.SEVERE, SQL, ex);
+        }
+        return itemFound;
+    }
 }

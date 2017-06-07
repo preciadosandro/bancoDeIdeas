@@ -83,6 +83,25 @@
                             <p:commandButton value="Cancelar" icon="ui-icon-cancel" styleClass="ui-priority-primary"/>
                         </p:panel>
                     </h:form>
+                    <h:form id="formDataValorDetalle" style="padding: 10px; width: fit-content;">
+                        <p:dataTable var="car" value="#{dtBasicView.cars}">
+                            <p:column headerText="Id">
+                                <h:outputText value="#{car.id}" />
+                            </p:column>
+
+                            <p:column headerText="Year">
+                                <h:outputText value="#{car.year}" />
+                            </p:column>
+
+                            <p:column headerText="Brand">
+                                <h:outputText value="#{car.brand}" />
+                            </p:column>
+
+                            <p:column headerText="Color">
+                                <h:outputText value="#{car.color}" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
                 </div>
             </ui:define>
         </ui:composition>

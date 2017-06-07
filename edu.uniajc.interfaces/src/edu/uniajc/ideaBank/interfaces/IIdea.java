@@ -13,7 +13,7 @@ import javax.ejb.Remote;
  *
  * @author LMIRANDA
  */
-@Remote 
+@Remote
 public interface IIdea {
    
     public boolean createIdea(Idea idea);

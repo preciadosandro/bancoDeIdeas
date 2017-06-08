@@ -9,8 +9,12 @@ import edu.uniajc.ideaBank.interfaces.model.User;
 import javax.inject.Named;
 
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -19,7 +23,7 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name = "TempletePrincipalBean")
 
 //@Named(value = "templetePrincipalBean")
-@SessionScoped
+@ViewScoped
 public class TempletePrincipalBean extends ManagerBean implements Serializable {
 
     /**
@@ -67,4 +71,20 @@ public class TempletePrincipalBean extends ManagerBean implements Serializable {
         this.enableCloseSession = enableCloseSession;
     }
     
+    public void closeSession(){
+        System.out.println("Cerrando session");
+        User user=new User();
+        user=null;
+        super.addToSession(Constants.SESSION_KEY_USER, user);  
+        linklogin();
+    }
+    
+    public void linklogin() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            context.getExternalContext().redirect("login.xhtml");
+        } catch (Exception e) {
+            Logger.getLogger(NewPasswordBean.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
 }

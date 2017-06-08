@@ -128,4 +128,9 @@ public class MyIdeaListBean extends ManagerBean {
         }
     }
     
+    public void irCrearIdea() {
+        super.redirect("registratorIdea.xhtml");
+    }
+    
+    
 }

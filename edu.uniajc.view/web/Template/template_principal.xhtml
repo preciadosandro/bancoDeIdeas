@@ -24,7 +24,9 @@
                 <div id="menuHome">
                     <h:form>  
                         <p:growl id="messages"/>
-                        <p:outputLabel value="#{TempletePrincipalBean.user.primerNombre}" />
+                        <p:outputLabel style="color: #000000; font-size: 20px; font-weight: bold;" 
+                                       value="#{TempletePrincipalBean.user.primerNombre} 
+                                       #{TempletePrincipalBean.user.primerApellido}" />
                         <p:menubar>
                             <p:menuitem value="Inicio" outcome="index" />
                             <p:menuitem value="Ayuda" url="#" />
@@ -32,7 +34,7 @@
                                         rendered="#{TempletePrincipalBean.enableMenuTop}"/>                       
                             <p:menuitem value="Ingresar" outcome="login" 
                                         rendered="#{TempletePrincipalBean.enableMenuTop}" />
-                            <p:menuitem value="Cerrar session" actionListener="#{TempletePrincipalBean.closeSession()}" 
+                            <p:menuitem value="Cerrar session " actionListener="#{TempletePrincipalBean.closeSession()}" 
                                         rendered="#{TempletePrincipalBean.enableCloseSession}"/>
                         </p:menubar>                
                     </h:form>
@@ -45,7 +47,7 @@
                         <h:form rendered="#{TempletePrincipalBean.enableCloseSession}">          
                             <p:growl id="messages" showDetail="true" />
                             <p:tieredMenu >
-                                <p:menuitem value="Mis ideas"/>
+                                <p:menuitem value="Mis ideas" outcome="myIdeas"/>
                                 <p:menuitem value="Lista de ideas" outcome="listofideas"/>
                                 <p:menuitem value="Notificaciones de usuarios" outcome="managerUser"/>
                                 <p:menuitem value="Lista valores" outcome="listaValor"/>

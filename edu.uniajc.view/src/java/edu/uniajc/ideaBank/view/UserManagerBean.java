@@ -5,8 +5,10 @@
  */
 package edu.uniajc.ideaBank.view;
 
+import edu.uniajc.ideaBank.interfaces.IListaValorDetalle;
 import edu.uniajc.ideaBank.interfaces.IUser;
 import edu.uniajc.ideaBank.interfaces.IV_rolrequest;
+import edu.uniajc.ideaBank.interfaces.model.ListaValorDetalle;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import edu.uniajc.ideaBank.interfaces.model.V_rolrequest;
 import edu.uniajc.ideaBank.logic.services.V_rolrequestService;
@@ -37,9 +39,12 @@ public class UserManagerBean implements Serializable{
     
     private User user;
     private List<ListaValorDetalleBean> listValDetal;
+    private List<ListaValorDetalle> listaTipoIdentificacion;
     private List<User> listUser;
+    private InitialContext ctx;
     IUser uDao = null;
     IV_rolrequest VuDao = null;
+    IListaValorDetalle listaValorDetalleDAO = null;
     
     private Date currentDate = new Date();
     
@@ -75,9 +80,19 @@ public class UserManagerBean implements Serializable{
     public List<ListaValorDetalleBean> getListValDetal() {
         return listValDetal;
     }
-
+    
     public void setListValDetal(List<ListaValorDetalleBean> listValDetal) {
         this.listValDetal = listValDetal;
+    }
+    
+    public List<ListaValorDetalle> getListaTipoIdentificacion() {
+        try {
+            listaValorDetalleDAO = (IListaValorDetalle) ctx.lookup("java:global/edu.uniajc.view/ListaValorDetalleService!edu.uniajc.ideaBank.interfaces.IListaValorDetalle");
+        } catch (Exception e) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, e);
+        }
+        listaTipoIdentificacion = listaValorDetalleDAO.listaTipoIdentificacion();    
+        return listaTipoIdentificacion;
     }
     
     

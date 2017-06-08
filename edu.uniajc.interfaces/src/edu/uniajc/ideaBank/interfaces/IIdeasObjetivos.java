@@ -13,7 +13,7 @@ import javax.ejb.Remote;
  *
  * @author LMIRANDA
  */
-@Remote
+@Remote 
 public interface IIdeasObjetivos {
 
     public ArrayList<IdeasObjetivos> lista();

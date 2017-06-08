@@ -24,16 +24,16 @@
                 <div id="menuHome">
                     <h:form>  
                         <p:growl id="messages"/>
-                        <p:outputLabel value="#{templetePrincipalBean.user.primerNombre}" />
+                        <p:outputLabel value="#{TempletePrincipalBean.user.primerNombre}" />
                         <p:menubar>
                             <p:menuitem value="Inicio" outcome="index" />
                             <p:menuitem value="Ayuda" url="#" />
                             <p:menuitem value="Registrarme" outcome="registrator"
-                                        rendered="#{templetePrincipalBean.enableMenuTop}"/>                       
+                                        rendered="#{TempletePrincipalBean.enableMenuTop}"/>                       
                             <p:menuitem value="Ingresar" outcome="login" 
-                                        rendered="#{templetePrincipalBean.enableMenuTop}" />
+                                        rendered="#{TempletePrincipalBean.enableMenuTop}" />
                             <p:menuitem outcome="login" value="Cerrar session" 
-                                        rendered="#{templetePrincipalBean.enableCloseSession}"/>
+                                        rendered="#{TempletePrincipalBean.enableCloseSession}"/>
                         </p:menubar>                
                     </h:form>
                 </div>
@@ -42,11 +42,11 @@
             <div>
                 <div id="left">
                     <ui:insert name="left"  >
-                        <h:form rendered="#{templetePrincipalBean.enableCloseSession}">          
+                        <h:form rendered="#{TempletePrincipalBean.enableCloseSession}">          
                             <p:growl id="messages" showDetail="true" />
                             <p:tieredMenu >
                                 <p:menuitem value="Mis ideas"/>
-                                <p:menuitem value="Lista de ideas"/>
+                                <p:menuitem value="Lista de ideas" outcome="IdeaListBean"/>
                                 <p:menuitem value="Notificaciones de usuarios" outcome="managerUser"/>
                                 <p:menuitem value="Lista valores" outcome="listaValor"/>
                             </p:tieredMenu>

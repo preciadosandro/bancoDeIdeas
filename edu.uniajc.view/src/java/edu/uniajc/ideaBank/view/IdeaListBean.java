@@ -22,7 +22,7 @@ import javax.naming.InitialContext;
  *
  * @author LMIRANDA
  */
-@ManagedBean
+@ManagedBean(name = "IdeaListBean")
 @ViewScoped
 public class IdeaListBean extends ManagerBean {
 
@@ -38,11 +38,11 @@ public class IdeaListBean extends ManagerBean {
         super();
         ctx = super.getContext();
         // obtiene objeto de la sesion
-        user = (User) super.getFromSession(Constants.SESSION_KEY_USER);
+        user = (User) super.getFromSession(Constants.SESSION_KEY_USER);        
         if (user == null || user.getId()== 0) {
             // No esta autenticado ==> direccionar a pantalla login
             super.redirect("login.xhtml");
-        }
+        }       
     }    
 
     public IdeasObjetivos getIdeasObjetivos() {

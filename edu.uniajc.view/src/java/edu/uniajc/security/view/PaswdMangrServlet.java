@@ -86,11 +86,14 @@ public class PaswdMangrServlet extends HttpServlet {
         }       
         if (user!=null && user.getUsuario()!=null){
             HttpSession session =request.getSession(true);
-            session.setAttribute(Constants.SESSION_KEY_USER,user);  
-            //User xxx = (User) session.getAttribute("SESSION.KEY.USER");
-            //System.out.println(xxx.getUsuario());
+            session.setAttribute(Constants.SESSION_KEY_TOKEN_USER,user);  
+            User xxx = (User) session.getAttribute(Constants.SESSION_KEY_TOKEN_USER);
+            System.out.println("SESION EN SERVLET "+xxx.getUsuario());
             if (uToken.updateToken(user.getUsuario(), myToken)){
+                System.out.println("ACTUALIZO TOKEN");
                 user = new User();
+                User yyy = (User) session.getAttribute(Constants.SESSION_KEY_TOKEN_USER);
+                System.out.println("SESION EN SERVLET yyyy "+yyy.getUsuario());
                 response.sendRedirect("../faces/newPassword.xhtml"); 
             }    
         }else{

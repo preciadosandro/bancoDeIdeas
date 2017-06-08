@@ -150,7 +150,15 @@ public class ListaValorDetalleDAO {
     public List<ListaValorDetalle> getTipoIntegrante() {
         List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
         PreparedStatement prepStm = null;
-        final String SQL = "EXEC PKG_ListaValor.fnGetTipoIntegrante;";
+        final String SQL = "SELECT TB_ListaValor.ID AS IDListaValor,"
+                + " TB_ListaValorDetalle.ID AS IDListaValorDetalle,"
+                + " TB_ListaValorDetalle.Valor AS Valor"
+                + " FROM TB_ListaValor, "
+                + " TB_ListaValorDetalle "
+                + " WHERE TB_ListaValor.ID = TB_ListaValorDetalle.ID_T_ListaValores "
+                + " AND TB_ListaValor.Estado = 1"
+                + " AND TB_ListaValorDetalle.Estado = 1"
+                + " AND TB_ListaValor.Agrupacion = 'TipoIntegrante'";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
@@ -173,7 +181,15 @@ public class ListaValorDetalleDAO {
     public List<ListaValorDetalle> getEstadoIntegrante() {
         List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
         PreparedStatement prepStm = null;
-        final String SQL = "EXEC PKG_ListaValor.fnGetEstadoIntegrante;";
+        final String SQL = "SELECT TB_ListaValor.ID AS IDListaValor,"
+                + " TB_ListaValorDetalle.ID AS IDListaValorDetalle,"
+                + " TB_ListaValorDetalle.Valor AS Valor"
+                + " FROM TB_ListaValor, "
+                + " TB_ListaValorDetalle "
+                + " WHERE TB_ListaValor.ID = TB_ListaValorDetalle.ID_T_ListaValores "
+                + " AND TB_ListaValor.Estado = 1"
+                + " AND TB_ListaValorDetalle.Estado = 1"
+                + " AND TB_ListaValor.Agrupacion = 'EstadoIntegrante'";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
@@ -196,7 +212,15 @@ public class ListaValorDetalleDAO {
     public List<ListaValorDetalle> getEstadoProyecto() {
         List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
         PreparedStatement prepStm = null;
-        final String SQL = "EXEC PKG_ListaValor.fnGetEstadoProyecto;";
+        final String SQL = "SELECT TB_ListaValor.ID AS IDListaValor,"
+                + " TB_ListaValorDetalle.ID AS IDListaValorDetalle,"
+                + " TB_ListaValorDetalle.Valor AS Valor"
+                + " FROM TB_ListaValor, "
+                + " TB_ListaValorDetalle "
+                + " WHERE TB_ListaValor.ID = TB_ListaValorDetalle.ID_T_ListaValores "
+                + " AND TB_ListaValor.Estado = 1"
+                + " AND TB_ListaValorDetalle.Estado = 1"
+                + " AND TB_ListaValor.Agrupacion = 'EstadoProyecto'";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
@@ -219,7 +243,15 @@ public class ListaValorDetalleDAO {
     public List<ListaValorDetalle> getTipoEvaluacion() {
         List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
         PreparedStatement prepStm = null;
-        final String SQL = "EXEC PKG_ListaValor.fnGetTipoEvaluacion;";
+        final String SQL = "SELECT TB_ListaValor.ID AS IDListaValor,"
+                + " TB_ListaValorDetalle.ID AS IDListaValorDetalle,"
+                + " TB_ListaValorDetalle.Valor AS Valor"
+                + " FROM TB_ListaValor, "
+                + " TB_ListaValorDetalle "
+                + " WHERE TB_ListaValor.ID = TB_ListaValorDetalle.ID_T_ListaValores "
+                + " AND TB_ListaValor.Estado = 1"
+                + " AND TB_ListaValorDetalle.Estado = 1"
+                + " AND TB_ListaValor.Agrupacion = 'TipoEvaluacion'";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
@@ -242,7 +274,15 @@ public class ListaValorDetalleDAO {
     public List<ListaValorDetalle> getPeriodoEntrega() {
         List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
         PreparedStatement prepStm = null;
-        final String SQL = "EXEC PKG_ListaValor.fnGetPeriodoEntrega;";
+        final String SQL = "SELECT TB_ListaValor.ID AS IDListaValor,"
+                + " TB_ListaValorDetalle.ID AS IDListaValorDetalle,"
+                + " TB_ListaValorDetalle.Valor AS Valor"
+                + " FROM TB_ListaValor, "
+                + " TB_ListaValorDetalle "
+                + " WHERE TB_ListaValor.ID = TB_ListaValorDetalle.ID_T_ListaValores "
+                + " AND TB_ListaValor.Estado = 1"
+                + " AND TB_ListaValorDetalle.Estado = 1"
+                + " AND TB_ListaValor.Agrupacion = 'PeriodoEntrega'";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
@@ -265,7 +305,15 @@ public class ListaValorDetalleDAO {
     public List<ListaValorDetalle> getEstadoEntrega() {
         List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
         PreparedStatement prepStm = null;
-        final String SQL = "EXEC PKG_ListaValor.fnGetEstadoEntrega;";
+        final String SQL = "SELECT TB_ListaValor.ID AS IDListaValor,"
+                + " TB_ListaValorDetalle.ID AS IDListaValorDetalle,"
+                + " TB_ListaValorDetalle.Valor AS Valor"
+                + " FROM TB_ListaValor, "
+                + " TB_ListaValorDetalle "
+                + " WHERE TB_ListaValor.ID = TB_ListaValorDetalle.ID_T_ListaValores "
+                + " AND TB_ListaValor.Estado = 1"
+                + " AND TB_ListaValorDetalle.Estado = 1"
+                + " AND TB_ListaValor.Agrupacion = 'EstadoEntrega'";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
@@ -288,7 +336,15 @@ public class ListaValorDetalleDAO {
     public List<ListaValorDetalle> getEstadoIdea() {
         List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
         PreparedStatement prepStm = null;
-        final String SQL = "EXEC PKG_ListaValor.fnGetEstadoIdea;";
+        final String SQL = "SELECT TB_ListaValor.ID AS IDListaValor,"
+                + " TB_ListaValorDetalle.ID AS IDListaValorDetalle,"
+                + " TB_ListaValorDetalle.Valor AS Valor"
+                + " FROM TB_ListaValor, "
+                + " TB_ListaValorDetalle "
+                + " WHERE TB_ListaValor.ID = TB_ListaValorDetalle.ID_T_ListaValores "
+                + " AND TB_ListaValor.Estado = 1"
+                + " AND TB_ListaValorDetalle.Estado = 1"
+                + " AND TB_ListaValor.Agrupacion = 'EstadoIdea'";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
@@ -311,7 +367,15 @@ public class ListaValorDetalleDAO {
     public List<ListaValorDetalle> getEstadoIdeaUsuario() {
         List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
         PreparedStatement prepStm = null;
-        final String SQL = "EXEC PKG_ListaValor.fnGetEstadoIdeaUsuario;";
+        final String SQL = "SELECT TB_ListaValor.ID AS IDListaValor,"
+                + " TB_ListaValorDetalle.ID AS IDListaValorDetalle,"
+                + " TB_ListaValorDetalle.Valor AS Valor"
+                + " FROM TB_ListaValor, "
+                + " TB_ListaValorDetalle "
+                + " WHERE TB_ListaValor.ID = TB_ListaValorDetalle.ID_T_ListaValores "
+                + " AND TB_ListaValor.Estado = 1"
+                + " AND TB_ListaValorDetalle.Estado = 1"
+                + " AND TB_ListaValor.Agrupacion = 'EstadoIdeaUsuario'";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
@@ -334,7 +398,15 @@ public class ListaValorDetalleDAO {
     public List<ListaValorDetalle> getTipoUsuario() {
         List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
         PreparedStatement prepStm = null;
-        final String SQL = "EXEC PKG_ListaValor.fnGetTipoUsuario;";
+        final String SQL = "SELECT TB_ListaValor.ID AS IDListaValor,"
+                + " TB_ListaValorDetalle.ID AS IDListaValorDetalle,"
+                + " TB_ListaValorDetalle.Valor AS Valor"
+                + " FROM TB_ListaValor, "
+                + " TB_ListaValorDetalle "
+                + " WHERE TB_ListaValor.ID = TB_ListaValorDetalle.ID_T_ListaValores "
+                + " AND TB_ListaValor.Estado = 1"
+                + " AND TB_ListaValorDetalle.Estado = 1"
+                + " AND TB_ListaValor.Agrupacion = 'TipoUsuario'";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
@@ -357,7 +429,15 @@ public class ListaValorDetalleDAO {
     public List<ListaValorDetalle> getEstadoUsuario() {
         List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
         PreparedStatement prepStm = null;
-        final String SQL = "EXEC PKG_ListaValor.fnGetEstadoUsuario;";
+        final String SQL = "SELECT TB_ListaValor.ID AS IDListaValor,"
+                + " TB_ListaValorDetalle.ID AS IDListaValorDetalle,"
+                + " TB_ListaValorDetalle.Valor AS Valor"
+                + " FROM TB_ListaValor, "
+                + " TB_ListaValorDetalle "
+                + " WHERE TB_ListaValor.ID = TB_ListaValorDetalle.ID_T_ListaValores "
+                + " AND TB_ListaValor.Estado = 1"
+                + " AND TB_ListaValorDetalle.Estado = 1"
+                + " AND TB_ListaValor.Agrupacion = 'EstadoUsuario'";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
@@ -380,7 +460,15 @@ public class ListaValorDetalleDAO {
     public List<ListaValorDetalle> getEstadoSolicitudRol() {
         List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
         PreparedStatement prepStm = null;
-        final String SQL = "EXEC PKG_ListaValor.fnGetEstadoSolicitudRol;";
+        final String SQL = "SELECT TB_ListaValor.ID AS IDListaValor,"
+                + " TB_ListaValorDetalle.ID AS IDListaValorDetalle,"
+                + " TB_ListaValorDetalle.Valor AS Valor"
+                + " FROM TB_ListaValor, "
+                + " TB_ListaValorDetalle "
+                + " WHERE TB_ListaValor.ID = TB_ListaValorDetalle.ID_T_ListaValores "
+                + " AND TB_ListaValor.Estado = 1"
+                + " AND TB_ListaValorDetalle.Estado = 1"
+                + " AND TB_ListaValor.Agrupacion = 'EstadoSolicitudRol'";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
@@ -403,7 +491,15 @@ public class ListaValorDetalleDAO {
     public List<ListaValorDetalle> getEstadoUsuarioRol() {
         List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
         PreparedStatement prepStm = null;
-        final String SQL = "EXEC PKG_ListaValor.fnGetEstadoUsuarioRol;";
+        final String SQL = "SELECT TB_ListaValor.ID AS IDListaValor,"
+                + " TB_ListaValorDetalle.ID AS IDListaValorDetalle,"
+                + " TB_ListaValorDetalle.Valor AS Valor"
+                + " FROM TB_ListaValor, "
+                + " TB_ListaValorDetalle "
+                + " WHERE TB_ListaValor.ID = TB_ListaValorDetalle.ID_T_ListaValores "
+                + " AND TB_ListaValor.Estado = 1"
+                + " AND TB_ListaValorDetalle.Estado = 1"
+                + " AND TB_ListaValor.Agrupacion = 'EstadoUsuarioRol'";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
@@ -426,7 +522,15 @@ public class ListaValorDetalleDAO {
     public List<ListaValorDetalle> getProgramaAcademico() {
         List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
         PreparedStatement prepStm = null;
-        final String SQL = "EXEC PKG_ListaValor.fnGetProgramaAcademico;";
+        final String SQL = "SELECT TB_ListaValor.ID AS IDListaValor,"
+                + " TB_ListaValorDetalle.ID AS IDListaValorDetalle,"
+                + " TB_ListaValorDetalle.Valor AS Valor"
+                + " FROM TB_ListaValor, "
+                + " TB_ListaValorDetalle "
+                + " WHERE TB_ListaValor.ID = TB_ListaValorDetalle.ID_T_ListaValores "
+                + " AND TB_ListaValor.Estado = 1"
+                + " AND TB_ListaValorDetalle.Estado = 1"
+                + " AND TB_ListaValor.Agrupacion = 'ProgramaAcademico'";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
@@ -449,7 +553,15 @@ public class ListaValorDetalleDAO {
     public List<ListaValorDetalle> getDependencia() {
         List<ListaValorDetalle> itemFound = new ArrayList<ListaValorDetalle>(0);
         PreparedStatement prepStm = null;
-        final String SQL = "EXEC PKG_ListaValor.fnGetDependencia;";
+        final String SQL = "SELECT TB_ListaValor.ID AS IDListaValor,"
+                + " TB_ListaValorDetalle.ID AS IDListaValorDetalle,"
+                + " TB_ListaValorDetalle.Valor AS Valor"
+                + " FROM TB_ListaValor, "
+                + " TB_ListaValorDetalle "
+                + " WHERE TB_ListaValor.ID = TB_ListaValorDetalle.ID_T_ListaValores "
+                + " AND TB_ListaValor.Estado = 1"
+                + " AND TB_ListaValorDetalle.Estado = 1"
+                + " AND TB_ListaValor.Agrupacion = 'Dependencia'";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);

@@ -10,6 +10,7 @@ import edu.uniajc.ideaBank.interfaces.model.Idea;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import edu.uniajc.security.view.Constants;
 import edu.uniajc.security.view.ManagerBean;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -20,95 +21,121 @@ import javax.naming.InitialContext;
 
 /**
  *
- * @author Lenovo
+ * @author Nathalia Riascos
  */
 
 @ManagedBean(name = "IdeaNewBean")
 @ViewScoped
 public class IdeaNewBean extends ManagerBean {
-     //private String titleIdea;
-     private boolean PrivateIdea;
-     //private String description;
-     //private String Objetivos;
-     //private String palabrasClave;
      
+        
     private User user;
     private InitialContext ctx;
+    IIdea uDao = null;
+    private String titulo;
+    private boolean privateIdea; 
+    private String descripcion;
+    private String objetivos;
+    private String palabrasClaves;
+    
+    
 
     public IdeaNewBean() {
         super();
         ctx = super.getContext();
         // obtiene objeto de la sesion
         user = (User) super.getFromSession(Constants.SESSION_KEY_USER);
+        ///*
         if (user == null || user.getId()== 0) {
             // No esta autenticado ==> direccionar a pantalla login
             super.redirect("login.xhtml");
         }
+        //*/
     }    
-     
-    /* public String gettitleIdea() {
-        return titleIdea;
+
+    public String getTitulo() {
+        return titulo;
     }
-      
-      public void settitleIdea(String titleIdea) {
-        this.titleIdea = titleIdea;
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
-    */
-     public boolean getPrivateIdea() {
-        return PrivateIdea;
-    }
-      
-    public void setPrivateIdea(boolean  PrivateIdea) {
-        this.PrivateIdea = PrivateIdea;
-    }
-      
-    /*   public String getdescription() {
-        return description;
-    }
-      
-      public void setdescription(String description) {
-        this.description = description;
-    }
-      
-      public String getObjetivos() {
-        return Objetivos;
-    }
-      
-      public void setObjetivos(String Objetivos) {
-        this.Objetivos = Objetivos;
-    }
-      
     
-      public String getpalabrasClave() {
-        return palabrasClave;
+    public boolean getPrivateIdea() {
+        return privateIdea;
     }
-      
-      public void setpalabrasClave(String palabrasClave) {
-        this.palabrasClave = palabrasClave;
+
+    public String getDescripcion() {
+        return descripcion;
     }
-      
-      */
-      
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getObjetivos() {
+        return objetivos;
+    }
+
+    public void setObjetivos(String objetivos) {
+        this.objetivos = objetivos;
+    }
+
+    public String getPalabrasClaves() {
+        return palabrasClaves;
+    }
+
+    public void setPalabrasClaves(String palabrasClaves) {
+        this.palabrasClaves = palabrasClaves;
+    }
+          
+    public void setPrivateIdea(boolean privateIdea) {
+        this.privateIdea = privateIdea;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
       public void addMessage() {
-        String summary = PrivateIdea ? "Privada" : "Publica";        
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(summary));
-               
+        String summary = privateIdea ? "Privada" : "Publica";
+        super.showMessage(FacesMessage.SEVERITY_INFO, summary);               
     } 
       public void newIdea() {
+          int validator;
         try {
-            IIdea ideaService = (IIdea) ctx.lookup("java:global/edu.uniajc.view/IIdea!edu.uniajc.ideaBank.interfaces.IIdea");
-            Idea idea = new Idea();
+            IIdea ideaService = (IIdea) ctx.lookup("java:global/edu.uniajc.view/IdeaService!edu.uniajc.ideaBank.interfaces.IIdea");
+            Idea idea = new Idea();           
+          
+            idea.setidUsuario(user.getId());
+            idea.setcreadoPor(user.getPrimerNombre() +"."+ user.getPrimerApellido());
+            int p = privateIdea ? 1 : 0;
+            idea.setideaPrivada(p);
+            idea.setidEstadoidea(Constants.ESTADO_REGISTRADA);
+            idea.settitulo(titulo);
+            idea.setdescripcion(descripcion);
+            idea.setpalabrasClaves(palabrasClaves);
+          
             /*
                 llenar el objeto idea con los valores de la pantalla 
             */
-            PrivateIdea = ideaService.createIdea(idea);
-            super.showMessage(FacesMessage.SEVERITY_INFO, "Idea creada con éxito");
+            boolean ok = ideaService.createIdea(idea);
+            if (ok) {
+                super.showMessage(FacesMessage.SEVERITY_INFO, "Idea creada con éxito");
+                super.redirect("listofideas.xhtml");
+            } else{
+                super.showMessage(FacesMessage.SEVERITY_ERROR, "Error creando Idea");
+            }
         } catch (Exception e) {
             Logger.getLogger(IdeaNewBean.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
-            super.showMessage(FacesMessage.SEVERITY_ERROR, e.toString());
+            super.showMessage(FacesMessage.SEVERITY_FATAL, e.toString());
         }
 
     }
-    
+
 }

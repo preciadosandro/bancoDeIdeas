@@ -34,6 +34,11 @@ public class Constants {
      * Constantes para manejo de objetos en sesión
      */
     public static final String SESSION_KEY_USER = "SESSION.KEY.USER";
-
+    
+    
+    /**
+     * Contantes que se manejan en vistas de Ideas.
+     */
+    public static final int ESTADO_REGISTRADA = 46; 
     
 }

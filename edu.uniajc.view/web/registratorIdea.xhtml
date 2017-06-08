@@ -19,7 +19,7 @@
                     <h:panelGrid columns="1" style="margin-bottom:10px;text-align: center" cellpadding="5" width="100%">
                         <p:panelGrid id="grid" columns="5" columnClasses="no-border, no-border" style="text-align: center">
                         <h:outputLabel for="titleIdea" value="Titulo: " />
-                        <p:inputText id="intitleIdea" label=" Ingresar Titulo" required="true"
+                        <p:inputText id="intitleIdea" label=" Ingresar Titulo" required="true" value="#{IdeaNewBean.titulo}"
                                      requiredMessage="Valor es requerido en Titulo."
                                      validatorMessage="Titulo: Este campo no permite numéros ni caracteres especiales.">
                             <f:validateRegex pattern="^[_A-Za-z]+" />
@@ -36,7 +36,7 @@
                         </p:panelGrid>
                         
                         <p:panelGrid id="descripUno" columns="1" columnClasses="no-border, no-border" style="text-align: center">
-                            <p:inputTextarea rows="5" cols="160" counter="display" maxlength="700" counterTemplate="{0} Caracteres Permitidos." autoResize="false" />
+                            <p:inputTextarea value="#{IdeaNewBean.descripcion}" rows="5" cols="100" counter="display" maxlength="700" counterTemplate="{0} Caracteres Permitidos." autoResize="false" />
                             <h:outputText id="display" />
                         </p:panelGrid>
                         
@@ -45,7 +45,7 @@
                         </p:panelGrid>
                         
                         <p:panelGrid id="desObj" columns="1" columnClasses="no-border, no-border" style="text-align: center">
-                            <p:inputTextarea rows="5" cols="160" counter="displayObj" maxlength="700" counterTemplate="{0} Caracteres Permitidos." autoResize="false" />
+                            <p:inputTextarea  value="#{IdeaNewBean.objetivos}" rows="5" cols="100" counter="displayObj" maxlength="700" counterTemplate="{0} Caracteres Permitidos." autoResize="false" />
                             <h:outputText id="displayObj" />
                         </p:panelGrid>
                         
@@ -56,12 +56,10 @@
                         <p:growl id="clave" />
                         <p:panelGrid id="desClave" columns="3" columnClasses="no-border, no-border" style="text-align: center">
                             <p:inputText id="pClaves" placeholder="Ingresar palabras claves" label="Palabras Claves"
-                                         requiredMessage="Valor es requerido."
                                          validatorMessage="Palabras claves:Este campo no permite numéros ni caracteres especiales.">
-                                <f:validateRegex pattern="^[_A-Za-z]+" />
                             </p:inputText>
                             <p:commandButton value="Agregar" icon="ui-icon-disk" update="clave" styleClass="ui-priority-primary"/>
-                            <p:inputTextarea rows="5" cols="30" counter="display" maxlength="100" autoResize="false" />
+                            <p:inputTextarea rows="5" cols="30" counter="display" maxlength="100" autoResize="false" value="#{IdeaNewBean.palabrasClaves}" />
                             <h:outputText id="displayClave" />
                         </p:panelGrid>
                         

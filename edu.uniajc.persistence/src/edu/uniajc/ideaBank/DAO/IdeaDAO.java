@@ -33,28 +33,23 @@ public class IdeaDAO {
             PreparedStatement ps = null;
             String SQL;
 
-            SQL = "INSERT INTO TB_IDEA(ID,ID_T_USUARIO,"
-                    + "TITULO,DESCRIPCION,IDEAPROVADA,PALABRASCLAVE"
-                    + "CREADOPOR,CREADOEN,MODIFICADOPOR,MODIFICADOEN"
-                    + "ID_T_LV_ESTADOIDEA) "
-                    + "VALUES(SQ_TB_IDEA.nextval,?,?,?,?,?,?,?,?,?,?)";
+            SQL = "INSERT INTO TB_IDEA(ID, CREADOEN, "
+                    + "ID_T_USUARIO, TITULO, DESCRIPCION, IDEAPRIVADA, PALABRASCLAVE, "
+                    + "CREADOPOR, ID_T_LV_ESTADOIDEA) "
+                    + "VALUES(SQ_TB_IDEA.nextval, sysdate, ?, ?, ?, ?, ?, ?, ?)";
             ps = this.DBConnection.prepareStatement(SQL);
             ps.setInt(1, idea.getidUsuario());
-            ps.setInt(2, idea.getidEstadoidea());
-            ps.setString(3, idea.gettitulo());
-            ps.setString(4, idea.getdescripcion());
-            ps.setString(5, idea.getideaPrivada());
-            ps.setString(6, idea.getpalabrasClaves());
-            ps.setString(7, idea.getcreadoPor());
-            java.sql.Date birtDate = new java.sql.Date(idea.getcreadoEn().getTime());
-            ps.setDate(8, birtDate);
-            ps.setString(9, idea.getmodificadoPor());
-            java.sql.Date birtDatedos = new java.sql.Date(idea.getmodificadoEn().getTime());
-            ps.setDate(10, birtDatedos);
+            ps.setString(2, idea.gettitulo());
+            ps.setString(3, idea.getdescripcion());
+            ps.setInt(4, idea.getideaPrivada());
+            ps.setString(5, idea.getpalabrasClaves());
+            ps.setString(6, idea.getcreadoPor());
+            ps.setInt(7, idea.getidEstadoidea());
             ps.execute();
             return true;
 
         } catch (Exception e) {
+            e.printStackTrace();
             Logger.getLogger(IdeaDAO.class.getName()).log(Level.SEVERE, null, e);
             return false;
         }

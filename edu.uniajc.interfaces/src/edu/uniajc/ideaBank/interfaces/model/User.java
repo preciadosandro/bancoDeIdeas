@@ -17,8 +17,10 @@ public class User implements Serializable {
     private int id;
     //ID_T_LV_TIPOUSUARIO
     private int idTipoUsuario;
+    private String idTipousu_Descripcion;
     //ID_T_LV_ESTADOUSUARIO
     private int idEstadoUsuario;
+    private String idEstausu_Descripcion;
     //ID_T_LV_TIPOIDENTIFICACION
     private int idTipoIdentificacion;
 
@@ -209,5 +211,24 @@ public class User implements Serializable {
     public void setIdDependencia(int idDependencia) {
         this.idDependencia = idDependencia;
     }
+
+    public String getIdTipousu_Descripcion() {
+        return idTipousu_Descripcion;
+    }
+
+    public void setIdTipousu_Descripcion(String idTipousu_Descripcion) {
+        this.idTipousu_Descripcion = idTipousu_Descripcion;
+    }
+
+    public String getIdEstausu_Descripcion() {
+        return idEstausu_Descripcion;
+    }
+
+    public void setIdEstausu_Descripcion(String idEstausu_Descripcion) {
+        this.idEstausu_Descripcion = idEstausu_Descripcion;
+    }
+    
+    
+    
 
 }

@@ -79,5 +79,19 @@ public class ListaValorService implements IListaValor {
         } else {
             return -1;
         }
-    }    
+    }
+
+    @Override
+    public List<ListaValor> listaAgrupacion() {
+        try {
+            ListaValorDAO dao = new ListaValorDAO(dbConnection);
+            List<ListaValor> list = dao.getAgrupacion();
+            return list;
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    
 }

@@ -11,6 +11,7 @@ import edu.uniajc.ideaBank.interfaces.model.ListaValor;
 import edu.uniajc.ideaBank.interfaces.model.ListaValorDetalle;
 import edu.uniajc.security.view.ManagerBean;
 import java.io.Serializable;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -31,9 +32,12 @@ public class ListaValorBean extends ManagerBean implements Serializable {
     private ListaValor listaValor;
     private ListaValorDetalle listaValorDetalle;
     private InitialContext ctx;
+    private List<ListaValor> listaAgrupacion;
     
     IListaValor uDao = null;
     IListaValorDetalle uDaoDetalle = null;
+    
+    IListaValor listaValorDAO = null;
     
     public ListaValorBean() {
         super();
@@ -50,6 +54,20 @@ public class ListaValorBean extends ManagerBean implements Serializable {
         this.listaValor = listaValor;
     }
 
+    public List<ListaValor> getListaAgrupacion() {
+        try {
+            listaValorDAO = (IListaValor) ctx.lookup("java:global/edu.uniajc.view/ListaValorService!edu.uniajc.ideaBank.interfaces.IListaValor");
+        } catch (Exception e) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, e);
+        }
+        listaAgrupacion = listaValorDAO.listaAgrupacion();    
+        return listaAgrupacion;
+    }
+
+    public void setListaAgrupacion(List<ListaValor> listaAgrupacion) {
+        this.listaAgrupacion = listaAgrupacion;
+    }
+    
     public void newListaValor() {
 
         int validator;

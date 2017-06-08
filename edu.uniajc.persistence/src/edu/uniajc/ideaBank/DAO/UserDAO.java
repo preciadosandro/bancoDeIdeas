@@ -123,12 +123,12 @@ public class UserDAO {
     public List<User> listUser() {
         List<User> itemFound = new ArrayList<User>(0);
         PreparedStatement prepStm = null;
-        final String SQL = "SELECT ID,ID_T_LV_TIPOUSUARIO,ID_T_LV_ESTADOUSUARIO,"
-                + "ID_T_LV_TIPOIDENTIFICACION,NUMIDENTIFICACION,PRIMERNOMBRE,"
-                + "SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,TELEFONOFIJO,"
-                + "TELEFONOCELULAR,USUARIO,CONTRASENA,CREADOPOR, GENERO, ID_T_LV_DEPENDENCIA,"
-                + "ID_T_LV_PROGRAMAACADEMICO, FECHANACIMIENTO "
-                + "FROM TB_USUARIO ORDER BY 1";
+        final String SQL = "SELECT U.ID,U.ID_T_LV_TIPOUSUARIO,LV.VALOR,U.ID_T_LV_ESTADOUSUARIO,LVV.VALOR VALORE,"
+                 + "U.ID_T_LV_TIPOIDENTIFICACION,U.NUMIDENTIFICACION,U.PRIMERNOMBRE,"
+                 + "U.SEGUNDONOMBRE,U.PRIMERAPELLIDO,U.SEGUNDOAPELLIDO,U.TELEFONOFIJO,"
+                 + "U.TELEFONOCELULAR,U.USUARIO,U.CONTRASENA,U.CREADOPOR, U.GENERO, U.ID_T_LV_DEPENDENCIA,"
+                + "U.ID_T_LV_PROGRAMAACADEMICO, U.FECHANACIMIENTO "
+                 + "FROM TB_USUARIO U,TB_LISTAVALORDETALLE LV,TB_LISTAVALORDETALLE LVV WHERE U.ID_T_LV_TIPOUSUARIO=LV.ID AND U.ID_T_LV_ESTADOUSUARIO=LVV.ID ORDER BY 1";
 
         try {
             prepStm = this.DBConnection.prepareStatement(SQL);
@@ -138,7 +138,9 @@ public class UserDAO {
                 User uRow = new User();
                 uRow.setId(RS.getInt("ID"));
                 uRow.setIdTipoUsuario(RS.getInt("ID_T_LV_TIPOUSUARIO"));
+                uRow.setIdTipousu_Descripcion(RS.getString("VALOR"));
                 uRow.setIdEstadoUsuario(RS.getInt("ID_T_LV_ESTADOUSUARIO"));
+                uRow.setIdEstausu_Descripcion(RS.getString("VALORE"));
                 uRow.setIdTipoIdentificacion(RS.getInt("ID_T_LV_TIPOIDENTIFICACION"));
                 uRow.setNumIdentificacion(RS.getString("NUMIDENTIFICACION"));
                 uRow.setPrimerNombre(RS.getString("PRIMERNOMBRE"));

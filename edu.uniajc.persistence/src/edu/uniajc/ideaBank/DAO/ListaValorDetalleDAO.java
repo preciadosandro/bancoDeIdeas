@@ -5,6 +5,7 @@
  */
 package edu.uniajc.ideaBank.DAO;
 
+import edu.uniajc.ideaBank.interfaces.model.ListaValor;
 import edu.uniajc.ideaBank.interfaces.model.ListaValorDetalle;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

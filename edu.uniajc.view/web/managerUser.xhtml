@@ -33,12 +33,12 @@
                         <p:column headerText="Usuario" >
                             <h:outputText value="#{us.usuario}"/>
                         </p:column>
-                        <p:column headerText="Rol" >
-                            <h:outputText value="#{us.idTipoUsuario}"/>
+                        <p:column headerText="Tipo Usuario" >
+                            <h:outputText value="#{us.idTipousu_Descripcion}"/>
                         </p:column>
                         <p:column headerText="Estado" >
-                            <h:outputText value="#{us.idEstadoUsuario}"/>
-                        </p:column>                  
+                            <h:outputText value="#{us.idEstausu_Descripcion}"/>
+                        </p:column>
                         <p:column headerText="Editar" style="width:32px;text-align: center">
                             <p:commandButton oncomplete="PF('dialogUpdateUser').show()" icon="ui-icon-pencil" title="Editar" update="formUpdateuser">
                                 <f:setPropertyActionListener target="#{userManagerBean.user}" value="#{us}"/>
@@ -163,6 +163,9 @@
                                 <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
                                 <f:selectItem itemLabel="Estudiante" itemValue="25" />
                                 <f:selectItem itemLabel="Docente" itemValue="26" />
+                                <f:selectItem itemLabel="Directivo" itemValue="27" />
+                                <f:selectItem itemLabel="Empleado" itemValue="28" />
+                                <f:selectItem itemLabel="Egresado" itemValue="29" />
                             </p:selectOneMenu>
                             <p:outputLabel value="Género: *"/>
                             <p:selectOneMenu id="gender" value="#{userManagerBean.user.genero}" label="Género" 
@@ -222,8 +225,7 @@
                             <h:outputText value="#{us1.descripcion}"/>
                         </p:column>
                         <p:column headerText="Editar" style="width:32px;text-align: center">
-                            <p:commandButton oncomplete="PF('dialogUpdateRol').show()" 
-                                             icon="ui-icon-pencil" title="Editar" update="formListSolRol">
+                            <p:commandButton oncomplete="PF('dialogUpdateRol').show()" icon="ui-icon-pencil" title="Editar" update="formUpdaterol">
                                 <f:setPropertyActionListener target="#{role_requestBean.userrolre}" value="#{us1}"/>
                             </p:commandButton>
                         </p:column>                      
@@ -247,8 +249,8 @@
                             <p:selectOneMenu id="state" value="#{role_requestBean.userrolre.id_t_rol}" label="Estado"
                                              required="true">
                                 <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
-                                <f:selectItem itemLabel="ESTUDIANTE" itemValue="1" />
-                                <f:selectItem itemLabel="DOCENTE" itemValue="2" />
+                                <f:selectItem itemLabel="GENERICO" itemValue="1" />
+                                <f:selectItem itemLabel="ADMINISTRADOR" itemValue="2" />
                             </p:selectOneMenu>
 
                         </p:panelGrid>

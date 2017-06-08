@@ -6,4 +6,4 @@ from    tb_idea i
 where   i.id_t_lv_estadoidea = e.id
 group   by to_char(i.creadoen, 'yyyy-mm'), e.valor
 order   by 2 desc, 1
-/
+;

@@ -41,35 +41,38 @@ private Connection DBConnection = null;
             ResultSet rs = prepStm.executeQuery();
             if (rs.next()) {
                 user = new User();
-                user.setContrasena(pass);
-                user.setUsuario(username);
-                user.setId( rs.getInt("ID") );
-                user.setIdTipoUsuario( rs.getInt("ID_T_LV_TIPOUSUARIO"));
-                user.setIdEstadoUsuario(rs.getInt("ID_T_LV_ESTADOUSUARIO"));                
+
+                user.setId( rs.getInt("ID") );                
+                user.setIdTipoUsuario( rs.getInt("ID_T_LV_TIPOUSUARIO"));                
+                user.setIdEstadoUsuario(rs.getInt("ID_T_LV_ESTADOUSUARIO"));                                
                 user.setIdTipoIdentificacion(rs.getInt("ID_T_LV_TIPOIDENTIFICACION"));                                
                 user.setNumIdentificacion(rs.getString("NUMIDENTIFICACION"));                                                
                 user.setPrimerNombre(rs.getString("PRIMERNOMBRE"));
                 user.setSegundoNombre(rs.getString("SEGUNDONOMBRE"));                                                
                 user.setPrimerApellido( rs.getString("PRIMERAPELLIDO"));
                 user.setSegundoApellido(rs.getString("SEGUNDOAPELLIDO"));                
-                user.setFechaNacimiento(rs.getDate("FECHANACIMIENTO"));                
-                user.setGenero(rs.getString("GENERO"));
                 user.setTelefonoFijo(rs.getString("TELEFONOFIJO"));                
                 user.setTelefonoCelular(rs.getString("TELEFONOCELULAR"));                                
-                user.setIdProgrmaAcademico(rs.getInt("ID_T_LV_PROGRAMAACEDEMICO"));                                                
-                user.setIdDependencia(rs.getInt("ID_T_LV_DEPENDENCIA"));                                                                
+                user.setUsuario(username);
+                user.setContrasena(pass);
                 user.setCreadoPor(rs.getString("CREADOPOR"));                                                                                                
                 user.setCreadoEn( rs.getDate("CREADOEN"));
                 user.setModificadoPor(rs.getString("MODIFICADOPOR"));                
-                user.setModificadoEn(rs.getDate("MODIFICADOEN"));                
+                user.setModificadoEn(rs.getDate("MODIFICADOEN"));                                
+                user.setGenero(rs.getString("GENERO"));
+                user.setFechaNacimiento(rs.getDate("FECHANACIMIENTO"));                             
+                user.setIdProgrmaAcademico(rs.getInt("ID_T_LV_PROGRAMAACADEMICO"));                                                
+                user.setIdDependencia(rs.getInt("ID_T_LV_DEPENDENCIA"));                                                                
+
+
                 }
+            
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, SQL, ex);
         }
         return user;
-    }
-    
-    }
+    }    
+}
                   
     
 

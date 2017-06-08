@@ -15,25 +15,43 @@
     <h:body>
         <div id="divGeneral">
             <div id="top">
-                <div id="logo">
-                    <p:graphicImage value="resources/image/LOGO-CAMACHO.png"/>
-                </div>
-                <div id="logotipo">
-                    <h1 style="padding-left: 20px; padding-top: 20px"><u>IRIS</u></h1>
-                </div>
-                <div id="menuHome">
-                    <h:form>  
-                        <p:growl id="messages"/>
-                        <p:menubar>
-                            <p:menuitem value="Inicio" outcome="index" />
-                            <p:menuitem value="Ayuda" url="#" />
-                            <p:menuitem value="Registrarme" outcome="registrator" rendered="#{templeteHomeBean.enableMenu}"/>                       
-                            <p:menuitem value="Ingresar" outcome="login" rendered="#{templeteHomeBean.enableMenu}" />
-                            <p:menuitem outcome="login" value="Cerrar session" rendered="#{templeteHomeBean.enableCloseSession}"/>
-                        </p:menubar>                
+                <ui:insert name="top">
+                    <div id="logo">
+                        <p:graphicImage value="resources/image/LOGO-CAMACHO.png"/>
+                    </div>
+                    <div id="logotipo">
+                        <h1 style="padding-left: 20px; padding-top: 20px"><u>IRIS</u></h1>
+                    </div>
+                    <div id="menuHome">
+                        <h:form>  
+                            <p:growl id="messages"/>
+                            <p:menubar>
+                                <p:menuitem value="Inicio" outcome="index" />
+                                <p:menuitem value="Ayuda" url="#" />
+                                <p:menuitem value="Registrarme" outcome="registrator"
+                                            rendered="#{templeteHomeBean.enableMenu}"/>                       
+                                <p:menuitem value="Ingresar" outcome="login" 
+                                            rendered="#{templeteHomeBean.enableMenu}" />
+                                <p:menuitem outcome="login" value="Cerrar session" 
+                                            rendered="#{templeteHomeBean.enableCloseSession}"/>
+                            </p:menubar>                
+                        </h:form>
+                    </div>
+                    <div style="clear:both;"></div>
+                </ui:insert>
+            </div>
+            <div id="left">
+                <ui:insert name="left"  >
+                    <h:form rendered="#{templetePrincipalBean.enableCloseSession}">          
+                        <p:growl id="messages" showDetail="true" />
+                        <p:tieredMenu >
+                            <p:menuitem value="Mis ideas"/>
+                            <p:menuitem value="Lista de ideas"/>
+                            <p:menuitem value="Notificaciones de usuarios" outcome="managerUser"/>
+                            <p:menuitem value="Lista valores" outcome="listaValor"/>
+                        </p:tieredMenu>
                     </h:form>
-                </div>
-                <div style="clear:both;"></div>
+                </ui:insert>
             </div>
             <div id="left" class="left_content">
                 <ui:insert name="content_left">Content left</ui:insert>

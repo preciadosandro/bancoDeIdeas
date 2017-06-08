@@ -7,14 +7,18 @@ package edu.uniajc.security.view;
 
 import edu.uniajc.ideaBank.interfaces.model.User;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+
 import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author Lenovo
  */
-@Named(value = "templetePrincipalBean")
+@ManagedBean(name = "TempletePrincipalBean")
+
+//@Named(value = "templetePrincipalBean")
 @SessionScoped
 public class TempletePrincipalBean extends ManagerBean implements Serializable {
 
@@ -22,19 +26,20 @@ public class TempletePrincipalBean extends ManagerBean implements Serializable {
      * Creates a new instance of TempletePrincipalBean
      */
     private User user;
-    private boolean enableMenu;
+    private boolean enableMenuTop;
     private boolean enableCloseSession;
-    public TempletePrincipalBean() {
+    public TempletePrincipalBean() {        
+        this.user = (User) super.getFromSession(Constants.SESSION_KEY_USER);
         
-        user = (User) super.getFromSession(Constants.SESSION_KEY_USER);
-        
-        if (user == null || user.getId() == 0) {
+        if (this.user == null || this.user.getId() == 0) {
+            System.out.println("NOOOOOOO");
             // No esta autenticado ==> direccionar a pantalla login
-            enableMenu = true;
-            enableCloseSession = false;
+            this.enableMenuTop = true;
+            this.enableCloseSession = false;
         } else {
-            enableMenu = false;
-            enableCloseSession = true;
+            System.out.println("SIIIIII"); 
+            this.enableMenuTop = false;
+            this.enableCloseSession = true;
         }
     }
 
@@ -46,15 +51,16 @@ public class TempletePrincipalBean extends ManagerBean implements Serializable {
         this.user = user;
     }
 
-    public boolean isEnableMenu() {
-        return enableMenu;
+    public boolean isEnableMenuTop() {
+        return enableMenuTop;
     }
 
-    public void setEnableMenu(boolean enableMenu) {
-        this.enableMenu = enableMenu;
+    public void setEnableMenuTop(boolean enableMenuTop) {
+        this.enableMenuTop = enableMenuTop;
     }
 
-    public boolean isEnableCloseSession() {
+    public boolean isEnableCloseSession() {  
+        super.addToSession(Constants.SESSION_KEY_USER, null);
         return enableCloseSession;
     }
 

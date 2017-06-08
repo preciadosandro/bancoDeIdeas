@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.ideaBank.view;
+package edu.uniajc.security.view;
 
 
 
@@ -11,6 +11,7 @@ import edu.uniajc.ideaBank.Utilities.Utilities;
 import edu.uniajc.ideaBank.interfaces.ILogin;
 import edu.uniajc.ideaBank.interfaces.model.User;
 import static edu.uniajc.ideaBank.view.UserBean.getContext;
+import edu.uniajc.security.view.ManagerBean;
 import java.io.Serializable;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -34,12 +35,13 @@ import javax.swing.JOptionPane;
 
 @ManagedBean(name = "loginBean")
 @ViewScoped
-public class LoginBean implements Serializable {
+public class LoginBean extends ManagerBean {
 
     private String password;
     private String user;
     private boolean cookiesCheck=false;
     private String virtualCheck;
+    
 
     public String getVirtualCheck() {
         return virtualCheck;
@@ -63,20 +65,23 @@ public class LoginBean implements Serializable {
         return user;
     }
     public void setUser(String user) {
-
-                /*userModel.setContrasena(Utilities.Encriptar(userModel.getContrasena()));
-                userModel.setIdEstadoUsuario(30);
-                confirmUser = dao.createUser(userModel);     */
-        //user=Utilities.Encriptar(user);
-        
         this.user = user;
     }
 
-    public LoginBean(){  
+    
+    
+    public LoginBean (){  
+        super();
+        InitialContext ctx = super.getContext();
         isChecked();
     }   
        
+    
+    
+    
+    
     public void newLogin() {  
+
         String temp=Utilities.Encriptar(this.password);
         ILogin lDao =null;
         User validator;
@@ -106,14 +111,20 @@ public class LoginBean implements Serializable {
                     ((HttpServletResponse)(context.getExternalContext().getResponse())).addCookie(cPassword);
                     ((HttpServletResponse)(context.getExternalContext().getResponse())).addCookie(cVirtualCheck);            
                     // se llama clase que coloca user en session
-                    
-                    linklogin(); 
+                    super.addToSession(Constants.SESSION_KEY_USER, validator);   
+                    User xxx = (User) super.getFromSession(Constants.SESSION_KEY_USER);
+                    System.out.println("XXXX "+xxx.getUsuario());    
+                    super.redirect("managerUser.xhtml");
+
 
                     } else {
                         virtualCheck = "false";
                         Cookie cVirtualCheck = new Cookie("cVirtualCheck", virtualCheck);
                         ((HttpServletResponse)(context.getExternalContext().getResponse())).addCookie(cVirtualCheck);
-                    linklogin();                 
+                        super.addToSession(Constants.SESSION_KEY_USER, validator);   
+                        User xxx = (User) super.getFromSession(Constants.SESSION_KEY_USER);
+                        System.out.println("zzzzz "+xxx.getUsuario());                          
+                        super.redirect("listofideas.xhtml");          
                     }
                                                             
                 }else{
@@ -122,13 +133,6 @@ public class LoginBean implements Serializable {
             }
        }
     
-    public void linklogin() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        try {
-            context.getExternalContext().redirect("managerUser.xhtml");
-        } catch (Exception e) {
-        }
-    }
     
     public void isChecked() {
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -156,14 +160,15 @@ public class LoginBean implements Serializable {
             }
     }
     
+    
+    
+    
     public String doRemenber() {
-
         FacesContext fc = FacesContext.getCurrentInstance();
-
                 return "success";
     }
     
-        public static InitialContext getContext() {
+        /*public static InitialContext getContext() {
         try {
             Properties props = new Properties();
             props.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.enterprise.naming.SerialInitContextFactory");
@@ -176,7 +181,7 @@ public class LoginBean implements Serializable {
             Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-    }
+    }*/
     
     
     

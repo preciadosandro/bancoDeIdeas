@@ -9,35 +9,40 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="css/default.css"/>
         <h:outputStylesheet name="css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <title>IRIS-D</title>
     </h:head>
 
     <h:body>
         <div id="divGeneral">
             <div id="top">
-                <ui:insert name="top">
-                    <div id="logo">
-                        <p:graphicImage value="resources/image/LOGO-CAMACHO.png"/>
-                    </div>
-                    <div id="logotipo">
-                        <h1>IRIS</h1>
-                    </div>
-                    <div id="menuHome">
-                        <h:form>
-                            <p:growl id="messages"/>
+                <div id="logo">
+                    <p:graphicImage value="resources/image/LOGO-CAMACHO.png"/>
+                </div>
+                <div id="logotipo">
+                    <h1 style="padding-left: 20px; padding-top: 20px"><u>IRIS</u></h1>
+                </div>
+                <div id="menuHome">
+                    <h:form>  
+                        <p:growl id="messages"/>
+                        <p:outputLabel value="#{TempletePrincipalBean.user.primerNombre}" />
                         <p:menubar>
                             <p:menuitem value="Inicio" outcome="index" />
                             <p:menuitem value="Ayuda" url="#" />
-                            <p:menuitem outcome="login" value="Cerrar session" rendered="#{templetePrincipalBean.enableCloseSession}"/>
-                        </p:menubar>       
-                        </h:form>
-                    </div>
-                    <div style="clear:both;"></div></ui:insert>
+                            <p:menuitem value="Registrarme" outcome="registrator"
+                                        rendered="#{TempletePrincipalBean.enableMenuTop}"/>                       
+                            <p:menuitem value="Ingresar" outcome="login" 
+                                        rendered="#{TempletePrincipalBean.enableMenuTop}" />
+                            <p:menuitem outcome="login" value="Cerrar session" 
+                                        rendered="#{TempletePrincipalBean.enableCloseSession}"/>
+                        </p:menubar>                
+                    </h:form>
+                </div>
+                <div style="clear:both;"></div>
             </div>
             <div>
                 <div id="left">
-                    <ui:insert name="left">
-                        <h:form>          
+                    <ui:insert name="left"  >
+                        <h:form rendered="#{TempletePrincipalBean.enableCloseSession}">          
                             <p:growl id="messages" showDetail="true" />
                             <p:tieredMenu >
                                 <p:menuitem value="Mis ideas"/>

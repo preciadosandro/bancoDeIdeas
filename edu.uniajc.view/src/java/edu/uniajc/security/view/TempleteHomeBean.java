@@ -7,8 +7,9 @@ package edu.uniajc.security.view;
 
 import edu.uniajc.ideaBank.interfaces.model.User;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+
 import java.io.Serializable;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
@@ -20,7 +21,7 @@ public class TempleteHomeBean extends ManagerBean implements Serializable {
 
     /**
      * Creates a new instance of TempleteHomeBean
-     */
+     */ 
     private User user;
     private boolean enableMenu;
     private boolean enableCloseSession;
@@ -36,6 +37,7 @@ public class TempleteHomeBean extends ManagerBean implements Serializable {
             enableMenu = false;
             enableCloseSession = true;
         }
+        System.out.println("Habilitado: " + enableMenu);
     }
 
     public boolean isEnableMenu() {

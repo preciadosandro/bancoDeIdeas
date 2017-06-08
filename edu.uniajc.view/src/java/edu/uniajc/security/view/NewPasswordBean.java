@@ -8,11 +8,13 @@ package edu.uniajc.security.view;
 import edu.uniajc.ideaBank.Utilities.Utilities;
 import edu.uniajc.ideaBank.interfaces.IUser;
 import edu.uniajc.ideaBank.interfaces.model.User;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 
 /**
@@ -59,6 +61,7 @@ public class NewPasswordBean extends ManagerBean{
     }
     
     public void newPassword() {
+        FacesContext context = FacesContext.getCurrentInstance();
         try {
             //IUser userService = new UserService();
             IUser userService = (IUser) ctx.lookup("java:global/edu.uniajc.view/UserService!edu.uniajc.ideaBank.interfaces.IUser");
@@ -69,9 +72,14 @@ public class NewPasswordBean extends ManagerBean{
                 userService.newPassword(user);
                 password = " ";
                 passwordConfirm = " ";
-                super.showMessage(FacesMessage.SEVERITY_INFO, "La contraseña fue cambiada con exito");
+                //super.showMessage(FacesMessage.SEVERITY_INFO, "La contraseña fue cambiada con exito");
                 // coloca objeto en la sesion
                 super.addToSession(Constants.SESSION_KEY_USER, user);
+                try {                
+                    context.getExternalContext().redirect("../faces/listofideas.xhtml");
+                } catch (IOException ex) {                        
+                    Logger.getLogger(TokenBean.class.getName()).log(Level.SEVERE, null, ex);
+                }      
             }
             else {
                 super.showMessage(FacesMessage.SEVERITY_WARN, "Las contraseñas no corresponden");

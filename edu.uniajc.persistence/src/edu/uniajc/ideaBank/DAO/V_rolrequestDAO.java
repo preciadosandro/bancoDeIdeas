@@ -46,7 +46,7 @@ public class V_rolrequestDAO {
             
             while (rs.next()) {
                 V_rolrequest rol = new V_rolrequest();
-      
+
                 rol.setId_sol_rol(rs.getInt("id"));
                 rol.setId(rs.getInt("id"));
                 rol.setUsuario(rs.getString("usuario"));
@@ -56,6 +56,9 @@ public class V_rolrequestDAO {
                 rol.setId_t_rol(rs.getInt("id_t_rol"));
                 rol.setPrimernombre(rs.getString("primernombre"));
                 rol.setPrimerapellido(rs.getString("primerapellido"));
+                
+                /// aqui pone a imprimir lo que tiene rol -->
+                System.out.println(rol.getEstado());
                 items.add(rol);
                 
             }        

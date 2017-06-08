@@ -41,7 +41,9 @@
                                     <f:validateRegex pattern="^[_A-Za-z]*" />
                                 </p:inputText>                        
                                 <p:outputLabel value="Tipo Identificación: *"/>
-                                <p:selectOneMenu value="#{userBean.user.idTipoIdentificacion}">
+                                <p:selectOneMenu value="#{userBean.user.idTipoIdentificacion}" label="Tipo de identificación"
+                                                 required="true">
+                                    <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
                                     <f:selectItems value="#{userBean.listaTipoIdentificacion}" var="tipoIdentificacion" itemValue="#{tipoIdentificacion.idListaValor}" itemLabel="#{tipoIdentificacion.valor}"/>
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Numero de identificación: *"/>
@@ -90,7 +92,9 @@
                                     <f:validateLength minimum="5"  />     
                                 </p:password>
                                 <p:outputLabel value="Tipo de usuario: *"/>
-                                <p:selectOneMenu value="#{userBean.user.idTipoUsuario}">
+                                <p:selectOneMenu value="#{userBean.user.idTipoUsuario}" required="true"
+                                                 label="Tipo de usuario">
+                                    <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
                                     <f:selectItems value="#{userBean.listaTipoUsuario}" var="tipoUsuario" itemValue="#{tipoUsuario.idListaValor}" itemLabel="#{tipoUsuario.valor}"/>
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Género: *"/>
@@ -101,11 +105,15 @@
                                     <f:selectItem itemLabel="Femenino" itemValue="F" />
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Programa académico: *"/>
-                                <p:selectOneMenu value="#{userBean.user.idProgrmaAcademico}">
+                                <p:selectOneMenu value="#{userBean.user.idProgrmaAcademico}" required="true"
+                                                 label="Programa académico">
+                                    <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
                                     <f:selectItems value="#{userBean.listaProgramaAcademico}" var="programaAcademico" itemValue="#{programaAcademico.idListaValor}" itemLabel="#{programaAcademico.valor}"/>
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Dependencia: *"/>
-                                <p:selectOneMenu value="#{userBean.user.idDependencia}">
+                                <p:selectOneMenu value="#{userBean.user.idDependencia}" required="true"
+                                                 label="Dependencia">
+                                    <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
                                     <f:selectItems value="#{userBean.listaDependencia}" var="dependencia" itemValue="#{dependencia.idListaValor}" itemLabel="#{dependencia.valor}"/>
                                 </p:selectOneMenu>
                             </p:panelGrid>

@@ -9,13 +9,16 @@ import edu.uniajc.ideaBank.interfaces.model.User;
 import javax.inject.Named;
 
 import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author Lenovo
  */
-@Named(value = "templetePrincipalBean")
+@ManagedBean(name = "TempletePrincipalBean")
+
+//@Named(value = "templetePrincipalBean")
 @SessionScoped
 public class TempletePrincipalBean extends ManagerBean implements Serializable {
 
@@ -25,17 +28,18 @@ public class TempletePrincipalBean extends ManagerBean implements Serializable {
     private User user;
     private boolean enableMenuTop;
     private boolean enableCloseSession;
-    public TempletePrincipalBean() {
+    public TempletePrincipalBean() {        
+        this.user = (User) super.getFromSession(Constants.SESSION_KEY_USER);
         
-        user = (User) super.getFromSession(Constants.SESSION_KEY_USER);
-        
-        if (user == null || user.getId() == 0) {
+        if (this.user == null || this.user.getId() == 0) {
+            System.out.println("NOOOOOOO");
             // No esta autenticado ==> direccionar a pantalla login
-            enableMenuTop = true;
-            enableCloseSession = false;
+            this.enableMenuTop = true;
+            this.enableCloseSession = false;
         } else {
-            enableMenuTop = false;
-            enableCloseSession = true;
+            System.out.println("SIIIIII"); 
+            this.enableMenuTop = false;
+            this.enableCloseSession = true;
         }
     }
 

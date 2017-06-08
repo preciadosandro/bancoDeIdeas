@@ -111,7 +111,9 @@ public class LoginBean extends ManagerBean {
                     ((HttpServletResponse)(context.getExternalContext().getResponse())).addCookie(cPassword);
                     ((HttpServletResponse)(context.getExternalContext().getResponse())).addCookie(cVirtualCheck);            
                     // se llama clase que coloca user en session
-                    super.addToSession(Constants.SESSION_KEY_USER, validator);                                        
+                    super.addToSession(Constants.SESSION_KEY_USER, validator);   
+                    User xxx = (User) super.getFromSession(Constants.SESSION_KEY_USER);
+                    System.out.println("XXXX "+xxx.getUsuario());    
                     super.redirect("managerUser.xhtml");
 
 
@@ -119,7 +121,9 @@ public class LoginBean extends ManagerBean {
                         virtualCheck = "false";
                         Cookie cVirtualCheck = new Cookie("cVirtualCheck", virtualCheck);
                         ((HttpServletResponse)(context.getExternalContext().getResponse())).addCookie(cVirtualCheck);
-                        super.addToSession(Constants.SESSION_KEY_USER, validator);                                        
+                        super.addToSession(Constants.SESSION_KEY_USER, validator);   
+                        User xxx = (User) super.getFromSession(Constants.SESSION_KEY_USER);
+                        System.out.println("zzzzz "+xxx.getUsuario());                          
                         super.redirect("listofideas.xhtml");          
                     }
                                                             

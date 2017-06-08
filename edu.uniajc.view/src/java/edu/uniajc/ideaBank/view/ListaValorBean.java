@@ -9,6 +9,8 @@ import edu.uniajc.ideaBank.interfaces.IListaValor;
 import edu.uniajc.ideaBank.interfaces.IListaValorDetalle;
 import edu.uniajc.ideaBank.interfaces.model.ListaValor;
 import edu.uniajc.ideaBank.interfaces.model.ListaValorDetalle;
+import edu.uniajc.ideaBank.interfaces.model.User;
+import edu.uniajc.security.view.Constants;
 import edu.uniajc.security.view.ManagerBean;
 import java.io.Serializable;
 import java.util.List;
@@ -33,7 +35,7 @@ public class ListaValorBean extends ManagerBean implements Serializable {
     private ListaValorDetalle listaValorDetalle;
     private InitialContext ctx;
     private List<ListaValor> listaAgrupacion;
-    
+     private User user;
     IListaValor uDao = null;
     IListaValorDetalle uDaoDetalle = null;
     
@@ -44,6 +46,11 @@ public class ListaValorBean extends ManagerBean implements Serializable {
         ctx = super.getContext();
         listaValor = new ListaValor();
         listaValorDetalle = new ListaValorDetalle();
+        user = (User) super.getFromSession(Constants.SESSION_KEY_USER);
+        if (user == null || user.getId()== 0) {
+            // No esta autenticado ==> direccionar a pantalla login
+            super.redirect("login.xhtml");
+        }
     }
 
     public ListaValor getListaValor() {
@@ -66,7 +73,7 @@ public class ListaValorBean extends ManagerBean implements Serializable {
 
     public void setListaAgrupacion(List<ListaValor> listaAgrupacion) {
         this.listaAgrupacion = listaAgrupacion;
-    }
+    }    
     
     public void newListaValor() {
 

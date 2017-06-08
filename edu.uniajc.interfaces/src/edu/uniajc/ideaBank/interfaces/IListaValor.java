@@ -21,4 +21,6 @@ public interface IListaValor {
     public List<ListaValor> listaValorEncabezado();
     
     public int updateListaValor(ListaValor listaValorModel);
+    
+    public List<ListaValor> listaAgrupacion();
 }

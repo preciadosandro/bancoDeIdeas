@@ -114,4 +114,33 @@ public class ListaValorDAO {
             return false;
         }
     }
+    
+    public List<ListaValor> getAgrupacion() {
+        List<ListaValor> itemFound = new ArrayList<ListaValor>(0);
+        PreparedStatement prepStm = null;
+        final String SQL = "SELECT TB_ListaValor.ID AS IDListaValor, "
+                + " TB_ListaValor.Agrupacion AS Agrupacion, "
+                + " TB_ListaValor.Descripcion AS Descripcion, "
+                + " TB_ListaValor.Estado AS Estado "
+                + " FROM TB_ListaValor "
+                + " WHERE TB_ListaValor.Estado = 1";
+
+        try {
+            prepStm = this.DBConnection.prepareStatement(SQL);
+            ResultSet RS = prepStm.executeQuery();
+
+            while (RS.next()) {
+                ListaValor uRow = new ListaValor();
+                uRow.setId(RS.getInt("IDListaValor"));
+                uRow.setAgrupacion(RS.getString("Agrupacion"));
+                uRow.setDescripcion(RS.getString("Descripcion"));
+                uRow.setEstado(RS.getInt("Estado"));
+
+                itemFound.add(uRow);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaValorDAO.class.getName()).log(Level.SEVERE, SQL, ex);
+        }
+        return itemFound;
+    }
 }

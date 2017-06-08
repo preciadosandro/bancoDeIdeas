@@ -51,4 +51,5 @@ public interface IListaValorDetalle {
     public List<ListaValorDetalle> listaProgramaAcademico();
 
     public List<ListaValorDetalle> listaDependencia();
+    
 }

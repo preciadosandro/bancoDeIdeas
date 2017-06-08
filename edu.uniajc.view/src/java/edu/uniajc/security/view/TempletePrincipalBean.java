@@ -7,8 +7,9 @@ package edu.uniajc.security.view;
 
 import edu.uniajc.ideaBank.interfaces.model.User;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+
 import java.io.Serializable;
+import javax.faces.bean.SessionScoped;
 
 /**
  *

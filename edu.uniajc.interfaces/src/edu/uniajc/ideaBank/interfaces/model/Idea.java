@@ -19,7 +19,7 @@ public class Idea implements Serializable {
     private int idEstadoidea;
     private String titulo;
     private String descripcion;
-    private String ideaPrivada;
+    private int ideaPrivada;
     private String palabrasClaves;
     private String creadoPor;
     private Date creadoEn;
@@ -66,11 +66,11 @@ public class Idea implements Serializable {
         this.descripcion = descripcion;
     }
 
-     public String getideaPrivada() {
+     public int getideaPrivada() {
         return ideaPrivada;
     }
 
-    public void setideaPrivada(String ideaPrivada) {
+    public void setideaPrivada(int ideaPrivada) {
         this.ideaPrivada = ideaPrivada;
     }
      public String getpalabrasClaves() {

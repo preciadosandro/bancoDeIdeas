@@ -5,9 +5,7 @@
  */
 package edu.uniajc.security.view;
 import edu.uniajc.security.interfaces.IToken;
-import static edu.uniajc.ideaBank.view.UserBean.getContext;
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

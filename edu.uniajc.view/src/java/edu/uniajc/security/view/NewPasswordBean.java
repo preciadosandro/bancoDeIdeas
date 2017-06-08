@@ -37,8 +37,9 @@ public class NewPasswordBean extends ManagerBean{
         super();
         ctx = super.getContext();
         // obtiene objeto de la sesion
-        user = (User) super.getFromSession(Constants.SESSION_KEY_USER);        
+        user = (User) super.getFromSession(Constants.SESSION_KEY_TOKEN_USER);        
         if (user == null || user.getId()== 0) {
+            System.out.println("NO HAY SESSION");
             // No esta autenticado ==> direccionar a pantalla login
             super.redirect("login.xhtml");
         }
@@ -72,14 +73,15 @@ public class NewPasswordBean extends ManagerBean{
                 userService.newPassword(user);
                 password = " ";
                 passwordConfirm = " ";
-                //super.showMessage(FacesMessage.SEVERITY_INFO, "La contraseña fue cambiada con exito");
+                super.showMessage(FacesMessage.SEVERITY_INFO, "La contraseña fue cambiada con exito");
                 // coloca objeto en la sesion
-                super.addToSession(Constants.SESSION_KEY_USER, user);
+                super.addToSession(Constants.SESSION_KEY_TOKEN_USER,null);
+                //super.addToSession(Constants.SESSION_KEY_USER, user);
                 try {                
-                    context.getExternalContext().redirect("../faces/listofideas.xhtml");
+                    context.getExternalContext().redirect("../faces/login.xhtml");
                 } catch (IOException ex) {                        
                     Logger.getLogger(TokenBean.class.getName()).log(Level.SEVERE, null, ex);
-                }      
+                }     
             }
             else {
                 super.showMessage(FacesMessage.SEVERITY_WARN, "Las contraseñas no corresponden");

@@ -34,6 +34,7 @@ public class Constants {
      * Constantes para manejo de objetos en sesión
      */
     public static final String SESSION_KEY_USER = "SESSION.KEY.USER";
+    public static final String SESSION_KEY_TOKEN_USER = "SESSION_KEY_TOKEN_USER";
 
     
 }

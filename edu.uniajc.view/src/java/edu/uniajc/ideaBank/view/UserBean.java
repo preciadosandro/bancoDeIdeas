@@ -46,9 +46,10 @@ public class UserBean extends ManagerBean implements Serializable {
     private Date currentDate = new Date();
     private InitialContext ctx;
     private List<ListaValorDetalle> listaTipoIdentificacion;
-    private ListaValorDetalle lVD;
-   //private ListaValorDetalleService listaValorDetalleService;
-     
+    private List<ListaValorDetalle> listaTipoUsuario;
+    private List<ListaValorDetalle> listaProgramaAcademico;
+    private List<ListaValorDetalle> listaDependencia;
+    
     IUser uDao = null;
     IListaValorDetalle listaValorDetalleDAO = null;
 
@@ -100,6 +101,50 @@ public class UserBean extends ManagerBean implements Serializable {
     public void setListaTipoIdentificacion(List<ListaValorDetalle> listaTipoIdentificacion) {
         this.listaTipoIdentificacion = listaTipoIdentificacion;
     }
+
+    public List<ListaValorDetalle> getListaProgramaAcademico() {
+        try {
+            listaValorDetalleDAO = (IListaValorDetalle) ctx.lookup("java:global/edu.uniajc.view/ListaValorDetalleService!edu.uniajc.ideaBank.interfaces.IListaValorDetalle");
+        } catch (Exception e) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, e);
+        }
+        listaProgramaAcademico = listaValorDetalleDAO.listaProgramaAcademico();
+        return listaProgramaAcademico;
+    }
+
+    public void setListaProgramaAcademico(List<ListaValorDetalle> listaProgramaAcademico) {
+        this.listaProgramaAcademico = listaProgramaAcademico;
+    }
+    
+    public List<ListaValorDetalle> getListaTipoUsuario() {
+        try {
+            listaValorDetalleDAO = (IListaValorDetalle) ctx.lookup("java:global/edu.uniajc.view/ListaValorDetalleService!edu.uniajc.ideaBank.interfaces.IListaValorDetalle");
+        } catch (Exception e) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, e);
+        }
+        listaTipoUsuario = listaValorDetalleDAO.listaTipoUsuario();
+        return listaTipoUsuario;
+    }
+
+    public void setListaTipoUsuario(List<ListaValorDetalle> listaTipoUsuario) {
+        this.listaTipoUsuario = listaTipoUsuario;
+    }
+
+    public List<ListaValorDetalle> getListaDependencia() {
+        try {
+            listaValorDetalleDAO = (IListaValorDetalle) ctx.lookup("java:global/edu.uniajc.view/ListaValorDetalleService!edu.uniajc.ideaBank.interfaces.IListaValorDetalle");
+        } catch (Exception e) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, e);
+        }
+        listaDependencia = listaValorDetalleDAO.listaDependencia();
+        return listaDependencia;
+    }
+
+    public void setListaDependencia(List<ListaValorDetalle> listaDependencia) {
+        this.listaDependencia = listaDependencia;
+    }
+    
+    
     
     public void newUser() {
 

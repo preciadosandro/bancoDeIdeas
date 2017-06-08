@@ -31,7 +31,7 @@ public class TempleteHomeBean extends ManagerBean implements Serializable {
         
         if (user == null || user.getId() == 0) {
             // No esta autenticado ==> direccionar a pantalla login
-            enableMenu = true;
+            enableMenu = false;
             enableCloseSession = false;
         } else {
             enableMenu = false;

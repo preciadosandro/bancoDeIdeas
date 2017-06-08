@@ -8,6 +8,7 @@ package edu.uniajc.security.view;
 import edu.uniajc.ideaBank.Utilities.Utilities;
 import edu.uniajc.ideaBank.interfaces.IUser;
 import edu.uniajc.ideaBank.interfaces.model.User;
+import edu.uniajc.ideaBank.view.UserBean;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -73,15 +75,17 @@ public class NewPasswordBean extends ManagerBean{
                 userService.newPassword(user);
                 password = " ";
                 passwordConfirm = " ";
-                super.showMessage(FacesMessage.SEVERITY_INFO, "La contraseña fue cambiada con exito");
-                // coloca objeto en la sesion
                 super.addToSession(Constants.SESSION_KEY_TOKEN_USER,null);
+                RequestContext.getCurrentInstance().execute("PF('dialogOk').show()");
+                //super.showMessage(FacesMessage.SEVERITY_INFO, "La contraseña fue cambiada con exito");
+                // coloca objeto en la sesion
+                
                 //super.addToSession(Constants.SESSION_KEY_USER, user);
-                try {                
+                /*try {                
                     context.getExternalContext().redirect("../faces/login.xhtml");
                 } catch (IOException ex) {                        
                     Logger.getLogger(TokenBean.class.getName()).log(Level.SEVERE, null, ex);
-                }     
+                }     */
             }
             else {
                 super.showMessage(FacesMessage.SEVERITY_WARN, "Las contraseñas no corresponden");
@@ -93,6 +97,15 @@ public class NewPasswordBean extends ManagerBean{
         }
         
 
+    }
+    
+    public void linklogin() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            context.getExternalContext().redirect("login.xhtml");
+        } catch (Exception e) {
+            Logger.getLogger(NewPasswordBean.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
 }

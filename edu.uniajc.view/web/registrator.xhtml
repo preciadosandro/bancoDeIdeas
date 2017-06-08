@@ -41,11 +41,8 @@
                                     <f:validateRegex pattern="^[_A-Za-z]*" />
                                 </p:inputText>                        
                                 <p:outputLabel value="Tipo Identificación: *"/>
-                                <p:selectOneMenu id="typeId" value="#{userBean.user.idTipoIdentificacion}" label="tipo de documento" 
-                                                 required="true">
-                                    <f:selectItem itemLabel="Seleccione uno" itemValue="-1" noSelectionOption="true" />
-                                    <f:selectItem itemLabel="C.C." itemValue="1" />
-                                    <f:selectItem itemLabel="Pasaporte" itemValue="2" />
+                                <p:selectOneMenu value="#{userBean.user.idTipoIdentificacion}">
+                                    <f:selectItems value="#{userBean.listaTipoIdentificacion}" var="listTID" itemValue="#{listTID.idListaValor}" itemLabel="#{listTID.valor}"/>
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Numero de identificación: *"/>
                                 <p:inputText id="numId" value="#{userBean.user.numIdentificacion}" label="Numero de identificación" 

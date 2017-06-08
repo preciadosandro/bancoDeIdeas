@@ -94,7 +94,7 @@ public class ListaValorDAO {
             Logger.getLogger(ListaValorDAO.class.getName()).log(Level.SEVERE, SQL, ex);
         }
         return itemFound;
-    }    
+    }
     
     public boolean updateListaValor(ListaValor listaValorModel) {
         

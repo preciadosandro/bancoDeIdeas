@@ -5,8 +5,12 @@
  */
 package edu.uniajc.ideaBank.view;
 
+import edu.uniajc.ideaBank.interfaces.IListaValorDetalle;
 import edu.uniajc.ideaBank.interfaces.IUser;
 import edu.uniajc.ideaBank.interfaces.model.User;
+import edu.uniajc.ideaBank.interfaces.model.ListaValorDetalle;
+import edu.uniajc.ideaBank.logic.services.ListaValorDetalleService;
+import edu.uniajc.ideaBank.logic.services.ListaValorService;
 import edu.uniajc.ideaBank.logic.services.UserService;
 import edu.uniajc.security.view.Constants;
 import edu.uniajc.security.view.ManagerBean;
@@ -41,15 +45,20 @@ public class UserBean extends ManagerBean implements Serializable {
     private String passwordConfirm;
     private Date currentDate = new Date();
     private InitialContext ctx;
+    private List<ListaValorDetalle> listaTipoIdentificacion;
+    private ListaValorDetalle lVD;
+   //private ListaValorDetalleService listaValorDetalleService;
      
     IUser uDao = null;
+    IListaValorDetalle listaValorDetalleDAO = null;
 
     public UserBean() {     
         super();
         ctx = ManagerBean.getContext();
         user = new User();
+            
     }
- 
+    
     public User getUser() {
         return user;
     }
@@ -78,6 +87,20 @@ public class UserBean extends ManagerBean implements Serializable {
         return currentDate;
     }
 
+    public List<ListaValorDetalle> getListaTipoIdentificacion() {
+        try {
+            listaValorDetalleDAO = (IListaValorDetalle) ctx.lookup("java:global/edu.uniajc.view/ListaValorDetalleService!edu.uniajc.ideaBank.interfaces.IListaValorDetalle");
+        } catch (Exception e) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, e);
+        }
+        listaTipoIdentificacion = listaValorDetalleDAO.listaTipoIdentificacion();    
+        return listaTipoIdentificacion;
+    }
+
+    public void setListaTipoIdentificacion(List<ListaValorDetalle> listaTipoIdentificacion) {
+        this.listaTipoIdentificacion = listaTipoIdentificacion;
+    }
+    
     public void newUser() {
 
         int validator;

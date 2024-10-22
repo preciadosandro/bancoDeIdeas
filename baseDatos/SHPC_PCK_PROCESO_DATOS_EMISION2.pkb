@@ -25,6 +25,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     Version 2021
        2.1   30/07/2022 Rolf Winterfeldt SB      Se reestablece código borrado por una entrega realizada con la
                                                 versión del paquete sacada de Produciión.
+       3.1  OCTUBRE 22 DE 2024. Prueba versionamiento Git                                                
         4.0     20241022                        Prueba Git
   */
 

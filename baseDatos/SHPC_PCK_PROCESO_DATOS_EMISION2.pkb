@@ -2,29 +2,29 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
   /*
     VERSION  FECHA     RESPONSABLE  EMPRESA     DESCRIPCION
     ------- ---------- ------------ ----------- ----------------------
-      1.0   28/05/2015                 Se incluye actualizaciÛn TOMA_OPC_SUP = N  en los casos
+      1.0   28/05/2015                 Se incluye actualizaci√≥n TOMA_OPC_SUP = N  en los casos
                                                 en los que OPCION_RC_SUP = 0
       1.1   03/06/2015 cjrodriguez  Asesoftware Ajuste en el manejo de
                                                 invocacion de procedimiento  proc_procesar_riesgo
                                                 en el procedimiento Proc_ServiceExpide para transmilenio
       1.2   11/06/2015 cjrodriguez  Asesoftware Mantis-35572:  Se ajusta el procedimiento Proc_UpdatedelType invocando
-                                                la nueva funciÛn SIM_PCK_FUNCION_GEN.obtenerValorDatNum.
+                                                la nueva funci√≥n SIM_PCK_FUNCION_GEN.obtenerValorDatNum.
       1.3   16/09/2015 mcolorado    Asesoftware Mantis-39256: Se incluye validacion por seccion 310 para
                                                 que permita crear el tercero por la cotizacion de soat masivo Simon.
       1.4   14/10/2015 mcolorado    Asesoftware Mantis-25949: Se incluye sentencias para extraer renta diaria y
                                                 renta por inmovilizacion.
-      1.5   04/08/2016 Juan Gonz·lez            modifica para permitir mostrar coberturas gratuitas sin importar
+      1.5   04/08/2016 Juan Gonz√°lez            modifica para permitir mostrar coberturas gratuitas sin importar
                                                 el valor de la prima (Rcob.mca_gratuita='S')
-      1.6   02/01/2016 Juan Gonz·lez            modifica para permitir grabar el correo del asegurado principla
+      1.6   02/01/2016 Juan Gonz√°lez            modifica para permitir grabar el correo del asegurado principla
                                                  producto  721- Davida : Simones Ventas
       1.7   01/03/2017 Patty Gonzalez           Se ajusta el procedimiento proc_ConsObjPol para que busque el
-                                                estado actual de la pÛliza y no el endoso 0
+                                                estado actual de la p√≥liza y no el endoso 0
   
       1.10.  31/07/2019  Benjamin Galindo       Para el objeto poliza se realiza consulta para polizas de pago con debito
-                                                automatico para gargar Type Sim_Typ_datosDebitoGen y aÒadirlo al objeto poliza
+                                                automatico para gargar Type Sim_Typ_datosDebitoGen y a√±adirlo al objeto poliza
     Version 2021
-       2.1   30/07/2022 Rolf Winterfeldt SB      Se reestablece cÛdigo borrado por una entrega realizada con la
-                                                versiÛn del paquete sacada de ProduciiÛn.
+       2.1   30/07/2022 Rolf Winterfeldt SB      Se reestablece c√≥digo borrado por una entrega realizada con la
+                                                versi√≥n del paquete sacada de Producii√≥n.
        3.1  OCTUBRE 22 DE 2024. Prueba versionamiento Git                                                
         4.0     20241022                        Prueba Git
   */
@@ -228,7 +228,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
        WHERE NUM_SECU_POL = L_NUMSECUPOL;
     
       --2020-04-03 Sheila Uhia
-      --OptimizaciÛn 520 - Endosos de ModificaciÛn Masiva
+      --Optimizaci√≥n 520 - Endosos de Modificaci√≥n Masiva
       --Se agrega a l_Subcodend el 2 para los l_Codend = 506 y 711
       IF L_NUMEND > 0 THEN
         IF (L_CODEND = 506 AND L_SUBCODEND IN (0, 1, 2)) OR
@@ -2218,7 +2218,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
              DECODE(T.COD_NIVEL, 3, IP_COBERTURA, NVL(T.COD_COB, 0)) --decode(p_codcob,NULL,nvl(t.cod_cob,0),p_CodCob)
          AND (T.MCA_VISIBLE = 'S' OR IP_PROCESO.P_CANAL = 7 OR
              (IP_PROCESO.P_CANAL = 2 AND I.VISIBLE = 'S') OR -- RPR Renovaciones Simon 3.0
-             -- 30/07/2022 RW : CÛdigo revivido debido a un borrado. CTR-Cambios 10476
+             -- 30/07/2022 RW : C√≥digo revivido debido a un borrado. CTR-Cambios 10476
              (IP_NIVEL = 3 AND IP_PROCESO.P_CANAL = 3))
          AND A.ESTADO = 'A'
          AND H.ID_BIEN = L_BIEN
@@ -2315,7 +2315,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                               i.Cod_Campo || ' valor ' || i.Valor_Campo_En || ',' ||
                               l_Precampo || '-' || i.Reg_Pre_Field);
       */
-      -- INICIO CTR-Cambios 10476  30/07/2022 RW : CÛdigo revivido debido a un borrado.
+      -- INICIO CTR-Cambios 10476  30/07/2022 RW : C√≥digo revivido debido a un borrado.
       --Implementado por teodolfo / Juan Gonzalez : inserta en la variable de contexto el sexo_vip (15.10.2021): Oferta de valor
       IF IP_PROCESO.P_COD_PRODUCTO IN (950, 952, 960) THEN
         IF I.COD_CAMPO = 'SEXO_VIP' THEN
@@ -2618,7 +2618,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                                             OP_ARRERRORES);
           SIM_PCK_REGLAS.INICONTEXTOFROMARRRAY(LO_CONTEXTO);
           --Commit;
-          /* En vida, la regla de precobertura estÛ calculando valores iniciales
+          /* En vida, la regla de precobertura est√≥ calculando valores iniciales
           y sobreescribiendo los valores que trae el cotizador. Deben actualizarse
           entonces los valores nuevamente de acuerdo a lo que traiga el cotizador
           Wesv 20131227*/
@@ -2652,7 +2652,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           /*Fin       ajuste vida*/
         
           IF OP_RESULTADO = 0 THEN
-            /* Manuel Orjuela 22-Abr-2015 para que complete la informaciÛn si liquida extraprima vida */
+            /* Manuel Orjuela 22-Abr-2015 para que complete la informaci√≥n si liquida extraprima vida */
             --If Ip_Proceso.p_Cod_Cia = 2 And Ip_Proceso.p_Cod_Producto In (940, 942, 946, 944) Then
             IF SIM_PCK_FUNCION_GEN.ESPRODUCTOATGCVIDA(IP_PROCESO.P_COD_PRODUCTO) = 'S' THEN
             
@@ -2683,7 +2683,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                        VALOR_CAMPO_EN = L_OPCIONCAR,
                        CLAUSULAS      = DECODE(L_OPCIONCAR,
                                                'ST',
-                                               'STANDARD', --Juan Gonz·lez 03012018 Validacion para extraprimas Vida Individual
+                                               'STANDARD', --Juan Gonz√°lez 03012018 Validacion para extraprimas Vida Individual
                                                'S1',
                                                'SUBNORMAL SALUD',
                                                'S2',
@@ -2753,7 +2753,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
             SIM_PCK_REGLAS.INIARRAYFROMCONTEXTO(LI_CONTEXTO);
           
             -->Inicia Modificacion para Cumplimiento. 11/09/2015 - jlrodriguez@asesoftware.com
-            -->Control para ejecuciÛn de CT en expediciÛn de hija de cotizaciÛn
+            -->Control para ejecuci√≥n de CT en expedici√≥n de hija de cotizaci√≥n
             BEGIN
               SELECT NVL(A.DAT_CAR, 'S'),
                      NVL(A.DAT_CAR2, 'S'),
@@ -2856,10 +2856,10 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
   PROCEDURE COMPLEMENTADATOSREQUEST(IP_POLIZA SIM_TYP_POLIZAGEN,
                                     OP_POLIZA OUT SIM_TYP_POLIZAGEN) IS
     -- procedimiento para complementar los datos de ip_poliza para el servicio
-    -- de cotizaciÛn de poliza desde el servivio web externo, teniendo en cuenta
-    -- que solamente se reciben los datos del numSecuPol e informaciÛn adicional
-    -- del tercero. El objeto de salida ser· la entrada para el proceso de
-    -- cotizaciÛn -- Wesv 20200609
+    -- de cotizaci√≥n de poliza desde el servivio web externo, teniendo en cuenta
+    -- que solamente se reciben los datos del numSecuPol e informaci√≥n adicional
+    -- del tercero. El objeto de salida ser√° la entrada para el proceso de
+    -- cotizaci√≥n -- Wesv 20200609
     REG_X2000030   X2000030%ROWTYPE;
     REG_X_TERCEROS SIM_X_TERCEROS%ROWTYPE;
     REG_X2000020   X2000020%ROWTYPE;
@@ -2904,7 +2904,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
       EXCEPTION
         WHEN NO_DATA_FOUND THEN
           RAISE_APPLICATION_ERROR(-20603,
-                                  'Secuencia no v·lida para la placa enviada');
+                                  'Secuencia no v√°lida para la placa enviada');
       END;
     END;
   
@@ -2977,7 +2977,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     
     END LOOP;
   
-    --WRLopez: Si la liquidacion por WS se genero con pequeÒos accesorios se mantiene en los datos de poliza
+    --WRLopez: Si la liquidacion por WS se genero con peque√±os accesorios se mantiene en los datos de poliza
     IF FUN_RESCATA_X2000020('OPC_PA', L_NUMSECUPOL, 1) = 'S' THEN
       L_VARIABLES1             := NEW SIM_TYP_DATOS_VARIABLESGEN();
       L_VARIABLES1.COD_RIES    := 1;
@@ -3030,7 +3030,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                                                                                             PCODCAMPO  => OP_POLIZA.DATOSRIESGOS(I).DATOSVARIABLES(J)
                                                                                                                           .COD_CAMPO);
       END LOOP;
-      -- En el reques tno viene la opciÛn, entonces la extrae del numSecuPol
+      -- En el reques tno viene la opci√≥n, entonces la extrae del numSecuPol
       OP_POLIZA.DATOSRIESGOS(I).DATOSVARIABLES.EXTEND;
       OP_POLIZA.DATOSRIESGOS(I).DATOSVARIABLES(OP_POLIZA.DATOSRIESGOS(I).DATOSVARIABLES.COUNT) := NEW
                                                                                                   SIM_TYP_DATOS_VARIABLESGEN(NUM_SECU_POL => NULL,
@@ -3284,7 +3284,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     IF IP_PROCESO.P_COD_PRODUCTO = 923 THEN
       SIM_PROC_LOG('LBCB_EXPIDECTA', 'LLEGA XD 2');
     END IF;
-    -- Lectura de contexto Etapa a Activar (˙nico para cumplimiento)
+    -- Lectura de contexto Etapa a Activar (√∫nico para cumplimiento)
     IP_ARRCONTEXTO := NEW SIM_TYP_ARRAY_VAR_MOTORREGLAS();
     OP_ARRCONTEXTO := NEW SIM_TYP_ARRAY_VAR_MOTORREGLAS();
     SIM_PCK_REGLAS.INIARRAYFROMCONTEXTO(IP_ARRCONTEXTO);
@@ -3325,7 +3325,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     BEGIN
     
       -- Se hace este ajuste, dado que para el canal 124 no viene el COD_USO. Sin embargo, este campo es usado para determinar si el
-      -- cliente tiene vinculaciones, cuando el vehiculo es > x aÒos de antiguedad. La validaciÛn se estÛ realizando antes de
+      -- cliente tiene vinculaciones, cuando el vehiculo es > x a√±os de antiguedad. La validaci√≥n se est√≥ realizando antes de
       -- cargar los valores default de SIM_DEF_WEB -- Revisar con Manuel orjuela
     
       --- se verifica si el producto es Soat autor: IAFSERNA
@@ -3335,10 +3335,10 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         
           -- si el canal es 124 y el num_secu_pol viene en el request
           -- se complementan los datos del objeto poliza teniendo en cuenta
-          -- la informaciÛn del numSecuPol recibido en el request
+          -- la informaci√≥n del numSecuPol recibido en el request
           -- Esto se implementa para evitar que desde el request de autos externos
-          -- Tengan que enviar toda la info de la liquidaciÛn, minizando riesgos
-          -- en la liquidaciÛn por webServices - Wesv 20200609
+          -- Tengan que enviar toda la info de la liquidaci√≥n, minizando riesgos
+          -- en la liquidaci√≥n por webServices - Wesv 20200609
           IF NVL(L_POLIZA.DATOSFIJOS.NUM_SECU_POL, 0) > 0 AND
              IP_PROCESO.P_PROCESO = 241 THEN
             -- solo aplica para cotizacion
@@ -3373,7 +3373,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           --        l_Poliza.Datosvehiculos(1).cod_uso.valor := 31;
           --        l_Poliza.Datosvehiculos(1).cod_uso.codigo := 31;
         
-          -- Se identifica que el servicio web externo no est· mapeando en forma
+          -- Se identifica que el servicio web externo no est√° mapeando en forma
           -- correcta la fecha de nacimiento del tercero, cuando este existe en terceros
           -- Temporalmente, se hace select a terceros, y si el tercero existe, reescribe la fecha de
           -- nacimiento y el genero
@@ -3636,7 +3636,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
   
     SIM_PROC_LOG('SIM_DISPARA_PROC - 1: ' || L_LLAMACTNIVEL1 || ' - C: ' ||
                  L_LLAMACTNIVELC || ' - 4: ' || L_LLAMACTNIVEL4,
-                 'ParametrizaciÛn SIM_DISPARA_PROC');
+                 'Parametrizaci√≥n SIM_DISPARA_PROC');
   
     IF L_ETAPA_ACTIVAR IS NOT NULL THEN
       BEGIN
@@ -3720,7 +3720,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
       EXCEPTION
         WHEN OTHERS THEN
           L_EXISTEX := 'N';
-          --       raise_application_error(-20099,'No existe informaciÛn para esta poliza numsecupol:'||l_numsecupol);
+          --       raise_application_error(-20099,'No existe informaci√≥n para esta poliza numsecupol:'||l_numsecupol);
       END;
     
       IF L_CIAORG = IP_PROCESO.P_COD_CIA AND
@@ -3761,7 +3761,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           EXCEPTION
             WHEN OTHERS THEN
               RAISE_APPLICATION_ERROR(-20099,
-                                      'No existe informaciÛn para esta poliza numsecupol:' ||
+                                      'No existe informaci√≥n para esta poliza numsecupol:' ||
                                       L_NUMSECUPOL);
           END;
         END;
@@ -3819,8 +3819,8 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     END IF;
   
     -- Modificacion WESV -- 20130705
-    -- Debe incluir la informaciÛn del tercero en la tabla SIM_X_TERCERO, de acuerdo a la
-    -- informaciÛn enviada en el tipo DatosTomador. En cotizaciones, no necesariamente existe
+    -- Debe incluir la informaci√≥n del tercero en la tabla SIM_X_TERCERO, de acuerdo a la
+    -- informaci√≥n enviada en el tipo DatosTomador. En cotizaciones, no necesariamente existe
     -- el tercero en la base de datos de terceros.
     BEGIN
       IF IP_POLIZA.DATOSTERCEROS.EXISTS(1) THEN
@@ -3861,7 +3861,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           END IF;
         
           /*INICIO1:Juan Gonzalez, se incluye codigo inicialmente para rappi,
-          para crear terceros cuando es emisiÛn*/
+          para crear terceros cuando es emisi√≥n*/
         
           BEGIN
             SIM_PCK_PROCESO_DATOS_EMISION3.PROC_CREATERCERO(L_POLIZA,
@@ -4561,7 +4561,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         -- FIN ODVVI-2278
         -- inclusion producto 960 juan gonzalez 03.08.2021
         -- Inclusion productos 952 y 954 portafolio vida hqq/jcg 03-03-2022
-        -- 30/07/2022 RW : CÛdigo revivido debido a un borrado. CTR-Cambios 10476
+        -- 30/07/2022 RW : C√≥digo revivido debido a un borrado. CTR-Cambios 10476
         DECLARE
           --maor aplica preferente
           L_DESCERROR     VARCHAR2(200);
@@ -4591,7 +4591,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
             WHEN OTHERS THEN
               L_DESCERROR := '';
           END;
-          -- 30/07/2022 RW : CÛdigo revivido debido a un borrado. CTR-Cambios 10476
+          -- 30/07/2022 RW : C√≥digo revivido debido a un borrado. CTR-Cambios 10476
           --01-INI-juan gonzalez 03.08.2021 , nuevo producto preferente(950)
           IF IP_PROCESO.P_COD_PRODUCTO = 942 THEN
             L_PRODUCTOPREF := 944;
@@ -4632,8 +4632,8 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
             OP_ARRERRORES.EXTEND;
             OP_ARRERRORES(OP_ARRERRORES.COUNT) := L_ERROR;
           
-            L_DESCERROR := 'Nota: Tenga en cuenta que si realiza incremento de valor asegurado al amparo b·sico ' ||
-                           'su solicitud podrÌa entrar a estudio por parte de la compaÒia';
+            L_DESCERROR := 'Nota: Tenga en cuenta que si realiza incremento de valor asegurado al amparo b√°sico ' ||
+                           'su solicitud podr√≠a entrar a estudio por parte de la compa√±ia';
             L_ERROR     := SIM_TYP_ERROR(-20000, L_DESCERROR, 'W');
             OP_ARRERRORES.EXTEND;
             OP_ARRERRORES(OP_ARRERRORES.COUNT) := L_ERROR;
@@ -4775,7 +4775,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           END IF;
         END LOOP;
       END IF;
-      -- se agrega control tecnico 145 valores erroneos en liquidaciÛn
+      -- se agrega control tecnico 145 valores erroneos en liquidaci√≥n
       FOR REG_C_CT IN C_CT LOOP
         IF REG_C_CT.COD_ERROR IN (145) THEN
           L_GRABAR := 'N';
@@ -4790,8 +4790,8 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           RAISE_APPLICATION_ERROR(-20000, 'Control Tecnico Rechazado');
         END IF;
       END LOOP;
-      -- sgpinto 22112016: IntegraciÛn manejo multirriesgo con "huecos" en cÛdigos de riesgo
-      -- 18/08/2016 sgpm: AdiciÛn de llamado a funciÛn de resecuencia de riesgos
+      -- sgpinto 22112016: Integraci√≥n manejo multirriesgo con "huecos" en c√≥digos de riesgo
+      -- 18/08/2016 sgpm: Adici√≥n de llamado a funci√≥n de resecuencia de riesgos
       BEGIN
       
         PRC299_CAMBIO_COD_RIES(IP_NUM_SECU_POL => L_NUMSECUPOL,
@@ -4847,8 +4847,8 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         END IF;
       END LOOP;
     
-      -- sgpinto 22112016: IntegraciÛn manejo multirriesgo con "huecos" en cÛdigos de riesgo
-      -- 18/08/2016 sgpm: AdiciÛn de llamado a funciÛn de resecuencia de riesgos
+      -- sgpinto 22112016: Integraci√≥n manejo multirriesgo con "huecos" en c√≥digos de riesgo
+      -- 18/08/2016 sgpm: Adici√≥n de llamado a funci√≥n de resecuencia de riesgos
       BEGIN
         PRC299_CAMBIO_COD_RIES(IP_NUM_SECU_POL => L_NUMSECUPOL,
                                IP_NUM_END      => L_NUMEND,
@@ -4898,7 +4898,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         END;
       
         --        If l_Tproceso In ( 270, 261,260) Then
-        --06/06/2019 lberbesi: Se incluye funciÛn para verificar que aplique formalizaciÛn para el 274 desde SimÛn Web.
+        --06/06/2019 lberbesi: Se incluye funci√≥n para verificar que aplique formalizaci√≥n para el 274 desde Sim√≥n Web.
         IF FUN201_FORMALIZA_S360_DAV(L_PROCESO) = 'S' OR
            FUN201_FORMALIZA_274_SIMONWEB(L_PROCESO) = 'S' THEN
           BEGIN
@@ -5184,7 +5184,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
             BEGIN
               L_CODEND               := 100;
               L_SUBCODEND            := 1;
-              L_OBSERVACION          := 'Anula reemplazo por conversiÛn a opciones';
+              L_OBSERVACION          := 'Anula reemplazo por conversi√≥n a opciones';
               L_PROCESO.P_PROCESO    := 350;
               L_PROCESO.P_SUBPROCESO := 351;
               BEGIN
@@ -5204,7 +5204,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                   OP_RESULTADO := -1;
                   OP_ARRERRORES.EXTEND;
                   OP_ARRERRORES(OP_ARRERRORES.COUNT) := SIM_TYP_ERROR(SQLCODE,
-                                                                      'No encontrÛ datos para anula-reemplaza',
+                                                                      'No encontr√≥ datos para anula-reemplaza',
                                                                       'e');
                 WHEN OTHERS THEN
                   OP_RESULTADO := -1;
@@ -5215,7 +5215,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                 
               END;
             
-              --09/05/2019 lberbesi: Se incluye actualizaciÛn de renovada_por
+              --09/05/2019 lberbesi: Se incluye actualizaci√≥n de renovada_por
               DECLARE
                 L_POL_NVA A2000030.NUM_POL1%TYPE;
               
@@ -5251,7 +5251,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                 IF OP_RESULTADO <> 0 THEN
                   FOR ERR IN OP_ARRERRORES.FIRST .. OP_ARRERRORES.LAST LOOP
                     RAISE_APPLICATION_ERROR(-20005,
-                                            'Error en anulaciÛn de pÛliza: ' || OP_ARRERRORES(ERR)
+                                            'Error en anulaci√≥n de p√≥liza: ' || OP_ARRERRORES(ERR)
                                             .DESC_ERROR);
                   END LOOP;
                 
@@ -5775,7 +5775,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           END;
         
           -- Select para traer los datos de numero de dias de entrega del soat online
-          -- Seg˙n la localidad
+          -- Seg√∫n la localidad
           BEGIN
             SELECT DAT_NUM
               INTO L_DIASENTREGA
@@ -5795,7 +5795,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           END;
         
           UPDATE SIM_ENTREGASOAT SES
-             SET SES.OBSERVACION = L_DIASENTREGA || ' dia(s) h·bil(es)'
+             SET SES.OBSERVACION = L_DIASENTREGA || ' dia(s) h√°bil(es)'
            WHERE NUM_SECU_POL = L_NUMSECUPOL;
         
           OP_POLIZA.DATOSADICIONAL.EXTEND;
@@ -5810,7 +5810,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                                                                          6,
                                                                                          'SIM_DATOSSOAT',
                                                                                          L_DIASENTREGA ||
-                                                                                         ' dia(s) h·bil(es)');
+                                                                                         ' dia(s) h√°bil(es)');
         
         END;
       
@@ -5864,7 +5864,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
             IF REG_C_CT.COD_ERROR = 863 THEN
               OP_RESULTADO := -1;
               RAISE_APPLICATION_ERROR(-20000,
-                                      'El valor asegurado no corresponde al minimo asignado a la localidad, debe cotizar como producto Vida Individual B·sico ');
+                                      'El valor asegurado no corresponde al minimo asignado a la localidad, debe cotizar como producto Vida Individual B√°sico ');
               --RETURN;
             END IF;
           
@@ -6098,7 +6098,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
       VERSION  FECHA     RESPONSABLE  EMPRESA     DESCRIPCION
       ------- ---------- ------------ ----------- ----------------------
        1.2   11/06/2015 cjrodriguez  Asesoftware Mantis-35572:  Se ajusta el procedimiento Proc_UpdatedelType invocando
-                                                 la nueva funciÛn SIM_PCK_FUNCION_GEN.obtenerValorDatNum.
+                                                 la nueva funci√≥n SIM_PCK_FUNCION_GEN.obtenerValorDatNum.
     */
   
     L_VALIDACION         SIM_PCK_TIPOS_GENERALES.T_CARACTER;
@@ -6185,7 +6185,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     L_TIPODEB              NUMBER;
     L_TOMAOPSUP            X2000020.VALOR_CAMPO%TYPE;
     -- l_numpolcotiz            Number; --morj ajuste error fecnac
-    -- 15122016 sgpinto: AdiciÛn variable para Conductor Habitual
+    -- 15122016 sgpinto: Adici√≥n variable para Conductor Habitual
     L_NUMCONDHAB  X2040400.NUM_COND%TYPE;
     L_PRODANEXO   NUMBER;
     L_RIESGOAPI   SIM_TYP_DATOSRIESGO; -- Simon Api RPR
@@ -6348,7 +6348,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     ELSIF IP_PROCESO.P_COD_SECC = 23 THEN
       L_FECHAEMI    := TRUNC(SYSDATE);
       L_FECHAVIGPOL := IP_POLIZA.DATOSFIJOS.FECHA_VIG_POL;
-      /* RPR Se deja fecha vencimiento a aun aÒo. Excepto anexo hogar respeta venc. lider*/
+      /* RPR Se deja fecha vencimiento a aun a√±o. Excepto anexo hogar respeta venc. lider*/
       L_FECHAVENCPOL := ADD_MONTHS(L_FECHAVIGPOL, 12);
       SELECT COUNT(*)
         INTO L_PRODANEXO
@@ -6534,10 +6534,10 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                      SIM_REFERIDO),
            SIM_PAQUETE_SEGURO  = NVL(IP_POLIZA.DATOSFIJOS.SIM_PAQUETE_SEGURO,
                                      SIM_PAQUETE_SEGURO),
-           COD_COA             = L_COD_COA -- CUMPLIMIENTO: CÛdigo de coaseguros
+           COD_COA             = L_COD_COA -- CUMPLIMIENTO: C√≥digo de coaseguros
           ,
            SIM_TIPO_ENVIO      = NVL(IP_POLIZA.DATOSFIJOS.SIM_TIPO_ENVIO.CODIGO,
-                                     SIM_TIPO_ENVIO) -- SGPM Cumplimiento. Mapeo de tipo de envÌo
+                                     SIM_TIPO_ENVIO) -- SGPM Cumplimiento. Mapeo de tipo de env√≠o
           ,
            NUM_POL_CLI         = NVL(SUBSTR(TO_CHAR(IP_POLIZA.DATOSFIJOS.NUM_POL_CLI),
                                             5,
@@ -6545,7 +6545,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                      NUM_POL_CLI) -- SGPM Cumplimiento: cotizaciones basadas
           ,
            CANT_ANUAL          = NVL(IP_POLIZA.DATOSFIJOS.CANT_ANUAL,
-                                     CANT_ANUAL) -- 26/11/2015 SGPM Transmasivo: RenovaciÛn de pÛlizas
+                                     CANT_ANUAL) -- 26/11/2015 SGPM Transmasivo: Renovaci√≥n de p√≥lizas
           ,
            SIM_COLECTIVA       = NVL(IP_POLIZA.DATOSFIJOS.SIM_COLECTIVA,
                                      SIM_COLECTIVA) -- 27/11/2015 SGPM Transmasivo: Manejo de retroactividad y prospectividad
@@ -6557,8 +6557,8 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     --     if ip_proceso.p_proceso = 270 then
   
     -- Mcga 2019/10/01 se vuelve a colocar linea perdida para manejo de formalizacion
-    -- en todos los procesos de formalizaciÛn de automÛviles.  Se instalÛ el 01/08/2019
-    -- se adiciona tambiÈn dos lÌneas por parte de Benjamin Galindo
+    -- en todos los procesos de formalizaci√≥n de autom√≥viles.  Se instal√≥ el 01/08/2019
+    -- se adiciona tambi√©n dos l√≠neas por parte de Benjamin Galindo
   
     IF IP_PROCESO.P_PROCESO IN (270, 260, 261) THEN
       --motor
@@ -7176,7 +7176,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                                                 L_COD_RIES) !=
                        L_VALORCAMPO THEN
                       RAISE_APPLICATION_ERROR(-20001,
-                                              'Error Sexo de Asegurado diferente del informado en CotizaciÛn');
+                                              'Error Sexo de Asegurado diferente del informado en Cotizaci√≥n');
                     END IF;
                   END IF;
                 
@@ -7242,7 +7242,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                 END IF;
               END IF;
             
-              --Vida Grupo Simones Ventas -Juan Gonz·lez / 28/10/2016
+              --Vida Grupo Simones Ventas -Juan Gonz√°lez / 28/10/2016
               -- (Valida que a la emision no se cambien datos de los terceros nuevos)
               IF SIM_PCK_ATGC_VIDA_GRUPO.FUN_ESRAMOATGCVIDAGRUPO(IP_PROCESO.P_COD_CIA,
                                                                  IP_PROCESO.P_COD_SECC,
@@ -7259,7 +7259,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                                                          IP_PROCESO,
                                                                          OP_ARRERRORES) = 'N' THEN
                       RAISE_APPLICATION_ERROR(-20001,
-                                              'Error Sexo / Fecha de Nacimiento del Asegurado es diferente del informado en CotizaciÛn (Riesgo ' ||
+                                              'Error Sexo / Fecha de Nacimiento del Asegurado es diferente del informado en Cotizaci√≥n (Riesgo ' ||
                                               L_COD_RIES || ')');
                     END IF;
                   
@@ -7501,17 +7501,17 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           
             IF OP_RESULTADO = -1 THEN
               /*Raise_Application_Error(-20001,
-              'Error al obtener el descuento m·ximo permitido');*/
-              -- 17112016 sgpinto: IntegraciÛn mensajes de error con cÛdigo de riesgo
+              'Error al obtener el descuento m√°ximo permitido');*/
+              -- 17112016 sgpinto: Integraci√≥n mensajes de error con c√≥digo de riesgo
               RAISE_APPLICATION_ERROR(-20001,
                                       'Riesgo ' || R ||
-                                      '. Error al obtener el descuento m·ximo permitido');
+                                      '. Error al obtener el descuento m√°ximo permitido');
             END IF;
           
             IF V_DESCTO_MAX < (L_DTOTECNICO - L_DTOCOMERCIAL) * -1 THEN
               OP_RESULTADO := -1;
               RAISE_APPLICATION_ERROR(-20001,
-                                      'suma de Descuento supera el descuento m·ximo permitido');
+                                      'suma de Descuento supera el descuento m√°ximo permitido');
             END IF;
           
             IF L_OPCION371 || L_OPCION372 || L_OPCION374 = '000' THEN
@@ -7578,7 +7578,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                     /* ****** INICIO-TRANSMASIVO ****** */
                     --17112015 lberbesi: Se filtra por subproducto. Update de estos DV no aplican para colectivas.
                     /*If Ip_Proceso.p_Subproducto != 363 Then*/
-                    -- 17112016 sgpinto: IntegraciÛn ModificaciÛn funciÛn de validaciÛn
+                    -- 17112016 sgpinto: Integraci√≥n Modificaci√≥n funci√≥n de validaci√≥n
                     IF FNC299_VALIDA_ES_CLTVA_AUTOS(IP_NUM_SECU_POL => IP_NUMSECUPOL,
                                                     IP_NUM_END      => IP_NUMEND,
                                                     IP_PROCESO      => IP_PROCESO) = 'N' THEN
@@ -7943,7 +7943,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         La siguiente seccion de codigo maneja un sql dinamico que permite ingresar
         informacion a simon, el sql se basa en el nombre de la tabla que viene
         del WebService en el campo tipo estructura y que se ingresa en el
-        TYPE DE DATOS ADICIONALES, el sql analiza permite al pl ingresar informaciÛn
+        TYPE DE DATOS ADICIONALES, el sql analiza permite al pl ingresar informaci√≥n
         a cualquier tabla que inicialmente no se contemplo en Simon.
         ------------------------------------------------------------------------*/
       
@@ -8128,7 +8128,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                   END IF;
                 
                   IF IP_TABLA = 'X2040400' THEN
-                    -- 15122016 sgpinto: AdiciÛn de manejo de Conductor Habitual Colectiva de Autos.
+                    -- 15122016 sgpinto: Adici√≥n de manejo de Conductor Habitual Colectiva de Autos.
                     /*  l_Stringquery := l_Stringquery || Nm || ',';*/
                     -- sgpinto: Ajuste para colectiva de autos
                     IF FNC299_VALIDA_ES_CLTVA_AUTOS(IP_NUM_SECU_POL => IP_NUMSECUPOL,
@@ -8165,7 +8165,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                   L_STRINGINSERT := NULL;
                   L_STRINGVALUE  := NULL;
                   L_COD_RIES     := IP_POLIZA.DATOSADICIONAL(NM).COD_RIES;
-                  -- 15122016 sgpinto: AdiciÛn n˙mero de Conductor Habitual
+                  -- 15122016 sgpinto: Adici√≥n n√∫mero de Conductor Habitual
                   L_NUMCONDHAB := NULL;
                 END IF;
               END IF;
@@ -8215,7 +8215,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
               L_STRINGINSERT := L_STRINGINSERT || L_PRICAR || L_NOMCAMPO;
               L_STRINGVALUE  := L_STRINGVALUE || L_PRICAR || L_VALCAMPO;
             
-              -- inicio 15122016 sgpinto: AdiciÛn de captura de n˙mero de Conductor Habitual (Colectiva de Autos)
+              -- inicio 15122016 sgpinto: Adici√≥n de captura de n√∫mero de Conductor Habitual (Colectiva de Autos)
               IF L_NOMCAMPO = 'NUM_COND' THEN
                 L_NUMCONDHAB := L_VALCAMPO;
               END IF;
@@ -8307,7 +8307,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
               END IF;
             
               IF IP_TABLA = 'X2040400' THEN
-                -- 15122016 sgpinto: AdiciÛn de manejo de Conductor Habitual Colectiva de Autos.
+                -- 15122016 sgpinto: Adici√≥n de manejo de Conductor Habitual Colectiva de Autos.
                 /*  l_Stringquery := l_Stringquery || '1' || ',';*/
                 -- sgpinto: Ajuste para colectiva de autos
                 IF FNC299_VALIDA_ES_CLTVA_AUTOS(IP_NUM_SECU_POL => IP_NUMSECUPOL,
@@ -8544,7 +8544,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                     END IF;
                  END IF;
               END IF;*/
-              -- 17112016 sgpinto: IntegraciÛn. AdiciÛn de validaciÛn Colectiva de Autos
+              -- 17112016 sgpinto: Integraci√≥n. Adici√≥n de validaci√≥n Colectiva de Autos
               -- Veh Electrico  15/01/2020
               SELECT COUNT(*)
                 INTO L_OFERTAAUTOS
@@ -8562,7 +8562,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                     IP_PROCESO.P_SUBPRODUCTO <> 293 THEN
                   IF IP_POLIZA.DATOSVEHICULOS(I).COD_RAMO_VEH != 25 THEN
                     OP_RESULTADO := -1;
-                    -- 17112016 sgpinto: IntegraciÛn mensajes de error con cÛdigo de riesgo
+                    -- 17112016 sgpinto: Integraci√≥n mensajes de error con c√≥digo de riesgo
                     /*Raise_Application_Error(-20000,
                     'Alternativa de Cobertura solo se permite 25'); */
                     RAISE_APPLICATION_ERROR(-20000,
@@ -8573,7 +8573,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                   IF IP_POLIZA.DATOSVEHICULOS(I)
                    .COD_RAMO_VEH = 25 AND IP_PROCESO.P_SUBPRODUCTO = 251 THEN
                     OP_RESULTADO := -1;
-                    -- 17112016 sgpinto: IntegraciÛn mensajes de error con cÛdigo de riesgo
+                    -- 17112016 sgpinto: Integraci√≥n mensajes de error con c√≥digo de riesgo
                     /*Raise_Application_Error(-20000,
                     'Alternativa de Cobertura solo para pesados'); */
                     RAISE_APPLICATION_ERROR(-20000,
@@ -8581,7 +8581,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                             '. Alternativa de Cobertura solo para pesados');
                   END IF;
                 END IF;
-                -- 17112016 sgpinto: IntegraciÛn. AdiciÛn de validaciÛn Colectiva de Autos
+                -- 17112016 sgpinto: Integraci√≥n. Adici√≥n de validaci√≥n Colectiva de Autos
               END IF;
               --
               /* ****** INICIO-TRANSMASIVO ****** */
@@ -8591,10 +8591,10 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
               And l_OfertaAutos = 0*/
               /* ****** FIN-TRANSMASIVO ****** */
               /*Then
-              -- 05/08/2016: SGPM. Se adiciona control para canal 3 y sistema de orÌgen 101,
+              -- 05/08/2016: SGPM. Se adiciona control para canal 3 y sistema de or√≠gen 101,
               --                   de acuerdo con lo conversado con Manuel Orjuela el pasado
               --                   martes 02 de agosto. Este ajuste es temporal, mientras se realiza
-              --                   la parametrizaciÛn correspondiente.
+              --                   la parametrizaci√≥n correspondiente.
               If Ip_Proceso.p_Canal = 3 And
                  Ip_Proceso.p_Sistema_Origen = 101 Then
                 If Ip_Poliza.Datosvehiculos(i)
@@ -8603,7 +8603,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                     (To_Number(To_Char(Sysdate, 'YYYY')) - 10) Then
                   If l_Opcion371 != 43 Then
                     Op_Resultado := -1;*/
-              -- 17112016 sgpinto: IntegraciÛn mensajes de error con cÛdigo de riesgo
+              -- 17112016 sgpinto: Integraci√≥n mensajes de error con c√≥digo de riesgo
               /*Raise_Application_Error(-20000,
               'Opcion de Deducible PTD no valida ' ||
               l_Opcion371 || '*');*/
@@ -8615,7 +8615,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
               
               If l_Opcion372 != 24 Then
                 Op_Resultado := -1;*/
-              -- 17112016 sgpinto: IntegraciÛn mensajes de error con cÛdigo de riesgo
+              -- 17112016 sgpinto: Integraci√≥n mensajes de error con c√≥digo de riesgo
               /*Raise_Application_Error(-20000,
               'Opcion de Deducible PPD no valida');*/
               /*Raise_Application_Error(-20000,
@@ -8625,7 +8625,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
               
               If l_Opcion374 != 43 Then
                 Op_Resultado := -1;*/
-              -- 17112016 sgpinto: IntegraciÛn mensajes de error con cÛdigo de riesgo
+              -- 17112016 sgpinto: Integraci√≥n mensajes de error con c√≥digo de riesgo
               /*Raise_Application_Error(-20000,
               'Opcion de Deducible PTH no valida');*/
               /*Raise_Application_Error(-20000,
@@ -8638,7 +8638,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                    Sim_Pck_Funcion_Gen.Validadeducibleautos('VALIDAPTDAUTOS',
                                                             Ip_Proceso.p_Subproducto) = 'S' Then
                   Op_Resultado := -1;*/
-              -- 17112016 sgpinto: IntegraciÛn mensajes de error con cÛdigo de riesgo
+              -- 17112016 sgpinto: Integraci√≥n mensajes de error con c√≥digo de riesgo
               /*Raise_Application_Error(-20000,
               'Opcion de Deducible PTD no valida*' ||
               l_Opcion371 || '*');*/
@@ -8653,7 +8653,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                  Sim_Pck_Funcion_Gen.Validadeducibleautos('VALIDAPPDAUTOS',
                                                           Ip_Proceso.p_Subproducto) = 'S' Then
                 Op_Resultado := -1;*/
-              -- 17112016 sgpinto: IntegraciÛn mensajes de error con cÛdigo de riesgo
+              -- 17112016 sgpinto: Integraci√≥n mensajes de error con c√≥digo de riesgo
               /*Raise_Application_Error(-20000,
               'Opcion de Deducible PPD no valida');*/
               /*Raise_Application_Error(-20000,
@@ -8666,7 +8666,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                  Sim_Pck_Funcion_Gen.Validadeducibleautos('VALIDAPTHAUTOS',
                                                           Ip_Proceso.p_Subproducto) = 'S' Then
                 Op_Resultado := -1;*/
-              -- 17112016 sgpinto: IntegraciÛn mensajes de error con cÛdigo de riesgo
+              -- 17112016 sgpinto: Integraci√≥n mensajes de error con c√≥digo de riesgo
               /*Raise_Application_Error(-20000,
               'Opcion de Deducible PTH no valida');*/
               /*Raise_Application_Error(-20000,
@@ -8689,7 +8689,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                 END;
               
                 IF OP_RESULTADO = -1 THEN
-                  -- 17112016 sgpinto: IntegraciÛn mensajes de error con cÛdigo de riesgo
+                  -- 17112016 sgpinto: Integraci√≥n mensajes de error con c√≥digo de riesgo
                   /*Raise_Application_Error(-20000, 'Placa invalida');*/
                   RAISE_APPLICATION_ERROR(-20000,
                                           'Riesgo ' || I ||
@@ -8708,7 +8708,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                 
                  THEN
                   OP_RESULTADO := -1;
-                  -- 17112016 sgpinto: IntegraciÛn mensajes de error con cÛdigo de riesgo
+                  -- 17112016 sgpinto: Integraci√≥n mensajes de error con c√≥digo de riesgo
                   /*Raise_Application_Error(-20000,
                   'Modelo no permitido para Cero Kilometros');*/
                   RAISE_APPLICATION_ERROR(-20000,
@@ -8958,12 +8958,12 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                       END IF;
                     END IF; --- HLC 10072024 se valida si el producto debe o no validar vinculaciones del cliente
                   END;
-                  --02/04/2019 lberbesi: Se incluye verificaciÛn de vinculaciÛn para autos por opciÛn
+                  --02/04/2019 lberbesi: Se incluye verificaci√≥n de vinculaci√≥n para autos por opci√≥n
                 ELSE
                   NULL;
                   -----------------------------------------------------------------------------------
                   --Mcga 03/11/2020 Se deshabilita este control por solicitud del usuario de movilidad
-                  --Se traslada la validaciÛn de vinculaciones al momento de generar cotizacion
+                  --Se traslada la validaci√≥n de vinculaciones al momento de generar cotizacion
                   ------------------------------------------------------------------------------------
                   /*          Declare
                    l_Anosveh          Number;
@@ -9018,7 +9018,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                     If l_AplicaOpcBas = 'N' Then
                      Op_Resultado := -1;
                      Raise_Application_Error(-20000,
-                                             'Cliente no aplica opciÛn b·sica. Verifique vinculaciÛn y primas');
+                                             'Cliente no aplica opci√≥n b√°sica. Verifique vinculaci√≥n y primas');
                      Return;
                         END IF;
                       End If;
@@ -9052,7 +9052,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                  END IF;
               END IF;*/
             
-              --se ajusta seg˙n Davivienda autos Siebel-360 TRM-6-Nov-2018
+              --se ajusta seg√∫n Davivienda autos Siebel-360 TRM-6-Nov-2018
               --Ernesto Castillo - ernesto.castillosegurosbolivar.com - 09/03/2022
               --Consultar sistema origen Davivienda (121,124), como parametro en la tabla C9999909
               -- if Ip_Proceso.p_Sistema_Origen = 121 then
@@ -9370,7 +9370,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
               L_IDASEG   NUMBER;
             BEGIN
               --Manejo de declaracion de asegurabilidad
-              --El sistema valida si existe una declaraciÛn de asegurabilidad vigente para el asegurado
+              --El sistema valida si existe una declaraci√≥n de asegurabilidad vigente para el asegurado
               BEGIN
                 L_TDOCASEG := SIM_PCK_FUNCION_GEN.FUN_RESCATA_X2000020('TIPO_DOC_ASEG',
                                                                        IP_NUMSECUPOL,
@@ -9380,7 +9380,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                                                        1);
               
                 -- INICIO ODVVI-2939 Rwinter 27012023 :
-                -- Se modifica para que los productos de portafolio vida NO llamen a la declaraciÛn anterior
+                -- Se modifica para que los productos de portafolio vida NO llamen a la declaraci√≥n anterior
                 IF SIM_PCK_FUNCION_GEN.ESPRODUCTOATGCVIDA(IP_PROCESO.P_COD_PRODUCTO) = 'S' AND
                    (IP_PROCESO.P_PROCESO || '-' || IP_PROCESO.P_SUBPROCESO <>
                     '242-240') THEN
@@ -9499,7 +9499,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
          AND TD.COD_CIA = IP_PROCESO.P_COD_CIA
          AND TD.COD_SECC = IP_PROCESO.P_COD_SECC
          AND TD.COD_RAMO = IP_PROCESO.P_COD_PRODUCTO
-         AND NVL(TD.CODIGO2, 101) = IP_PROCESO.P_SISTEMA_ORIGEN --Modif Juan Gonz·lez 21122018 (servicio externo)
+         AND NVL(TD.CODIGO2, 101) = IP_PROCESO.P_SISTEMA_ORIGEN --Modif Juan Gonz√°lez 21122018 (servicio externo)
          AND TD.DAT_CAR != 'X2000020'
        ORDER BY TD.DAT_CAR, TD.CODIGO;
   
@@ -9510,7 +9510,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
          AND TD2.COD_CIA = IP_PROCESO.P_COD_CIA
          AND TD2.COD_SECC = IP_PROCESO.P_COD_SECC
          AND TD2.COD_RAMO = IP_PROCESO.P_COD_PRODUCTO
-         AND NVL(TD2.CODIGO2, 101) = IP_PROCESO.P_SISTEMA_ORIGEN --Modif Juan Gonz·lez 21122018 (servicio externo)
+         AND NVL(TD2.CODIGO2, 101) = IP_PROCESO.P_SISTEMA_ORIGEN --Modif Juan Gonz√°lez 21122018 (servicio externo)
          AND TD2.DAT_CAR = 'X2000020'
        ORDER BY TD2.DAT_CAR, TD2.CODIGO;
   BEGIN
@@ -9680,7 +9680,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
              A.NUM_SECU
         FROM X2000040 A
        WHERE A.NUM_SECU_POL = IP_NUMSECUPOL
-       ORDER BY A.NUM_SECU ASC; --Modificado Juan Gonz·lez (20022019)
+       ORDER BY A.NUM_SECU ASC; --Modificado Juan Gonz√°lez (20022019)
     --And   a.end_prima_cob != 0;
   
     CURSOR COBAUT IS
@@ -9718,7 +9718,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
              DECODE(A.COD_COB, 450, 5, 6) COD_COB,
              DECODE(A.COD_COB,
                     450,
-                    'Valor PequeÒos Accesorios',
+                    'Valor Peque√±os Accesorios',
                     'Valor Iva Prima PA') TXT_COB,
              SUM(A.END_PRIMA_COB) VALOR
         FROM X2000040 A, X2000190 B
@@ -9736,7 +9736,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                 DECODE(A.COD_COB, 450, 5, 6),
                 DECODE(A.COD_COB,
                        450,
-                       'Valor PequeÒos Accesorios',
+                       'Valor Peque√±os Accesorios',
                        'Valor Iva Prima PA')
       UNION
       SELECT A.COD_RIES,
@@ -9744,7 +9744,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
              DECODE(A.COD_COB,
                     450,
                     'Valor Iva Prima PA',
-                    'Valor PequeÒos Accesorios') TXT_COB,
+                    'Valor Peque√±os Accesorios') TXT_COB,
              SUM(A.END_PRIMA_COB) * SUM(B.TASA_IMPUEST_E) / COUNT(1) / 100 VALOR
         FROM X2000040 A, X2000190 B
        WHERE A.NUM_SECU_POL = IP_NUMSECUPOL
@@ -9762,7 +9762,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                 DECODE(A.COD_COB,
                        450,
                        'Valor Iva Prima PA',
-                       'Valor PequeÒos Accesorios')
+                       'Valor Peque√±os Accesorios')
       UNION
       SELECT A.COD_RIES,
              DECODE(A.COD_COB, 370, 7, 8) COD_COB,
@@ -9850,7 +9850,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     L_CANTIDAD       NUMBER;
     L_APLICAPREF     VARCHAR2(1) := 'N';
     L_ENTRACOB       VARCHAR2(1) := 'S';
-    -- 17112016 sgpinto: IntegraciÛn. AdiciÛn de variable para almacenar cÛdigo de riesgo.
+    -- 17112016 sgpinto: Integraci√≥n. Adici√≥n de variable para almacenar c√≥digo de riesgo.
     L_CODRIES    NUMBER;
     L_CONTAH     NUMBER := 0;
     L_NSPAH      C2999300.NUM_SECU_POL_ANEXO%TYPE;
@@ -9867,7 +9867,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     L_POLIZA      := NEW SIM_TYP_POLIZAGEN;
   
     L_POLIZA := IP_POLIZA;
-    --Valida emision de Anexo Hogar para que no se haga liquidaciÛn-->22/08/2017(Juan Gonzalez)
+    --Valida emision de Anexo Hogar para que no se haga liquidaci√≥n-->22/08/2017(Juan Gonzalez)
     IF IP_PROCESO.P_COD_PRODUCTO = 121 AND
        IP_PROCESO.P_PROCESO IN (241, 261, 270) THEN
       OP_POLIZA := IP_POLIZA;
@@ -9948,7 +9948,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
   
     --------------------Inicio Datos Variables
     FOR RDV IN DV LOOP
-      -- 17112016 sgpinto: AdiciÛn de niveles 3 y 5 al recorrido.
+      -- 17112016 sgpinto: Adici√≥n de niveles 3 y 5 al recorrido.
       /* If Rdv.Cod_Nivel = 2 Then*/
     
       L_VALORCAMPO := RDV.VALOR_CAMPO_EN;
@@ -9983,9 +9983,9 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
       L_ENCONTRO := 'N';
     
       IF L_POLIZA.DATOSRIESGOS.EXISTS(1) THEN
-        -- 17112016 sgpinto: IntegraciÛn. AdiciÛn de llamado a funciÛn que recupera cÛdigo de riesgo
-        -- 19/08/2016 sgpm: Cambio de valor de Ìndice por valor retornado de funciÛn
-        --Modificado Juan Gonz·lez (25092018): corregir error de Copia Cotizacion 948
+        -- 17112016 sgpinto: Integraci√≥n. Adici√≥n de llamado a funci√≥n que recupera c√≥digo de riesgo
+        -- 19/08/2016 sgpm: Cambio de valor de √≠ndice por valor retornado de funci√≥n
+        --Modificado Juan Gonz√°lez (25092018): corregir error de Copia Cotizacion 948
         IF LENGTH(TRIM(RDV.COD_RIES)) = 0 THEN
           L_CODRIES := FNC299_RECUPERA_INDRIESGO(IP_INDICE       => RDV.COD_RIES,
                                                  IP_NUM_SECU_POL => IP_NUMSECUPOL,
@@ -9994,7 +9994,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           L_CODRIES := 1;
         END IF;
         --
-        -- 17112016 sgpinto: se cambia Ìndice de Rdv.Cod_Ries a l_CodRies
+        -- 17112016 sgpinto: se cambia √≠ndice de Rdv.Cod_Ries a l_CodRies
         /*If l_Poliza.Datosriesgos(Rdv.Cod_Ries).Datosvariables.Exists(1) Then
           If l_Poliza.Datosriesgos(Rdv.Cod_Ries).Datosvariables.Count > 0 Then
             For j In l_Poliza.Datosriesgos(Rdv.Cod_Ries)
@@ -10026,7 +10026,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     
       IF L_ENCONTRO = 'N' THEN
         -- Revisar
-        -- 17112016 sgpinto: se cambia Ìndice de Rdv.Cod_Ries a l_CodRies
+        -- 17112016 sgpinto: se cambia √≠ndice de Rdv.Cod_Ries a l_CodRies
         /*
           -- Revisar
           If l_Poliza.Datosriesgos.Exists(1) Then
@@ -10173,13 +10173,13 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           L_ENCONTRO := 'N';
         
           IF L_POLIZA.DATOSRIESGOS.EXISTS(1) THEN
-            -- 17112016 sgpinto: IntegraciÛn. AdiciÛn de llamado a funciÛn que recupera cÛdigo de riesgo
-            -- 19/08/2016 sgpm: Cambio de valor de Ìndice por valor retornado de funciÛn
+            -- 17112016 sgpinto: Integraci√≥n. Adici√≥n de llamado a funci√≥n que recupera c√≥digo de riesgo
+            -- 19/08/2016 sgpm: Cambio de valor de √≠ndice por valor retornado de funci√≥n
             L_CODRIES := FNC299_RECUPERA_INDRIESGO(IP_INDICE       => RCOB.COD_RIES,
                                                    IP_NUM_SECU_POL => IP_NUMSECUPOL,
                                                    IP_NUM_END      => IP_NUMEND);
             --
-            -- 17112016 sgpinto: se cambia Ìndice de Rdv.Cod_Ries a l_CodRies
+            -- 17112016 sgpinto: se cambia √≠ndice de Rdv.Cod_Ries a l_CodRies
             /*
               If l_Poliza.Datosriesgos(Rcob.Cod_Ries).Datoscoberturas.Exists(1) Then
                 If l_Poliza.Datosriesgos(Rcob.Cod_Ries)
@@ -10215,7 +10215,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           END IF;
         
           IF L_ENCONTRO = 'N' THEN
-            -- 17112016 sgpinto: se cambia Ìndice de Rdv.Cod_Ries a l_CodRies
+            -- 17112016 sgpinto: se cambia √≠ndice de Rdv.Cod_Ries a l_CodRies
             /*
               -- Revisar
               If l_Poliza.Datosriesgos.Exists(1) Then
@@ -10368,13 +10368,13 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
             L_ENCONTRO := 'N';
           
             IF L_POLIZA.DATOSRIESGOS.EXISTS(1) THEN
-              -- 17112016 sgpinto: IntegraciÛn. AdiciÛn de llamado a funciÛn que recupera cÛdigo de riesgo
-              -- 19/08/2016 sgpm: Cambio de valor de Ìndice por valor retornado de funciÛn
+              -- 17112016 sgpinto: Integraci√≥n. Adici√≥n de llamado a funci√≥n que recupera c√≥digo de riesgo
+              -- 19/08/2016 sgpm: Cambio de valor de √≠ndice por valor retornado de funci√≥n
               L_CODRIES := FNC299_RECUPERA_INDRIESGO(IP_INDICE       => RCOB.COD_RIES,
                                                      IP_NUM_SECU_POL => IP_NUMSECUPOL,
                                                      IP_NUM_END      => IP_NUMEND);
               --
-              -- 17112016 sgpinto: se cambia Ìndice de Rdv.Cod_Ries a l_CodRies
+              -- 17112016 sgpinto: se cambia √≠ndice de Rdv.Cod_Ries a l_CodRies
               /*
               If l_Poliza.Datosriesgos(Rcob.Cod_Ries).Datoscoberturas.Exists(1) Then
                 If l_Poliza.Datosriesgos(Rcob.Cod_Ries)
@@ -10408,9 +10408,9 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
             END IF;
           
             IF L_ENCONTRO = 'N' AND
-               (RCOB.END_PRIMA_COB != 0 OR RCOB.MCA_GRATUITA = 'S') --Modif Juan Gonz·lez, ver comentario
+               (RCOB.END_PRIMA_COB != 0 OR RCOB.MCA_GRATUITA = 'S') --Modif Juan Gonz√°lez, ver comentario
              THEN
-              -- 17112016 sgpinto: se cambia Ìndice de Rdv.Cod_Ries a l_CodRies
+              -- 17112016 sgpinto: se cambia √≠ndice de Rdv.Cod_Ries a l_CodRies
               /*
                 -- Revisar
                 If l_Poliza.Datosriesgos.Exists(1) Then
@@ -10460,13 +10460,13 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
       L_DATOSRIESGO.NUM_END      := IP_NUMEND;
       L_DATOSRIESGO.COD_RIES     := RPRIMAXRIE.COD_RIES;
       L_DATOSRIESGO.IMP_PRIMA    := RPRIMAXRIE.PRIMARIES;
-      -- 17112016 sgpinto: IntegraciÛn. AdiciÛn de llamado a funciÛn que recupera cÛdigo de riesgo
-      -- 19/08/2016 sgpm: Cambio de valor de Ìndice por valor retornado de funciÛn
+      -- 17112016 sgpinto: Integraci√≥n. Adici√≥n de llamado a funci√≥n que recupera c√≥digo de riesgo
+      -- 19/08/2016 sgpm: Cambio de valor de √≠ndice por valor retornado de funci√≥n
       L_CODRIES := FNC299_RECUPERA_INDRIESGO(IP_INDICE       => RPRIMAXRIE.COD_RIES,
                                              IP_NUM_SECU_POL => IP_NUMSECUPOL,
                                              IP_NUM_END      => IP_NUMEND);
       --
-      -- 17112016 sgpinto: se cambia Ìndice de Rdv.Cod_Ries a l_CodRies
+      -- 17112016 sgpinto: se cambia √≠ndice de Rdv.Cod_Ries a l_CodRies
       /* l_Poliza.Datosriesgos(Rprimaxrie.Cod_Ries).Datosriesgo := l_Datosriesgo;*/
       L_POLIZA.DATOSRIESGOS(L_CODRIES).DATOSRIESGO := L_DATOSRIESGO;
     END LOOP;
@@ -11503,14 +11503,14 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
       -- cuando viene de SimonQuotation -- Wesv 20140702
       OP_RESULTADO := -1;
       RAISE_APPLICATION_ERROR(-20000,
-                              'Falta N˙mero de CotizaciÛn o es Negativo Nro:' ||
+                              'Falta N√∫mero de Cotizaci√≥n o es Negativo Nro:' ||
                               IP_INSPECCION);
     END IF;
   
     IF NVL(IP_PRESUPUESTO, 0) <= 0 THEN
       OP_RESULTADO := -1;
       RAISE_APPLICATION_ERROR(-20000,
-                              'Falta N˙mero de CotizaciÛn o es Negativo Nro:' ||
+                              'Falta N√∫mero de Cotizaci√≥n o es Negativo Nro:' ||
                               IP_PRESUPUESTO);
     END IF;
   
@@ -11552,17 +11552,17 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
         OP_RESULTADO := -1;
-        RAISE_APPLICATION_ERROR(-20000, 'N˙mero de InspecciÛn No Existe');
+        RAISE_APPLICATION_ERROR(-20000, 'N√∫mero de Inspecci√≥n No Existe');
       WHEN OTHERS THEN
         OP_RESULTADO := -1;
         RAISE_APPLICATION_ERROR(-20000,
-                                'Error Recuperando InspecciÛn :' || SQLERRM);
+                                'Error Recuperando Inspecci√≥n :' || SQLERRM);
     END;
   
     IF L_ASEGURABLE = 'N' THEN
       OP_RESULTADO := -1;
       RAISE_APPLICATION_ERROR(-20000,
-                              'Vehiculo no es Asegurable Segun inspecciÛn ');
+                              'Vehiculo no es Asegurable Segun inspecci√≥n ');
     END IF;
   
     BEGIN
@@ -11612,7 +11612,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     IF L_NUMPOL1 IS NOT NULL THEN
       OP_RESULTADO := -1;
       RAISE_APPLICATION_ERROR(-20000,
-                              'CotizaciÛn previamente formalizada con PÛliza' ||
+                              'Cotizaci√≥n previamente formalizada con P√≥liza' ||
                               L_NUMPOL1);
     END IF;
   
@@ -11660,11 +11660,11 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
         OP_RESULTADO := -1;
-        RAISE_APPLICATION_ERROR(-20000, 'N˙mero de CotizaciÛn No Existe');
+        RAISE_APPLICATION_ERROR(-20000, 'N√∫mero de Cotizaci√≥n No Existe');
       WHEN OTHERS THEN
         OP_RESULTADO := -1;
         RAISE_APPLICATION_ERROR(-20000,
-                                'Error Recuperando CotizaciÛn :' || SQLERRM);
+                                'Error Recuperando Cotizaci√≥n :' || SQLERRM);
     END;
   
     BEGIN
@@ -11680,7 +11680,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     IF SYSDATE > L_FECHAINSPEC + L_DIASINSPEC THEN
       OP_RESULTADO := -1;
       RAISE_APPLICATION_ERROR(-20000,
-                              'Error InspecciÛn Con mas de :' ||
+                              'Error Inspecci√≥n Con mas de :' ||
                               L_DIASINSPEC || ' Dias');
     END IF;
   
@@ -11717,7 +11717,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     IF L_NUMPOL1 > 0 THEN
       IF NVL(L_MCAPROVISORIO, 'N') = 'S' THEN
         L_ERROR := SIM_TYP_ERROR(-20000,
-                                 'CotizaciÛn ya Convertida a Poliza Provisoria Nro.' ||
+                                 'Cotizaci√≥n ya Convertida a Poliza Provisoria Nro.' ||
                                  L_NUMPOL1,
                                  'W');
         OP_ARRERRORES.EXTEND;
@@ -11726,7 +11726,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
       ELSE
         OP_RESULTADO := -1;
         RAISE_APPLICATION_ERROR(-20000,
-                                'CotizaciÛn ya Convertida a Poliza Nro.' ||
+                                'Cotizaci√≥n ya Convertida a Poliza Nro.' ||
                                 L_NUMPOL1);
       END IF;
     END IF;
@@ -11756,13 +11756,13 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     IF OP_PRESINSPECC.MARCA != L_MARCA THEN
       OP_RESULTADO := -1;
       RAISE_APPLICATION_ERROR(-20000,
-                              'CotizaciÛn e InspecciÛn, No son la misma Marca');
+                              'Cotizaci√≥n e Inspecci√≥n, No son la misma Marca');
     END IF;
   
     IF OP_PRESINSPECC.MODELO != L_MODELO THEN
       OP_RESULTADO := -1;
       RAISE_APPLICATION_ERROR(-20000,
-                              'CotizaciÛn e InspecciÛn, No son el mismo modelo');
+                              'Cotizaci√≥n e Inspecci√≥n, No son el mismo modelo');
     END IF;
   
     IF OP_PRESINSPECC.MODELO < TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY') - 9) THEN
@@ -12337,7 +12337,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     L_CANTMSGS           NUMBER(16) := 0;
     L_PLACAGENERADA      NUMBER(2) := 0;
   
-    /*BRGH aÒade para carga informaciÛn debito automatico*/
+    /*BRGH a√±ade para carga informaci√≥n debito automatico*/
     L_TYP_DEBITOAUT       SIM_TYP_DATOSDEBITOGEN;
     L_ARRAY_TYP_DEBITOAUT SIM_TYP_ARRAY_DATOSDEBITOGEN;
     /*Fin BRGH*/
@@ -13040,7 +13040,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
             ELSE
               L_TYP_POLIZA.DATOSFIJOS.MCA_TERM_OK := 'S';
             END IF;
-            /* se envÌa mca term ok en N si el agente no es de atgc para que
+            /* se env√≠a mca term ok en N si el agente no es de atgc para que
             no pueda formalizar la cotizacion Wesv 20140926*/
           
             IF NVL(L_TYP_POLIZA.DATOSFIJOS.MCA_TERM_OK, 'N') = 'S' THEN
@@ -13286,7 +13286,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     
       IF OP_RESULTADO = -1 THEN
         RAISE_APPLICATION_ERROR(-20099,
-                                'Error Proc_ConsObjPol al recuperar riesgo pÛliza');
+                                'Error Proc_ConsObjPol al recuperar riesgo p√≥liza');
       END IF;
     
       IF L_ARRRIESGOS.COUNT > 0 THEN
@@ -13294,7 +13294,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           L_TYP_POLIZA.DATOSRIESGOS.EXTEND;
           L_TYP_POLIZA.DATOSRIESGOS(L_TYP_POLIZA.DATOSRIESGOS.COUNT) := NEW
                                                                         SIM_TYP_RIESGOGEN();
-          /*BRGH se incluye para validar los riesgos excluidos y no tenerlos en cuenta para la renovaciÛn*/
+          /*BRGH se incluye para validar los riesgos excluidos y no tenerlos en cuenta para la renovaci√≥n*/
           /* JIR-GD717-336: Adiciono 445 y 446 para nuevo proceso renovacion polizas hijas - 06-10-2023 */
           IF IP_PROCESO.P_PROCESO IN (440, 441, 442, 445, 446) THEN
             IF (L_ARRRIESGOS(I).MARCA_BAJA = 'N') THEN
@@ -13402,7 +13402,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                             L_TASAIMPUESTO) / 100;
               END IF;
               /*fin BRGH*/
-              /*BRGH se incluye para validar los riesgos excluidos y no tenerlos en cuenta para la renovaciÛn*/
+              /*BRGH se incluye para validar los riesgos excluidos y no tenerlos en cuenta para la renovaci√≥n*/
               /* JIR-GD717-336: Adiciono 445 y 446 para nuevo proceso renovacion polizas hijas - 06-10-2023 */
               IF IP_PROCESO.P_PROCESO IN (440, 441, 442, 445, 446) THEN
                 IF (L_ARRRIESGOS(I).MARCA_BAJA = 'N') THEN
@@ -13444,7 +13444,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                              L_CODRAMO,
                              L_ARRRIESGOS(I).COD_RIES) LOOP
           
-            /*BRGH se incluye para validar los riesgos excluidos y no tenerlos en cuenta para la renovaciÛn*/
+            /*BRGH se incluye para validar los riesgos excluidos y no tenerlos en cuenta para la renovaci√≥n*/
             /* JIR-GD717-336: Adiciono 445 y 446 para nuevo proceso renovacion polizas hijas - 06-10-2023 */
             IF IP_PROCESO.P_PROCESO IN (440, 441, 442, 445, 446) THEN
               IF (L_ARRRIESGOS(I).MARCA_BAJA = 'N') THEN
@@ -13582,7 +13582,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         END LOOP;
       END IF;
     
-      /*BRGH se incluye para validar los riesgos excluidos y no tenerlos en cuenta para la renovaciÛn*/
+      /*BRGH se incluye para validar los riesgos excluidos y no tenerlos en cuenta para la renovaci√≥n*/
       /* JIR-GD717-336: Adiciono 445 y 446 para nuevo proceso renovacion polizas hijas - 06-10-2023 */
       FOR REG_DV IN C_DV(L_NUMSECUPOL, L_NUMEND, L_CODRAMO, 0) LOOP
         IF IP_PROCESO.P_PROCESO IN (440, 441, 442, 445, 446) THEN
@@ -13608,7 +13608,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           L_TYP_POLIZA.DV_POLIZA(L_TYP_POLIZA.DV_POLIZA.COUNT) := REG_DV.TIPDV;
         END IF;
       END LOOP;
-      /*FIN BRGH se incluye para validar los riesgos excluidos y no tenerlos en cuenta para la renovaciÛn*/
+      /*FIN BRGH se incluye para validar los riesgos excluidos y no tenerlos en cuenta para la renovaci√≥n*/
     
       L_ARRAY_TYP_AGE := NEW SIM_TYP_ARRAY_AGENTESPOL();
     
@@ -13631,7 +13631,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     
       FOR REG_DFA IN C_DFAUT(L_NUMSECUPOL, L_NUMEND) LOOP
         L_ARRAY_DF_AUTOS.EXTEND;
-        --Ini RCB: Modificaciones Ventas - DescripciÛn del Accesorio.
+        --Ini RCB: Modificaciones Ventas - Descripci√≥n del Accesorio.
         --                               - Valores de suma asegurada y accesorios
         REG_DFA.TIPDFAUT.COD_MARCA.VALOR := FUN_DESCMARCA(REG_DFA.TIPDFAUT.COD_MARCA.CODIGO,
                                                           L_TYP_POLIZA.DATOSFIJOS.COD_CIA.CODIGO);
@@ -13641,7 +13641,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         REG_DFA.TIPDFAUT.SUMA_ASEG       := L_NSUMASEG;
         REG_DFA.TIPDFAUT.SUMA_ACCES      := L_NSUMACC;
       
-        ---Miguel Angel Manrique ----> Si la cotizaciÛn actual tiene una placa generada por simÛn, entonces se le
+        ---Miguel Angel Manrique ----> Si la cotizaci√≥n actual tiene una placa generada por sim√≥n, entonces se le
         --asigna otra placa
         --CPERILLA: Se incluye subproducto 360 para AUTOS LICITACION
         IF IP_PROCESO.P_PROCESO = 240 AND IP_PROCESO.P_COD_PRODUCTO = 250 AND
@@ -13740,7 +13740,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     
       FOR REG_ACC IN C_ACC(L_NUMSECUPOL, L_NUMEND) LOOP
         L_ARRAY_ACCESORIOS.EXTEND;
-        --Ini RCB: Modificaciones Ventas - DescripciÛn del Accesorio.
+        --Ini RCB: Modificaciones Ventas - Descripci√≥n del Accesorio.
         REG_ACC.TIPACC.COD_ACCES.VALOR := FUN_DESCACCESORIO(REG_ACC.TIPACC.COD_ACCES.CODIGO,
                                                             L_TYP_POLIZA.DATOSFIJOS.COD_CIA.CODIGO);
         --Para modificaciones ventas se visualiza la columna original que
@@ -13860,7 +13860,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         END IF;
       END IF;
     
-      --Insertado por Juan Gonz·lez (27052019) -- Manejo de EG Arbol de DeclaraciÛn de A
+      --Insertado por Juan Gonz√°lez (27052019) -- Manejo de EG Arbol de Declaraci√≥n de A
       IF IP_PROCESO.P_COD_PRODUCTO = 766 AND IP_PROCESO.P_PROCESO = 241 THEN
         BEGIN
           FOR COB_R IN (SELECT COD_RIES
@@ -13911,8 +13911,8 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         END;
       END IF;
     
-      /*BRGH bloque que determina si existe debito automatico y carga la respectiva informaciiÛn*/
-      /* JIR-GD717-336: completo con ceros a la izquierda al n˙mero de cuenta de Tronador seg˙n longitud 
+      /*BRGH bloque que determina si existe debito automatico y carga la respectiva informacii√≥n*/
+      /* JIR-GD717-336: completo con ceros a la izquierda al n√∫mero de cuenta de Tronador seg√∫n longitud 
       configurada para banco y canal de descuento (nuevo proceso renov. pol. hijas) - 06-10-2023 */
       IF (L_TYP_POLIZA.DATOSFIJOS.FOR_COBRO IS NOT NULL AND
          L_TYP_POLIZA.DATOSFIJOS.FOR_COBRO.CODIGO = 'DB') THEN
@@ -14043,7 +14043,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     L_COD_COB A2000040.COD_COB%TYPE;
   BEGIN
     BEGIN
-      -- GD748-1 Rwinter 18/04/2023: Se agrega un nuevo bloque para marcar las coberturas de la secciÛn 118
+      -- GD748-1 Rwinter 18/04/2023: Se agrega un nuevo bloque para marcar las coberturas de la secci√≥n 118
       IF IP_PROCESO.P_CANAL = 3 AND IP_PROCESO.P_COD_CIA = 2 AND
          IP_PROCESO.P_COD_SECC = 118 THEN
         IF IP_POLIZA.DATOSRIESGOS.EXISTS(1) THEN
@@ -14366,7 +14366,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     
       IF OP_ARRAYPOLIZAS.COUNT = 0 THEN
         L_ERROR := SIM_TYP_ERROR(SQLCODE,
-                                 'No existen pÛlizas pendientes de renovar para los parametros ingresados',
+                                 'No existen p√≥lizas pendientes de renovar para los parametros ingresados',
                                  'E');
         OP_ARRERRORES.EXTEND;
         OP_ARRERRORES(OP_ARRERRORES.COUNT) := L_ERROR;
@@ -14374,7 +14374,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
       END IF;
     ELSE
       L_ERROR := SIM_TYP_ERROR(SQLCODE,
-                               'Faltan parametros de entrada (Tomador o PÛlizas)',
+                               'Faltan parametros de entrada (Tomador o P√≥lizas)',
                                'E');
       OP_ARRERRORES.EXTEND;
       OP_ARRERRORES(OP_ARRERRORES.COUNT) := L_ERROR;
@@ -14893,7 +14893,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                          OP_ARRERRORES OUT SIM_TYP_ARRAY_ERROR) IS
     V_CONCEPTO CHAR(1);
   BEGIN
-    OP_CONCEPTO   := 'No existe informe de inspecciÛn';
+    OP_CONCEPTO   := 'No existe informe de inspecci√≥n';
     OP_ARRERRORES := NEW SIM_TYP_ARRAY_ERROR();
     OP_RESULTADO  := SIM_PCK_TIPOS_GENERALES.C_CERO;
   
@@ -14908,7 +14908,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
       WHEN TOO_MANY_ROWS THEN
         OP_ARRERRORES.EXTEND;
         OP_ARRERRORES(OP_ARRERRORES.COUNT) := SIM_TYP_ERROR(SQLCODE,
-                                                            'Existe mas de un informe de inspecciÛn con diferente concepto para la placa ' ||
+                                                            'Existe mas de un informe de inspecci√≥n con diferente concepto para la placa ' ||
                                                             IP_PLACA,
                                                             'E');
         OP_RESULTADO := -1;
@@ -14995,18 +14995,18 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
 
   -- Proceso para realizar mapeo de textos hacia sim_x_textos.
   -- %author Ing. Lic. Stephen Guseph Pinto Morato - sgpinto@asesoftware.com
-  -- %param ip_poliza        Objeto de pÛliza de entrada SIM_TYP_POLIZAGEN.
-  -- %param ip_tipo_proceso  Tipo de proceso (1: EmisiÛn, 2: ModificaciÛn)
-  -- %param op_poliza        Objeto PÛliza de salida tipo SIM_TYP_POLIZAGEN.
-  -- %param ip_validacion    Variable de validaciÛn.
+  -- %param ip_poliza        Objeto de p√≥liza de entrada SIM_TYP_POLIZAGEN.
+  -- %param ip_tipo_proceso  Tipo de proceso (1: Emisi√≥n, 2: Modificaci√≥n)
+  -- %param op_poliza        Objeto P√≥liza de salida tipo SIM_TYP_POLIZAGEN.
+  -- %param ip_validacion    Variable de validaci√≥n.
   -- %param ip_proceso       Type de proceso SIMON.
   -- %param op_resultado     Variable de control de resultado (0: OK, 1. Warning, -1: error)
   -- %param op_arrerrores    Array de errores.
   -- %version 1.2
   --
-  -- Fecha        VersiÛn  - Autor  - Cambios
+  -- Fecha        Versi√≥n  - Autor  - Cambios
   -- ---------------------------------------------------------------------------
-  -- 27/08/2014    1.0     - Stephen Pinto (ASESOFTWARE) - CreaciÛn.
+  -- 27/08/2014    1.0     - Stephen Pinto (ASESOFTWARE) - Creaci√≥n.
   -- 20/01/2015    1.1     - Stephen Pinto (ASESOFTWARE) - Cambio 001
   PROCEDURE PROC_MAPEO_TEXTOS(IP_POLIZA      IN SIM_TYP_POLIZAGEN,
                               IP_NUMSECUPOL  IN NUMBER,
@@ -15029,7 +15029,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     L_ORDEN         NUMBER(5);
     L_TEXTO         CLOB;
     L_MODIFICABLE CONSTANT VARCHAR2(1) := 'S';
-    L_PROCESO     CONSTANT VARCHAR2(1) := '2'; -- ModificaciÛn en SIMON
+    L_PROCESO     CONSTANT VARCHAR2(1) := '2'; -- Modificaci√≥n en SIMON
   BEGIN
     OP_RESULTADO   := 0;
     OP_ARRERRORES  := NEW SIM_TYP_ARRAY_ERROR();
@@ -15040,8 +15040,8 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     SIM_PCK_REGLAS.INICONTEXTOFROMARRRAY(IP_ARRCONTEXTO);
   
     /* ****** INICIO-001 ****** */
-    -- SGPM 20/01/2014: AdiciÛn de bloque PL para capturar excepciÛn cuando el componente
-    --                  de textos no viene instaciado (ExpediciÛn sin TEXTOS).
+    -- SGPM 20/01/2014: Adici√≥n de bloque PL para capturar excepci√≥n cuando el componente
+    --                  de textos no viene instaciado (Expedici√≥n sin TEXTOS).
     BEGIN
       /* ****** FIN-001 ****** */
       IF IP_POLIZA.TEXTOS.EXISTS(1) THEN
@@ -15049,9 +15049,9 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         IF IP_POLIZA.TEXTOS.COUNT() > 0 THEN
           IF IP_TIPOPROCESO IN (1, 2, 3) THEN
             -- 3: HIJA BASADA EN PPAL
-            -- 1. ExtracciÛn de datos desde la pÛliza general
+            -- 1. Extracci√≥n de datos desde la p√≥liza general
             FOR I IN IP_POLIZA.TEXTOS.FIRST .. IP_POLIZA.TEXTOS.LAST LOOP
-              -- 2. ExtracciÛn de valores desde la tabla (constantes mejor)
+              -- 2. Extracci√≥n de valores desde la tabla (constantes mejor)
               G_SUBPROGRAMA := G_PROGRAMA || '.proc_mapeo_textos';
             
               BEGIN
@@ -15069,8 +15069,8 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                 L_TEXTO         := IP_POLIZA.TEXTOS(I).TEXTO;
                 L_ORDEN         := IP_POLIZA.TEXTOS(I).ORDEN;
               
-                -- 3. InserciÛn (con modificaciones o filtros)
-                -- 3.1. ConversiÛn de longitud para el C”DIGO DEL RIESGO
+                -- 3. Inserci√≥n (con modificaciones o filtros)
+                -- 3.1. Conversi√≥n de longitud para el C√ìDIGO DEL RIESGO
                 SELECT TO_NUMBER(SUBSTR(LPAD(CAST(L_COD_RIES AS
                                                   VARCHAR2(15)),
                                              15,
@@ -15080,14 +15080,14 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                   INTO L_COD_RIES
                   FROM DUAL;
               
-                -- 3.2. ReducciÛn de longitud para el C”DIGO DEL CAMPO.
+                -- 3.2. Reducci√≥n de longitud para el C√ìDIGO DEL CAMPO.
                 SELECT SUBSTR(L_COD_CAMPO, 15) INTO L_COD_CAMPO FROM DUAL;
               
-                -- 4. InserciÛn en la tabla SIM_X_TEXTOS_POLIZAS
+                -- 4. Inserci√≥n en la tabla SIM_X_TEXTOS_POLIZAS
                 /* ****** INICIO-002 ****** */
                 BEGIN
                 
-                  -- ModificaciÛn de update anterior por problemas en la actualizacion de los
+                  -- Modificaci√≥n de update anterior por problemas en la actualizacion de los
                   -- textos Mcga 2016/09/14
                   UPDATE SIM_X_TEXTOS_POLIZAS
                      SET TEXTO = L_TEXTO
@@ -15137,7 +15137,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         END IF;
       END IF;
       /* ****** INICIO-001 ****** */
-      -- SGPM 20/01/2015: Captura de excepciÛn cuando no viene instanciado el componente de TEXTOS
+      -- SGPM 20/01/2015: Captura de excepci√≥n cuando no viene instanciado el componente de TEXTOS
     EXCEPTION
       WHEN OTHERS THEN
         NULL;
@@ -15156,19 +15156,19 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                                           'E');
   END PROC_MAPEO_TEXTOS;
 
-  -- FunciÛn que realiza el mapeo de coaseguros y retorna el tipo de coaseguro realizado
+  -- Funci√≥n que realiza el mapeo de coaseguros y retorna el tipo de coaseguro realizado
   -- %author Ing. Lic. Stephen Guseph Pinto Morato - sgpinto@asesoftware.com
-  -- %param ip_poliza        Objeto de pÛliza de entrada SIM_TYP_POLIZAGEN.
+  -- %param ip_poliza        Objeto de p√≥liza de entrada SIM_TYP_POLIZAGEN.
   -- %param ip_proceso       Type de proceso SIMON.
   -- %param op_resultado     Variable de control de resultado (0: OK, 1. Warning, -1: error)
   -- %param op_arrerrores    Array de errores
-  -- %return cÛdigo del coaseguro (0: rechazado, 1: cedido, 3: aceptado)
+  -- %return c√≥digo del coaseguro (0: rechazado, 1: cedido, 3: aceptado)
   -- %version 1.0
   --
-  -- Fecha        VersiÛn  - Autor  - Cambios
+  -- Fecha        Versi√≥n  - Autor  - Cambios
   -- ---------------------------------------------------------------------------
-  -- 29/08/2014    1.0     - Stephen Pinto (ASESOFTWARE) -  ModificaciÛn algoritmo elaborado por
-  --                                                        MarÛa Cristina Gonz·lez (Seguros BolÌvar)
+  -- 29/08/2014    1.0     - Stephen Pinto (ASESOFTWARE) -  Modificaci√≥n algoritmo elaborado por
+  --                                                        Mar√≥a Cristina Gonz√°lez (Seguros Bol√≠var)
   FUNCTION FUN_MAPEO_COASEGUROS(IP_POLIZA     IN SIM_TYP_POLIZAGEN,
                                 IP_PROCESO    IN SIM_TYP_PROCESO,
                                 OP_RESULTADO  OUT NUMBER,
@@ -15182,11 +15182,11 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     OP_RESULTADO  := 0;
     OP_ARRERRORES := NEW SIM_TYP_ARRAY_ERROR();
     G_SUBPROGRAMA := G_PROGRAMA || '.PROC_MAPEO_COASEGUROS';
-    -- 1.2. ExtracciÛn de datos desde el TYPE de coasegurradoras
+    -- 1.2. Extracci√≥n de datos desde el TYPE de coasegurradoras
     L_COASEGURADORAS := IP_POLIZA.COASEGURADORAS;
   
     --
-    -- 2. LÛgica del algoritmo
+    -- 2. L√≥gica del algoritmo
     IF L_COASEGURADORAS.EXISTS(1) THEN
       -- SGPM: 22/01/2015 Array sin Instanciar
       IF L_COASEGURADORAS.COUNT() = 0 THEN
@@ -15229,7 +15229,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
       RETURN L_COASEGURO;
   END FUN_MAPEO_COASEGUROS;
 
-  -- Procedimiento para el mapeo de coberturas de cumplimiento en el service de expediciÛn
+  -- Procedimiento para el mapeo de coberturas de cumplimiento en el service de expedici√≥n
   -- %author Ing. Lic. Stephen Guseph Pinto Morato - sgpinto@asesoftware.com
   -- %param ip_poliza     IN sim_typ_polizagen
   -- %param ip_numsecupol IN NUMBER
@@ -15239,27 +15239,27 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
   -- %param op_arrerrores OUT sim_typ_array_error
   -- %version 1.0
   --
-  -- Fecha       - VersiÛn  - Autor                     - Cambios
+  -- Fecha       - Versi√≥n  - Autor                     - Cambios
   -- ---------------------------------------------------------------------------
-  -- 10/11/2014  - 1.0     - Stephen Pinto (ASESOFTWARE) - CreaciÛn.
+  -- 10/11/2014  - 1.0     - Stephen Pinto (ASESOFTWARE) - Creaci√≥n.
   PROCEDURE PROC_MAPEO_COB_CUMP(IP_POLIZA     IN SIM_TYP_POLIZAGEN,
                                 IP_NUMSECUPOL IN NUMBER,
                                 IP_NUMEND     IN NUMBER,
                                 IP_PROCESO    IN SIM_TYP_PROCESO,
                                 OP_RESULTADO  OUT NUMBER,
                                 OP_ARRERRORES OUT SIM_TYP_ARRAY_ERROR) IS
-    -- Constantes para expediciÛn.
+    -- Constantes para expedici√≥n.
     C_SIM_MCA_SUMA_INF CONSTANT VARCHAR2(1) := 'N';
     C_MCA_TASA_INF     CONSTANT VARCHAR2(1) := 'S';
     C_MCA_PRIMA_INF    CONSTANT VARCHAR2(1) := 'N';
-    -- Constantes para invocaciÛn de mÈtodo
+    -- Constantes para invocaci√≥n de m√©todo
     C_LLAMADO      CONSTANT NUMBER(1) := 1;
     C_TIPO_PROCESO CONSTANT NUMBER(1) := 1;
     -- Variables locales
     L_SIM_MCA_SUMA_INF VARCHAR2(1);
     L_MCA_TASA_INF     VARCHAR2(1);
     L_MCA_PRIMA_INF    VARCHAR2(1);
-    -- Variables para extracciÛn de coberturas
+    -- Variables para extracci√≥n de coberturas
     IL_COBERTURAS  SIM_TYP_ARRAY_COBPOLIZASGEN;
     OL_COBERTURAS  SIM_TYP_ARRAY_COBPOLIZASGEN;
     L_SIM_COEF_COB NUMBER(17, 15);
@@ -15271,21 +15271,21 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     L_SQL              CLOB;
     L_CUENTA           PLS_INTEGER;
   BEGIN
-    -- InicializaciÛn de Variables e instanciaciÛn de objetos.
+    -- Inicializaci√≥n de Variables e instanciaci√≥n de objetos.
     --   g_subprograma := g_programa || 'Proc_Mapeo_CobRiesgos_PolHija';
     L_ERROR       := NEW SIM_TYP_ERROR();
     OP_ARRERRORES := NEW SIM_TYP_ARRAY_ERROR();
     OP_RESULTADO  := SIM_PCK_TIPOS_GENERALES.C_CERO;
     IL_COBERTURAS := NEW SIM_TYP_ARRAY_COBPOLIZASGEN();
   
-    -- Invocando proceso de ExtracciÛn de Condiciones Definitivas de Cliente.
+    -- Invocando proceso de Extracci√≥n de Condiciones Definitivas de Cliente.
   
     -- Procesamiento de datos e inicio de mapeo
     IF IP_POLIZA.DATOSRIESGOS.EXISTS(1) THEN
       -- SGPM: 22/01/2015 Array sin instanciar
       IF IP_POLIZA.DATOSRIESGOS.COUNT() > 0 THEN
-        -- r: Ìndice r-Ûsimo del riesgo.
-        -- c: indice c-Ûsimo de la cobertura.
+        -- r: √≠ndice r-√≥simo del riesgo.
+        -- c: indice c-√≥simo de la cobertura.
         --> Ciclo 1: Riesgos
         FOR R IN IP_POLIZA.DATOSRIESGOS.FIRST .. IP_POLIZA.DATOSRIESGOS.LAST LOOP
           --> Ciclo 2: Coberturas.
@@ -15459,7 +15459,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     L_MINFECHAVIG  VARCHAR2(11);
     L_CUENTA       PLS_INTEGER := 0;
     /* ***** cambio 2 ***** */
-    /*Cursor para consultar informaciÛn de riesgos*/
+    /*Cursor para consultar informaci√≥n de riesgos*/
     CURSOR C_RIESGOS IS
       SELECT DISTINCT COD_RIES
         FROM X2000020
@@ -15467,7 +15467,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
          AND COD_RIES IS NOT NULL
        ORDER BY NVL(COD_RIES, 0);
   
-    /*Cursor para consultar informaciÛn de controles tÈcnicos*/
+    /*Cursor para consultar informaci√≥n de controles t√©cnicos*/
     CURSOR C_CTECNICO IS
       SELECT A.COD_ERROR, C.DESC_ERROR, A.COD_RECHAZO
         FROM X2000220 A, X2000030 B, G2000210 C
@@ -15480,7 +15480,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     -- TEMPORAL
     L_REG SIM_TYP_VAR_MOTORREGLAS;
   BEGIN
-    /**** 1.INICIO: InicializaciÛn ****/
+    /**** 1.INICIO: Inicializaci√≥n ****/
     L_PROCESO       := IP_PROCESO;
     G_SUBPROGRAMA   := G_PROGRAMA || '.Proc_Service_Modifica_PolHija';
     L_ERROR         := NEW SIM_TYP_ERROR;
@@ -15509,15 +15509,15 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     -- Mcga 2017/03/16 fallaban las modificaciones en polizas con coaseguro
     L_DFIJOS_POLIZA.COD_COA := NEW SIM_TYP_LOOKUP(L_POLIZA.DATOSFIJOS.COD_COA,
                                                   NULL);
-    -- RevisiÛn SGPM: 06/02/2015
-    -- InicalizaciÛn del contexto desde el array (Traemos el array de entrada y lo asignamos al contexto).
+    -- Revisi√≥n SGPM: 06/02/2015
+    -- Inicalizaci√≥n del contexto desde el array (Traemos el array de entrada y lo asignamos al contexto).
     SIM_PCK_REGLAS.INICONTEXTOFROMARRRAY(IP_ARRCONTEXTO);
-    -- InicializaciÛn de contexto GLOBAL_SIMUSUARIO
+    -- Inicializaci√≥n de contexto GLOBAL_SIMUSUARIO
     SIM_PCK_REGLAS.INICIALIZAPARAMETROS('GLOBAL_SIMUSUARIO',
                                         IP_PROCESO.P_COD_USR);
     SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE('Entra a service', 'MOD POL HIJA');
   
-    --Valida existencia del producto para la compaÒia y seccion de entrada
+    --Valida existencia del producto para la compa√±ia y seccion de entrada
     BEGIN
       SELECT 1
         INTO L_MARCA
@@ -15563,7 +15563,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         L_TIPO_END := L_POLIZA.DATOSFIJOS.TIPO_END.CODIGO;
     END;
   
-    /**** 1.FIN: InicializaciÛn ****/
+    /**** 1.FIN: Inicializaci√≥n ****/
   
     /* ****** SGPM_cambio ***** */
     PKG299_DATOS_GEN_MC.BORRA_TRANSITORIAS(P_NUMSECUPOL => L_POLIZA.DATOSFIJOS.NUM_SECU_POL);
@@ -15574,8 +15574,8 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE('Entra a inserta_x_endodos',
                                         'MOD POL HIJA');
   
-    -- ADICI”N:
-    -- InicializaciÛn del Array local de entrada con los datos del contexto.
+    -- ADICI√ìN:
+    -- Inicializaci√≥n del Array local de entrada con los datos del contexto.
     SIM_PCK_REGLAS.INIARRAYFROMCONTEXTO(LI_ARRCONTEXTO);
     --Mcga 2023/02/01 se verifica con Rosario funcionalidad
     --de Cumplimiento para modificaciones no requiere reenganche 
@@ -15655,7 +15655,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                             IP_OBJETO   => 'X2000040');
     END;
   
-    -- Se adiciona la InserciÛn del Riesgo Prueba de Stephen y Maria Cristina 2015/02/18
+    -- Se adiciona la Inserci√≥n del Riesgo Prueba de Stephen y Maria Cristina 2015/02/18
     /*    DECLARE
         lo_ries  NUMBER(5);
         l_cuenta PLS_INTEGER := 0;
@@ -15670,7 +15670,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         IF op_resultado = -1 THEN
           RETURN;
         ELSIF op_resultado = 1 THEN
-          sim_cu_pck_util.prc_cu_grabar_trace(ip_consulta => 'Hubo warning y no lo sabÌa',
+          sim_cu_pck_util.prc_cu_grabar_trace(ip_consulta => 'Hubo warning y no lo sab√≠a',
                                               ip_objeto   => 'X2000040');
         ELSE
           BEGIN
@@ -15699,7 +15699,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
   
     /**** 3.INICIO: Mapeo ****/
     IF OP_RESULTADO = 0 THEN
-      --Mapeo Datos Fijos PÛliza Hija
+      --Mapeo Datos Fijos P√≥liza Hija
       SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE('Mapeo Datos Fijos',
                                           'MOD POL HIJA');
       --Dbms_Output.Put_Line(l_Poliza.Datosfijos.Fecha_Venc_Pol);
@@ -15726,7 +15726,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
       END;
     
       /* ****** INICIO-005 ****** */
-      -- AdiciÛn de mapeo de tipos de endoso solicitados en Endosos Unificados.
+      -- Adici√≥n de mapeo de tipos de endoso solicitados en Endosos Unificados.
       BEGIN
         SELECT DESC_POL
           INTO G_DESC_POL
@@ -15782,7 +15782,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                           'MOD POL HIJA');
     
       IF OP_RESULTADO = 0 THEN
-        --Mapeo Datos Variables PÛliza Hija
+        --Mapeo Datos Variables P√≥liza Hija
         SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE('Mapeo Datos Variables',
                                             'MOD POL HIJA');
       
@@ -15820,7 +15820,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         
           /**** 5.INICIO: Mapeo Riesgos ****/
           IF OP_RESULTADO = 0 THEN
-            --Mapeo Datos Variables Riesgos PÛliza Hija
+            --Mapeo Datos Variables Riesgos P√≥liza Hija
             BEGIN
               SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE('DV riesgo',
                                                   'MOD POL HIJA');
@@ -15836,7 +15836,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                                 'MOD POL HIJA');
           
             IF OP_RESULTADO = 0 THEN
-              --Mapeo Coberturas Riesgos PÛliza Hija
+              --Mapeo Coberturas Riesgos P√≥liza Hija
               BEGIN
                 SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE('Mapeo cobriesgo',
                                                     'MOD POL HIJA');
@@ -15852,7 +15852,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
               SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE('Fin cobriesgo',
                                                   'MOD POL HIJA');
             
-              /**** 6.INICIO: Reglas de Negocio - Controles TÈcnicos ****/
+              /**** 6.INICIO: Reglas de Negocio - Controles T√©cnicos ****/
               IF OP_RESULTADO = 0 THEN
                 --Ejecucion Reglas Del Negocio (Datos Fijos)
                 SIM_PCK_REGLAS.INICIALIZAPARAMETROS('B99_VALIDACION', 'N');
@@ -15874,17 +15874,17 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
               
                 SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE('Fin proceso contexto datos fijos',
                                                     'MOD POL HIJA');
-                -- InicializaciÛn del contexto desde el array
+                -- Inicializaci√≥n del contexto desde el array
                 SIM_PCK_REGLAS.INICONTEXTOFROMARRRAY(LO_ARRCONTEXTO);
               
                 IF OP_RESULTADO = 0 THEN
-                  --Controles TÈcnicos Datos Fijos (1-5)
-                  --Dbms_Output.Put_Line('Controles TÈcnicos Datos Fijos (1-5)');
+                  --Controles T√©cnicos Datos Fijos (1-5)
+                  --Dbms_Output.Put_Line('Controles T√©cnicos Datos Fijos (1-5)');
                   SIM_PCK_REGLAS.INIARRAYFROMCONTEXTO(LI_ARRCONTEXTO);
                 
                   BEGIN
                     L_NIVELCT := '15';
-                    SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE('Inicio ejecuta control tÈcnico',
+                    SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE('Inicio ejecuta control t√©cnico',
                                                         'MOD POL HIJA');
                     SIM_PCK_CONTROL_TECNICO.PROC_EJECUTA_CONTROL_TECNICO(IP_NUMSECUPOL  => L_NUMSECUPOL,
                                                                          IP_NIVEL       => L_NIVELCT,
@@ -15898,7 +15898,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                   END;
                 
                   SIM_PCK_REGLAS.INICONTEXTOFROMARRRAY(LO_ARRCONTEXTO);
-                  SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE('Fin ejecuta control tÈcnico',
+                  SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE('Fin ejecuta control t√©cnico',
                                                       'MOD POL HIJA');
                 
                   IF OP_RESULTADO = 0 THEN
@@ -15940,7 +15940,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                         sim_pck_reglas.inicializaparametros('B99_NUMEND',
                                                             l_poliza.datosfijos.num_end);
                                                              sim_pck_reglas.iniarrayfromcontexto(li_arrcontexto);*/
-                        -- TEMPORAL AdiciÛn de contextos
+                        -- TEMPORAL Adici√≥n de contextos
                         /* BEGIN
                             l_reg        := NEW sim_typ_var_motorreglas();
                             l_reg.codigo := 'B99_CODCIA';
@@ -15985,7 +15985,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                               FOR I IN OP_ARRERRORES.FIRST .. OP_ARRERRORES.LAST LOOP
                                 SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE(' id_error : ' || OP_ARRERRORES(I)
                                                                     .ID_ERROR || '
-            . DescipciÛn: ' || OP_ARRERRORES(I)
+            . Descipci√≥n: ' || OP_ARRERRORES(I)
                                                                     .DESC_ERROR ||
                                                                     'LINEA ' ||
                                                                     DBMS_UTILITY.FORMAT_ERROR_BACKTRACE(),
@@ -16018,12 +16018,12 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                            Se deja en comentario por que control tecnico ya se dispara una vezen procesar riesgo
                         
                                                                         IF op_resultado = 0 THEN
-                                                                            --Controles TÈcnicos Riesgos (DC)
-                                                                            dbms_output.put_line('Control tÈcnico DC');
+                                                                            --Controles T√©cnicos Riesgos (DC)
+                                                                            dbms_output.put_line('Control t√©cnico DC');
                                                                             l_nivelct := 'DC';
                                                                             sim_pck_reglas.iniarrayfromcontexto(li_arrcontexto);
                                                                             BEGIN
-                                                                                sim_cu_pck_util.prc_cu_grabar_trace('Inicio ejecuta control tÈcnico',
+                                                                                sim_cu_pck_util.prc_cu_grabar_trace('Inicio ejecuta control t√©cnico',
                                                                                                                     'MOD POL HIJA');
                                                                                 sim_pck_control_tecnico.proc_ejecuta_control_tecnico(ip_numsecupol  => l_numsecupol,
                                                                                                                                      ip_nivel       => l_nivelct,
@@ -16035,7 +16035,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                                                                                                                      op_resultado   => op_resultado,
                                                                                                                                      op_arrerrores  => op_arrerrores);
                                                                             END;
-                                                                            sim_cu_pck_util.prc_cu_grabar_trace('Fin ejecuta control tÈcnico',
+                                                                            sim_cu_pck_util.prc_cu_grabar_trace('Fin ejecuta control t√©cnico',
                                                                                                                 'MOD POL HIJA');
                                                                             sim_pck_reglas.inicontextofromarrray(lo_arrcontexto);
                                                                         END IF;
@@ -16065,13 +16065,13 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                         SIM_PCK_REGLAS.INICONTEXTOFROMARRRAY(LO_ARRCONTEXTO);
                       
                         IF OP_RESULTADO = 0 THEN
-                          --Dbms_Output.Put_Line('Control tÈcnico 4');
-                          --Controles TÈcnicos Primas(4)
+                          --Dbms_Output.Put_Line('Control t√©cnico 4');
+                          --Controles T√©cnicos Primas(4)
                           L_NIVELCT := '4';
                           SIM_PCK_REGLAS.INIARRAYFROMCONTEXTO(LI_ARRCONTEXTO);
                         
                           BEGIN
-                            SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE('Inicio ejecuta control tÈcnico',
+                            SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE('Inicio ejecuta control t√©cnico',
                                                                 'MOD POL HIJA');
                             SIM_PCK_CONTROL_TECNICO.PROC_EJECUTA_CONTROL_TECNICO(IP_NUMSECUPOL  => L_NUMSECUPOL,
                                                                                  IP_NIVEL       => L_NIVELCT,
@@ -16084,21 +16084,21 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                                                                  OP_ARRERRORES  => OP_ARRERRORES);
                           END;
                         
-                          SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE('Fin ejecuta control tÈcnico',
+                          SIM_CU_PCK_UTIL.PRC_CU_GRABAR_TRACE('Fin ejecuta control t√©cnico',
                                                               'MOD POL HIJA');
                           SIM_PCK_REGLAS.INICONTEXTOFROMARRRAY(LO_ARRCONTEXTO);
                         
-                          /**** 6.FIN: Reglas de Negocio - Controles TÈcnicos ****/
+                          /**** 6.FIN: Reglas de Negocio - Controles T√©cnicos ****/
                         
                           /**** 7.INICIO: Grabar ****/
                         
                           /* ****** INICIO-001 ****** */
-                          -- AdiciÛn de variable de contexto de control para ejecuciÛn el modifica
+                          -- Adici√≥n de variable de contexto de control para ejecuci√≥n el modifica
                           /*sim_pck_reglas.inicializaparametros(ip_nomparametro => 'B99_GRABA_POL',
                           ip_valor        => 'N');*/
                           --
                           -- Si viene valor, se respeta el valor asignado. En caso contrario
-                          -- grabarlÛ.
+                          -- grabarl√≥.
                           /*BEGIN
                               l_grabar := sim_pck_reglas.g_parametros('B99_GRABA_POL');
                           EXCEPTION
@@ -16282,7 +16282,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                                 TDOC_TERCERO),
            MCA_FACTURA    = NVL(IP_POLIZA.DATOSFIJOS.MCA_FACTURA,
                                 MCA_FACTURA) /* ****** INICIO-001 ****** */
-           -- AdiciÛn del campo num_cop_fre de acuerdo con lo conversado con Rosario Puertas
+           -- Adici√≥n del campo num_cop_fre de acuerdo con lo conversado con Rosario Puertas
           ,
            CANT_COP_FRE = 1
     /* ****** FIN-001 ****** */
@@ -16551,38 +16551,38 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
 
   PROCEDURE PROC_CONVIERTE_DESC_POL(IP_DESC_POL IN VARCHAR2,
                                     OP_DESC_POL OUT VARCHAR2) IS
-    -- DeclaraciÛn de variables
+    -- Declaraci√≥n de variables
     L_FRASE_TEMP VARCHAR2(120);
     L_SEPARADOR  VARCHAR2(20);
     P            PLS_INTEGER := 1; -- Contador de palabras
   
-    -- DeclaraciÛn de TYPES
+    -- Declaraci√≥n de TYPES
     TYPE T_PALABRAS IS TABLE OF VARCHAR2(120) INDEX BY PLS_INTEGER;
   
     L_PALABRAS_ORIGINALES T_PALABRAS;
     L_PALABRAS_FRASE      T_PALABRAS;
-    -- DefiniciÛn de constantes
+    -- Definici√≥n de constantes
     C_CARACTER_DIV   CONSTANT VARCHAR2(1) := ',';
     C_LLAVE_BUSQUEDA CONSTANT VARCHAR2(20) := 'ENDOSO_UNIFICADO';
   BEGIN
     -- Filtrado inicial de valores
-    -- Se elimina la palabra ENDOSOS, dada la parametrizaciÛn inicial del campo DESC_POL.
+    -- Se elimina la palabra ENDOSOS, dada la parametrizaci√≥n inicial del campo DESC_POL.
     L_FRASE_TEMP := TRANSLATE(REPLACE(IP_DESC_POL, 'ENDOSOS'), ', .:;', ',');
   
-    -- Bloque de extracciÛn de palabras.
+    -- Bloque de extracci√≥n de palabras.
     DECLARE
       I PLS_INTEGER := 1;
     BEGIN
       WHILE I <= LENGTH(L_FRASE_TEMP) LOOP
         DECLARE
-          -- DeclaraciÛn de variable l_palabra.
+          -- Declaraci√≥n de variable l_palabra.
           L_PALABRA    VARCHAR2(2000);
           L_SUB_CADENA CLOB;
         BEGIN
-          -- ExtracciÛn de subcadena de longitud 1.
+          -- Extracci√≥n de subcadena de longitud 1.
           L_SUB_CADENA := SUBSTR(SUBSTR(L_FRASE_TEMP, I, I), 1, 1);
         
-          -- VerificaciÛn de caracter de STOP
+          -- Verificaci√≥n de caracter de STOP
           IF L_SUB_CADENA = C_CARACTER_DIV THEN
             L_PALABRA := SUBSTR(L_FRASE_TEMP, 1, I - 1);
             L_FRASE_TEMP := LTRIM(SUBSTR(L_FRASE_TEMP, I + 1));
@@ -16601,7 +16601,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     --
     L_FRASE_TEMP := '';
   
-    -- ExtracciÛn de palabras con el formato deseado en destino.
+    -- Extracci√≥n de palabras con el formato deseado en destino.
     FOR I IN L_PALABRAS_ORIGINALES.FIRST .. L_PALABRAS_ORIGINALES.LAST LOOP
       DECLARE
         L_PALABRA VARCHAR2(120) := '';
@@ -16633,7 +16633,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         L_SEPARADOR := ', ';
     END;
   
-    -- TransformaciÛn de cadena generada.
+    -- Transformaci√≥n de cadena generada.
     DECLARE
       L_ES_INICIAL BOOLEAN := FALSE;
     BEGIN
@@ -16644,7 +16644,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
               L_FRASE_TEMP := L_PALABRAS_FRASE(I);
               L_ES_INICIAL := TRUE;
             ELSE
-              -- ConcatenaciÛn por izquierda del separador y la frase obtenida
+              -- Concatenaci√≥n por izquierda del separador y la frase obtenida
               L_FRASE_TEMP := L_FRASE_TEMP || L_SEPARADOR ||
                               L_PALABRAS_FRASE(I);
             END IF;
@@ -16659,7 +16659,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
   EXCEPTION
     WHEN OTHERS THEN
       RAISE_APPLICATION_ERROR(-20001,
-                              'Error en la lÌnea ' ||
+                              'Error en la l√≠nea ' ||
                               DBMS_UTILITY.FORMAT_ERROR_BACKTRACE() ||
                               '. Posible causa :' || SQLERRM);
   END PROC_CONVIERTE_DESC_POL;
@@ -16776,7 +16776,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                               IP_PROCESO    IN SIM_TYP_PROCESO,
                               OP_RESULTADO  OUT NUMBER,
                               OP_ARRERRORES OUT SIM_TYP_ARRAY_ERROR) IS
-    /*Verifica si una placa tiene pÛlizas vigentes a la fecha */
+    /*Verifica si una placa tiene p√≥lizas vigentes a la fecha */
   
     CURSOR C1 IS
       SELECT A.NUM_SECU_POL,
@@ -16807,7 +16807,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
          AND C.NUM_POL1 IS NOT NULL
        ORDER BY C.FECHA_VIG_POL DESC
       --COndicion incluida por HLC y WESV teniendo en cuenta que
-      -- el endoso de anulacion no aparece en la a2040100, pero sÌ en la a2000030
+      -- el endoso de anulacion no aparece en la a2040100, pero s√≠ en la a2000030
       -- por lo que el join no esta funcionando -- 20160323
       -- morj, se identifica que los endosos 100-2 y otros no dejan la mca_anu_pol en S
       --Sino que marcan la mca_per_anul
@@ -17049,7 +17049,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
             END IF;
           END IF;
         ELSE
-          --lberbesi 24/03/2024: Para autogestiÛn la validaciÛn se realiza la validaciÛn antes desde el front (GD771-515)
+          --lberbesi 24/03/2024: Para autogesti√≥n la validaci√≥n se realiza la validaci√≥n antes desde el front (GD771-515)
           IF NVL(IP_PROCESO.P_INFO1, 'N') != 'AUT' THEN
             IF NVL(L_FECHABAJA, L_FECHAFIN) > TRUNC(SYSDATE) THEN
               L_CANTVIGENTE := L_CANTVIGENTE + 1;
@@ -17139,7 +17139,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         OP_RESULTADO := -1;
         L_ERROR      := SIM_TYP_ERROR(-20000,
                                       'Esta Cotizacion se debe emitir por el canal tradicional, ' ||
-                                      ' porque se encuentra vinculado en la compaÒia',
+                                      ' porque se encuentra vinculado en la compa√±ia',
                                       'E');
         OP_ARRERRORES.EXTEND;
         OP_ARRERRORES(OP_ARRERRORES.COUNT) := L_ERROR;
@@ -17149,12 +17149,12 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         OP_RESULTADO := -1;
         IF L_RESULTADO = 4 THEN
           L_ERROR := SIM_TYP_ERROR(-20000,
-                                   'No es posible emitir por anula reemplaza, pÛliza con siniestros vigentes',
+                                   'No es posible emitir por anula reemplaza, p√≥liza con siniestros vigentes',
                                    'E');
         ELSE
           L_ERROR := SIM_TYP_ERROR(-20000,
-                                   'VehÌculo actualmente tiene pÛliza ' ||
-                                   'vigente con otra clave u otro subproducto No se permite la emisiÛn',
+                                   'Veh√≠culo actualmente tiene p√≥liza ' ||
+                                   'vigente con otra clave u otro subproducto No se permite la emisi√≥n',
                                    'E');
         END IF;
         OP_ARRERRORES.EXTEND;
@@ -17175,7 +17175,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
   END PROC_PLACAVIGENTE;
   --BANCAN3-177 version para ser llamado en cotizaciones desde API
   PROCEDURE PROC_PLACAVIGENTE(IP_PLACA             IN VARCHAR2, ---si
-                              IP_NUMSECUPOL        IN NUMBER, --si es cotizacion debe llegar en nulo si es cotizaciÛn
+                              IP_NUMSECUPOL        IN NUMBER, --si es cotizacion debe llegar en nulo si es cotizaci√≥n
                               IP_PROCESO           IN SIM_TYP_PROCESO, --si
                               IP_NRO_DOCUMTO_ASEG  NUMBER, --si
                               IP_TIPP_DOCUMTO_ASEG VARCHAR2, --si
@@ -17212,7 +17212,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
          AND C.NUM_POL1 IS NOT NULL
        ORDER BY C.FECHA_VIG_POL DESC
       --COndicion incluida por HLC y WESV teniendo en cuenta que
-      -- el endoso de anulacion no aparece en la a2040100, pero sø en la a2000030
+      -- el endoso de anulacion no aparece en la a2040100, pero s¬ø en la a2000030
       -- por lo que el join no esta funcionando -- 20160323
       -- morj, se identifica que los endosos 100-2 y otros no dejan la mca_anu_pol en S
       --Sino que marcan la mca_per_anul
@@ -17360,7 +17360,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
       END;
     END IF;
     ---
-    IF IP_PROCESO.P_PROCESO = 293 AND ---- para inclusiones de vehÌculos se debe validar que no exista en la misma poliza  28062024  HLC
+    IF IP_PROCESO.P_PROCESO = 293 AND ---- para inclusiones de veh√≠culos se debe validar que no exista en la misma poliza  28062024  HLC
        IP_PROCESO.P_SUBPROCESO = 280 THEN
       --- SI ES ENDOSO NOMINATIVO Y EL ASEGURADO NO CAMBIA NO SE DEBE TOMAR COMO VIGENTE  18092024  HLC BANCAN3-802
       IF L_CODENDYA = 400 AND L_SUBCODENDYA = 10 THEN
@@ -17567,16 +17567,16 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
       --
       OP_RESULTADO := -1;
       V_STR_ERROR  := 'Esta Cotizacion se debe emitir por el canal tradicional, ' ||
-                      ' porque se encuentra vinculado en la compaøia';
+                      ' porque se encuentra vinculado en la compa¬øia';
       --
     ELSIF NOT (RC_REVISA.ESTAN_COTIZANDO) AND L_CANTVIGENTE > 0 THEN
       IF NVL(L_ESANULAREEMP, 'N') <> 'S' THEN
         OP_RESULTADO := -1;
         IF L_RESULTADO = 4 THEN
-          V_STR_ERROR := 'No es posible emitir por anula reemplaza, pøliza con siniestros vigentes';
+          V_STR_ERROR := 'No es posible emitir por anula reemplaza, p¬øliza con siniestros vigentes';
         ELSE
-          V_STR_ERROR := 'Vehøculo actualmente tiene pøliza ' ||
-                         'vigente con otra clave u otro subproducto No se permite la emisiøn';
+          V_STR_ERROR := 'Veh¬øculo actualmente tiene p¬øliza ' ||
+                         'vigente con otra clave u otro subproducto No se permite la emisi¬øn';
         END IF;
       END IF;
     ELSIF (RC_REVISA.ESTAN_COTIZANDO) AND L_CANTVIGENTE > 0 THEN
@@ -17627,8 +17627,8 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     BEGIN
       IF IP_PROCESO.P_PROCESO = 241 AND IP_PROCESO.P_SUBPROCESO = 240 THEN
         BEGIN
-          -- BRGH se ajusta con la fecha mayor ya que el NRO_INSPECCION no necesariamente es secuencial, tener en cuenta que esta n˙mero es del aliado y
-          -- cada aliado maneja su n˙meraciÛn lo que hace que las inspecciones se traslapen
+          -- BRGH se ajusta con la fecha mayor ya que el NRO_INSPECCION no necesariamente es secuencial, tener en cuenta que esta n√∫mero es del aliado y
+          -- cada aliado maneja su n√∫meraci√≥n lo que hace que las inspecciones se traslapen
           -- ajuste del jira MDSB-622613
         
           /*SELECT NVL(MAX(A.NRO_INSPECCION), 0)
@@ -17664,8 +17664,8 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           -- IMPORTANTE: Si usted considera que se debe ajustar, ya que se da?a o perjudica otro proceso, por favor validarlo
           -- contactar a benjamin.galindo@segurosbolivar.com Benjamin Ricardo Galindo Huertas (5 min hablando hara que no inyectemos errores en prd)
         
-          -- BRGH se ajusta con la fecha mayor ya que el NRO_INSPECCION no necesariamente es secuencial, tener en cuenta que esta n˙mero es del aliado y
-          -- cada aliado maneja su n˙meraciÛn lo que hace que las inspecciones se traslapen
+          -- BRGH se ajusta con la fecha mayor ya que el NRO_INSPECCION no necesariamente es secuencial, tener en cuenta que esta n√∫mero es del aliado y
+          -- cada aliado maneja su n√∫meraci√≥n lo que hace que las inspecciones se traslapen
           -- ajuste del jira MDSB-622613
         
           SELECT NVL(MAX(A.NRO_INSPECCION), 0)
@@ -17766,7 +17766,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     IF IP_MARCAFSECOLDA IS NULL AND IP_DESCMARCA IS NULL THEN
       OP_RESULTADO := -1;
       L_ERROR      := SIM_TYP_ERROR(-20000,
-                                    'No registra informaciÛn de Entrada',
+                                    'No registra informaci√≥n de Entrada',
                                     'E');
       OP_ARRERRORES.EXTEND;
       OP_ARRERRORES(OP_ARRERRORES.COUNT) := L_ERROR;
@@ -18175,7 +18175,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     OP_RESULTADO    := 0;
     OP_ARRERRORES   := NEW SIM_TYP_ARRAY_ERROR();
     OP_ESANULAREEMP := SIM_PCK_TIPOS_GENERALES.C_NO;
-    --1. Recupera informaciÛn de la cotizaciÛn
+    --1. Recupera informaci√≥n de la cotizaci√≥n
     BEGIN
       SELECT X30.COD_PROD
         INTO LX_AGENTE
@@ -18239,7 +18239,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
   
     FOR I IN C_BUSCA_PLACA(LX_PLACA) LOOP
       L_NUMSECUPOL := I.NUM_SECU_POL;
-      --2. Busca pÛlizas para el mismo producto y subproducto que puedan aplicar anula-reemplaza
+      --2. Busca p√≥lizas para el mismo producto y subproducto que puedan aplicar anula-reemplaza
       FOR C1 IN C_BUSCA_POLIZAS(L_NUMSECUPOL) LOOP
         BEGIN
           SELECT COD_PROD
@@ -18275,7 +18275,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           WHEN OTHERS THEN
             LA_TDOCASEG := NULL;
         END;
-        --01/04/2019 lberbesi: Se incluye validaciÛn de siniestros
+        --01/04/2019 lberbesi: Se incluye validaci√≥n de siniestros
         VERIFICA_SINIESTROS_AUTOS(P_NUMSECUPOL  => C1.NUM_SECU_POL,
                                   P_CODRIES     => IP_CODRIES,
                                   P_FECHAVIGEND => C1.FECHA_VIG_POL,
@@ -18288,7 +18288,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
           L_NUM_POLIZA    := C1.NUM_POL1;
           L_FECHA_VIG     := C1.FECHA_VIG_POL;
           L_FECHA_VENC    := C1.FECHA_VENC_POL;
-          L_CANT_ANUAL    := SUBSTR(C1.NUM_POL1, 12, 13); --10/04/2019 lberbesi: Se recupera cant_anual a partir del N˙mero de pÛliza dado que habÌa pÛlizas con datos errados en la columna cant_anual
+          L_CANT_ANUAL    := SUBSTR(C1.NUM_POL1, 12, 13); --10/04/2019 lberbesi: Se recupera cant_anual a partir del N√∫mero de p√≥liza dado que hab√≠a p√≥lizas con datos errados en la columna cant_anual
           L_NSP           := C1.NUM_SECU_POL;
           LA_USO          := I.COD_USO;
           LA_ALT          := I.COD_RAMO_VEH;
@@ -18333,7 +18333,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         L_CUMPLE_FECHAS := SIM_PCK_TIPOS_GENERALES.C_SI;
       END IF;
     
-      --11/03/2019 lberbesi: SÛlo aplica anula-reemplaza para uso 31 y alternativa 17
+      --11/03/2019 lberbesi: S√≥lo aplica anula-reemplaza para uso 31 y alternativa 17
       IF L_CUMPLE_FECHAS = SIM_PCK_TIPOS_GENERALES.C_SI THEN
         IF LX_USO != 31 OR LA_USO != 31 OR LA_ALT != 17 THEN
           OP_ESANULAREEMP := SIM_PCK_TIPOS_GENERALES.C_NO;
@@ -18343,7 +18343,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
       END IF;
     END IF;
   
-    --4. Si aplica anula-reemplaza, actualiza datos en la nueva pÛliza
+    --4. Si aplica anula-reemplaza, actualiza datos en la nueva p√≥liza
     IF OP_ESANULAREEMP = SIM_PCK_TIPOS_GENERALES.C_SI AND
        IP_PROCESO.P_PROCESO = 270 AND IP_PROCESO.P_SUBPROCESO = 260 THEN
       ---Actualiza datos fijos
@@ -18395,7 +18395,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
         WHEN OTHERS THEN
           NULL;
       END;
-      --09/05/2019 lberbesi: Se recupera beneficiario oneroso de la pÛliza a reemplazar
+      --09/05/2019 lberbesi: Se recupera beneficiario oneroso de la p√≥liza a reemplazar
       BEGIN
         L_MCA_ONEROSO := FUN_RESCATA_A2000020(PCODCAMPO  => 'BENEF_ONEROSO',
                                               PNUMSCUPOL => L_NSP,
@@ -18422,7 +18422,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
                         IP_COD_RIES     => IP_CODRIES,
                         IP_COD_CAMPO    => 'TEL_BENEF',
                         IP_VALOR_CAMPO  => L_TEL_BENEF);
-      --09/05/2019 lberbesi: Se actualiza beneficiario_oneroso para la nueva pÛliza
+      --09/05/2019 lberbesi: Se actualiza beneficiario_oneroso para la nueva p√≥liza
       PROC_ACTUALIZA_DV(IP_NUM_SECU_POL => IP_NUMSECUPOL,
                         IP_COD_RIES     => IP_CODRIES,
                         IP_COD_CAMPO    => 'BENEF_ONEROSO',
@@ -18670,7 +18670,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     L_CANTIDAD       NUMBER;
     L_APLICAPREF     VARCHAR2(1) := 'N';
     L_ENTRACOB       VARCHAR2(1) := 'S';
-    -- 17112016 sgpinto: IntegraciÛn. AdiciÛn de variable para almacenar cÛdigo de riesgo.
+    -- 17112016 sgpinto: Integraci√≥n. Adici√≥n de variable para almacenar c√≥digo de riesgo.
     L_CODRIES              NUMBER;
     L_CONTAH               NUMBER := 0;
     L_NSPAH                C2999300.NUM_SECU_POL_ANEXO%TYPE;
@@ -18690,7 +18690,7 @@ CREATE OR REPLACE PACKAGE BODY SHPC_PCK_PROCESO_DATOS_EMISION2 IS
     L_POLIZA      := NEW SIM_TYP_POLIZAGEN;
   
     L_POLIZA := IP_POLIZA;
-    --Valida emision de Anexo Hogar para que no se haga liquidaciÛn-->22/08/2017(Juan Gonzalez)
+    --Valida emision de Anexo Hogar para que no se haga liquidaci√≥n-->22/08/2017(Juan Gonzalez)
     IF IP_PROCESO.P_COD_PRODUCTO = 121 AND
        IP_PROCESO.P_PROCESO IN (241, 261, 270) THEN
       OP_POLIZA := IP_POLIZA;
